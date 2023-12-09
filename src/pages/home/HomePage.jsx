@@ -1,0 +1,67 @@
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import TransactionSection from './components/TransactionSection';
+import Graph from './components/Graph';
+import TopBar from './components/TopBar';
+import BottomBar from './components/BottomBar';
+import BalanceInfo from './components/BalanceInfo';
+
+function HomePage(props) {
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#555B6E',
+      justifyContent: 'space-between',
+    },
+    graphView: {
+      width: '100%',
+      height: '25%',
+    },
+    spendingLimitBarView: {
+      width: '100%',
+      height: '12%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+    },
+    transactionSectionView: {
+      width: '100%',
+      height: '45%',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    },
+    bottomBarView: {
+      height: 60,
+      marginBottom: '5%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });
+
+  return (
+    <View style={styles.container}>
+      <TopBar />
+      <View style={styles.spendingLimitBarView}>
+        <BalanceInfo balanceAmount={1000} balanceText={'test'} />
+        <BalanceInfo balanceAmount={1000} balanceText={'test'} />
+      </View>
+      <View style={styles.graphView}>
+        <Graph graphName="Weekly Spending" />
+      </View>
+
+      <View style={styles.transactionSectionView}>
+        <TransactionSection />
+      </View>
+      <View style={styles.bottomBarView}>
+        <BottomBar />
+      </View>
+    </View>
+  );
+}
+
+export default HomePage;
