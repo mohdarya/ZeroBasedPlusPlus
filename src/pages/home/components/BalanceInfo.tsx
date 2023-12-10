@@ -22,10 +22,12 @@ function BalanceInfo(props: balanceProps) {
     balanceTitleStyle: {
       marginLeft: '10%',
       fontSize: 20,
+      color: '#555B6E',
     },
     balanceAmountStyle: {
       marginLeft: '10%',
       fontSize: 35,
+      color: '#555B6E',
     },
   });
 

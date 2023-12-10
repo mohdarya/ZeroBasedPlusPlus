@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 function TopBar(props) {
   const Styles = StyleSheet.create({
     container: {
-      height: 60,
+      height: 40,
       width: '100%',
       display: 'flex',
-
+      marginTop: 5,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',

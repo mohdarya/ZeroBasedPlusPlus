@@ -17,7 +17,7 @@ function HomePage(props) {
     },
     graphView: {
       width: '100%',
-      height: '25%',
+      height: '30%',
     },
     spendingLimitBarView: {
       width: '100%',
@@ -29,10 +29,10 @@ function HomePage(props) {
     },
     transactionSectionView: {
       width: '100%',
-      height: '45%',
+      height: '40%',
       display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     bottomBarView: {
       height: 60,
