@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 function TransactionItem(props) {
   const Styles = StyleSheet.create({
@@ -19,28 +20,54 @@ function TransactionItem(props) {
     <View style={Styles.container}>
       <View
         style={{
-          width: 50,
-          height: 50,
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
         }}
       />
       <View
         style={{
           display: 'flex',
-          marginLeft: '5%',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          flexDirection: 'column',
-          width: '80%',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+          width: '90%',
         }}>
-        <Text style={{color: '#BEE3DB', fontSize: 20, margin: 0}}>
-          {props.name}
-        </Text>
-        <Text style={{color: '#BEE3DB', fontSize: 20, margin: 0}}>
-          {props.amount}
-        </Text>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+            width: '25%',
+          }}>
+          <View>
+            <Icon
+              name="list"
+              size={25}
+              style={{
+                backgroundColor: '#D63535',
+                borderRadius: 100,
+                padding: 5,
+                color: 'white',
+              }}
+            />
+          </View>
+          <View>
+            <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
+              {props.name}
+            </Text>
+            <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
+              {props.amount}
+            </Text>
+          </View>
+        </View>
+
+        <View>
+          <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
+            {props.amount}
+          </Text>
+        </View>
       </View>
     </View>
   );

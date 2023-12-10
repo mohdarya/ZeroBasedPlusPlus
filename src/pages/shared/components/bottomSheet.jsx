@@ -17,16 +17,19 @@ const BottomSheet = forwardRef(function (props, ref) {
   const translateY = useSharedValue(0);
   const active = useSharedValue(false);
 
-  const scrollTo = useCallback(destination => {
-    'worklet';
-    active.value = destination !== 0;
+  const scrollTo = useCallback(
+    destination => {
+      'worklet';
+      active.value = destination !== 0;
 
-    translateY.value = withSpring(destination, {damping: 50});
-  }, []);
+      translateY.value = withSpring(destination, {damping: 50});
+    },
+    [active, translateY],
+  );
 
   const isActive = useCallback(() => {
     return active.value;
-  }, []);
+  }, [active.value]);
 
   useImperativeHandle(ref, () => ({scrollTo, isActive}), [scrollTo, isActive]);
 

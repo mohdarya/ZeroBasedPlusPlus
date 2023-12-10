@@ -4,9 +4,6 @@ import {StyleSheet, Text, View} from 'react-native';
 function Graph(props) {
   return (
     <View style={{margin: 10}}>
-      <Text style={{color: '#BEE3DB', fontSize: 24, margin: 0}}>
-        {props.graphName}
-      </Text>
       <View
         style={{
           display: 'flex',
@@ -15,12 +12,24 @@ function Graph(props) {
         }}>
         <View
           style={{
-            backgroundColor: '#FFD6BA',
-            width: '90%',
-            height: '90%',
+            backgroundColor: '#FAF9F9',
+            width: '95%',
+            height: '100%',
             borderRadius: 20,
-          }}
-        />
+          }}>
+          <View
+            style={{
+              height: '25%',
+              margin: 15,
+            }}>
+            <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
+              Available
+            </Text>
+            <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
+              1000000
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
   );
