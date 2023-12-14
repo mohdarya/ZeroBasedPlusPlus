@@ -12,10 +12,8 @@ function BalanceInfo(props: balanceProps) {
             justifyContent: 'space-around',
             flexDirection: 'row',
             width: '90%',
-            marginTop: 20,
             height: 60,
-            marginLeft: '3%',
-            marginRight: '3%',
+
             borderRadius: 15,
             backgroundColor: '#FAF9F9',
         },

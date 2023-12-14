@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/core";
 import TopBar from "./components/TopBar";
 import SpendingInfo from "./components/SpendingInfo.tsx";
 import BottomBar from "../shared/components/BottomBar.tsx";
+import TransactionList from "./components/TransactionList.tsx";
 
 interface TransactionListPageProps {
 }
@@ -35,6 +36,16 @@ function TransactionListPage(props: TransactionListPageProps) {
         alignItems: "center",
 
       }
+      ,
+      transactionListView:
+          {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: '65%',
+              width: '100%',
+
+          }
 
   });
 
@@ -44,7 +55,10 @@ function TransactionListPage(props: TransactionListPageProps) {
 
       <View style={styles.spendingInfoView}>
         <SpendingInfo balanceText={"test"} balanceAmount={10} />
-      </View>
+      </View >
+        <View  style={styles.transactionListView}>
+        <TransactionList/>
+        </View>
       <View style={styles.bottomBarView}>
         <BottomBar balanceText={"test"} balanceAmount={100} />
       </View>
