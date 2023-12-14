@@ -10,6 +10,7 @@ import TransactionAddition from './pages/transactionAddition/TransactionAddition
 import NumberEntry from './pages/shared/containers/NumberEntry';
 import TextEntry from './pages/shared/containers/TextEntry';
 import ListSelection from './pages/shared/containers/ListSelection';
+import TransactionListPage from './pages/transactionList/TransactionListPage';
 
 function App(props) {
   persistor.purge();
@@ -20,7 +21,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="HomePage"
+            initialRouteName="TransactionList"
             screenOptions={{
               headerShown: false,
             }}>
@@ -30,6 +31,10 @@ function App(props) {
               component={TransactionAddition}
             />
             <Stack.Screen name="NumberEntry" component={NumberEntry} />
+            <Stack.Screen
+              name="TransactionList"
+              component={TransactionListPage}
+            />
             <Stack.Screen name="TextEntry" component={TextEntry} />
             <Stack.Screen name="ListSelection" component={ListSelection} />
           </Stack.Navigator>
