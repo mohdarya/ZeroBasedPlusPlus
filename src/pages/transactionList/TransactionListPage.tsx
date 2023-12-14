@@ -1,6 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import TopBar from './components/TopBar';
+import SpendingInfo from './components/SpendingInfo.tsx';
 
 interface TransactionListPageProps {}
 
@@ -20,6 +21,8 @@ function TransactionListPage(props: TransactionListPageProps) {
   return (
     <View style={styles.container}>
       <TopBar />
+
+      <SpendingInfo balanceText={'test'} balanceAmount={10} />
     </View>
   );
 }
