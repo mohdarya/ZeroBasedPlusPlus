@@ -1,11 +1,12 @@
-import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
-import {useNavigation} from '@react-navigation/core';
-import TopBar from './components/TopBar';
-import SpendingInfo from './components/SpendingInfo.tsx';
-import BottomBar from '../shared/components/BottomBar.tsx';
+import { StyleSheet, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/Entypo";
+import { useNavigation } from "@react-navigation/core";
+import TopBar from "./components/TopBar";
+import SpendingInfo from "./components/SpendingInfo.tsx";
+import BottomBar from "../shared/components/BottomBar.tsx";
 
-interface TransactionListPageProps {}
+interface TransactionListPageProps {
+}
 
 function TransactionListPage(props: TransactionListPageProps) {
   const navigation = useNavigation();
@@ -13,27 +14,39 @@ function TransactionListPage(props: TransactionListPageProps) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: '#555B6E',
-      justifyContent: 'space-between',
+      display: "flex",
+      height: '100%',
+      width: '100%',
+      flexDirection: "column",
+      backgroundColor: "#555B6E",
+      justifyContent: "space-between"
     },
     bottomBarView: {
       height: 60,
-      marginBottom: '5%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      marginBottom: "5%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
     },
+    spendingInfoView:
+      {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+      }
+
   });
 
   return (
     <View style={styles.container}>
       <TopBar />
 
-      <SpendingInfo balanceText={'test'} balanceAmount={10} />
+      <View style={styles.spendingInfoView}>
+        <SpendingInfo balanceText={"test"} balanceAmount={10} />
+      </View>
       <View style={styles.bottomBarView}>
-        <BottomBar balanceText={'test'} balanceAmount={100} />
+        <BottomBar balanceText={"test"} balanceAmount={100} />
       </View>
     </View>
   );

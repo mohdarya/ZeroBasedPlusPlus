@@ -13,7 +13,7 @@ function BalanceInfo(props: balanceProps) {
       flexDirection: 'row',
       width: '90%',
       marginTop: 20,
-      height: '8%',
+      height: 60,
       marginLeft: '3%',
       marginRight: '3%',
       borderRadius: 15,
