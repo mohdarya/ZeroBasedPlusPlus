@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import TransactionSection from './components/TransactionSection';
 import Graph from './components/Graph';
 import TopBar from './components/TopBar';
-import BottomBar from './components/BottomBar';
+import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 
 function HomePage(props) {
