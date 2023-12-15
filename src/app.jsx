@@ -13,7 +13,6 @@ import ListSelection from './pages/shared/containers/ListSelection';
 import TransactionListPage from './pages/transactionList/TransactionListPage';
 
 function App(props) {
-  persistor.purge();
 
   const Stack = createStackNavigator();
   return (
