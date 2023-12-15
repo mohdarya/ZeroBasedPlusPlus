@@ -20,7 +20,14 @@ const initialState = {
   ],
 };
 
-export function transactionReducer(state = initialState, action) {
+
+export type Action = {
+  type: string,
+  payload?: any
+}
+
+
+export function transactionReducer(state = initialState, action : ITransactionActionTypes) {
   switch (action.type) {
     case 'ADD_TRANSACTION':
       return {

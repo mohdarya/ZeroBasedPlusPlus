@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {transactionReducer} from './transactions/reducer/transactionReducer';
+import {transactionReducer} from './transactions/reducer/transactionReducer.tsx';
 import {balanceReducer} from './balance/reducer/balanceReducer';
 import {ComponentCommunicationReducer} from './componentCommunication/reducer/componentCommunicationReducer';
 import {categoryReducer} from './category/reducer/CategoryReducer';
