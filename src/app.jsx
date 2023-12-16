@@ -11,6 +11,7 @@ import NumberEntry from './pages/shared/containers/NumberEntry';
 import TextEntry from './pages/shared/containers/TextEntry';
 import ListSelection from './pages/shared/containers/ListSelection';
 import TransactionListPage from './pages/transactionList/TransactionListPage';
+import CategoryListPage from './pages/categoryListPage/CategoryListPage';
 
 function App(props) {
 
@@ -20,7 +21,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="TransactionList"
+            initialRouteName="CategoryListPage"
             screenOptions={{
               headerShown: false,
             }}>
@@ -36,6 +37,7 @@ function App(props) {
             />
             <Stack.Screen name="TextEntry" component={TextEntry} />
             <Stack.Screen name="ListSelection" component={ListSelection} />
+            <Stack.Screen name="CategoryListPage" component={CategoryListPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
