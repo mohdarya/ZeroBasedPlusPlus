@@ -5,12 +5,11 @@ import {connect} from 'react-redux';
 function TopBar(props) {
   const Styles = StyleSheet.create({
     container: {
-      height: 60,
+      height: 40,
       width: '100%',
       display: 'flex',
-
+      marginTop: 5,
       flexDirection: 'row',
-      backgroundColor: '#FAF9F9',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -19,8 +18,10 @@ function TopBar(props) {
       flex: 2,
       display: 'flex',
 
-      flexDirection: 'row',
+      height: '100%',
+      flexDirection: 'column',
       paddingLeft: 10,
+      marginTop: 10,
     },
     financeDataContainer: {
       flex: 4,
@@ -42,20 +43,14 @@ function TopBar(props) {
   });
 
   return (
-    <View style={Styles.container}>
-      <View style={Styles.pageNameContainer}>
-        <Text style={{color: '#555B6E', fontSize: 18}}>Transaction Entry</Text>
+      <View style={Styles.container}>
+        <View style={Styles.pageNameContainer}>
+          <Text style={{color: '#FAF9F9', fontSize: 20}}>Transaction Creation</Text>
+        </View>
+
+        <View style={Styles.settingPageContainer} />
       </View>
-      <View style={Styles.financeDataContainer}>
-        <Text style={{color: '#555B6E', fontSize: 18}}>Available</Text>
-        <Text style={{color: '#555B6E', fontSize: 15}}>{props.available}</Text>
-      </View>
-      <View style={Styles.settingPageContainer} />
-    </View>
   );
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-export default connect(mapStateToProps)(TopBar);
+export default TopBar;

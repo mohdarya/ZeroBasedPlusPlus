@@ -1,228 +1,154 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import TopBar from './components/TopBar';
-import BottomBar from './components/BottomBar';
-import {useNavigation} from '@react-navigation/core';
-import {connect} from 'react-redux';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
-import {
-  clearData,
-  returnNumeric,
-} from '../../redux/componentCommunication/action/ComponentCommunicationAction';
-import {addTransaction} from '../../redux/transactions/action/TransactionsActions';
+import BottomBar from '../shared/components/BottomBar';
+import Buttons from './components/Buttons';
+import CategoryItem from './components/CategoryLIstItem';
 
 function TransactionAddition(props) {
-  const navigation = useNavigation();
-  const [datePicker, setDatePicker] = useState(false);
-  const [dateValue, setDateValue] = useState(new Date());
-
-  const carasoulItmes = ['monthly', 'daily', 'weekly', 'yearly'];
-  const onChange = (event, selectedValue) => {
-    setDatePicker(false);
-    const currentDate = selectedValue || new Date();
-    setDateValue(currentDate);
-  };
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       display: 'flex',
+      height: '100%',
+      width: '100%',
       flexDirection: 'column',
       backgroundColor: '#555B6E',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
     },
     bottomBarView: {
-      height: 100,
-    },
-    amountStyle: {
+      height: 60,
+      marginBottom: '5%',
       display: 'flex',
-      flexDirection: 'column',
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    otherPartsStyle: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'column',
-      flex: 5,
-    },
-    otherPartsSectionStyle: {
-      marginTop: 40,
+    spendingInfoView:
+        {
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          height: '50%',
+          width: '100%',
 
-      width: '50%',
-      display: 'flex',
-      alignItems: 'center',
+        }
+    ,
+    transactionListView:
+        {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '20%',
+          width: '100%',
+          marginBottom: '30%',
+
+        },
+    amountDetailView: {
+      width: '90%',
+
       flexDirection: 'row',
+      height: '20%',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderRadius: 5,
     },
+    amountView: {
+      borderRadius: 20,
+      width: '55%',
+      height: '100%',
+      backgroundColor: '#FAF9F9',
+    },
+    frequencyView: {
+      borderRadius: 20,
+      width: '40%',
+      height: '100%',
+      backgroundColor: '#FAF9F9',
+    },
+
   });
 
-  const findCategoryID = name => {
-    for (const [key, value] of Object.entries(props.categories)) {
-      if (value.name === name) {
-        return key;
-      }
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <TopBar
-        available={
-          props.itemSelect
-            ? props.categories[findCategoryID(props.itemSelect)].available
-            : 'N/A'
-        }
-      />
+      <View style={styles.container}>
+        <TopBar/>
 
-      <View
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'space-between',
-          margin: 20,
-        }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('NumberEntry');
-          }}
-          style={styles.amountStyle}>
-          <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
-            <Text
-              style={{color: '#BEE3DB', fontSize: 45, alignSelf: 'flex-start'}}>
-              Amount
-            </Text>
-            <Text style={{color: '#BEE3DB', fontSize: 40}}>{props.amount}</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.otherPartsStyle}>
-          <View style={styles.otherPartsSectionStyle}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('TextEntry', {
-                  placeHolderText: 'Enter Payee Name',
-                  textInputName: 'Payee',
-                });
-              }}
-              style={{width: '100%', display: 'flex'}}>
-              <Text
-                style={{
-                  color: '#BEE3DB',
-                  fontSize: 20,
-                  alignSelf: 'flex-start',
-                  marginTop: 5,
-                }}>
-                Payee
+        <View style={{width: '100%', height: '80%'}}>
+          <View style={styles.spendingInfoView}>
+            <View style={{
+              backgroundColor: 'white',
+              height: '25%',
+              width: '60%',
+              borderRadius: 15,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+
+
+              <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
+                Amount
               </Text>
-              <Text style={{color: '#BEE3DB', fontSize: 25, marginTop: 5}}>
-                {props.payeeName ? props.payeeName : 'N/A'}
+              <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
+                9
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('ListSelection', {
-                  list: Object.keys(props.categories).map(
-                    categoryKey => props.categories[categoryKey].name,
-                  ),
-                });
-              }}
-              style={{width: '100%', display: 'flex'}}>
-              <Text
-                style={{
-                  color: '#BEE3DB',
-                  fontSize: 20,
-                  alignSelf: 'flex-start',
-                  marginTop: 5,
-                }}>
+
+            </View>
+            <View style={{
+              backgroundColor: 'white',
+              height: '40%',
+              width: '90%',
+              borderRadius: 30,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+
+            }}>
+              <Text style={{
+                width: '100%',
+                textAlign: 'left',
+                fontSize: 20,
+                marginLeft: 20,
+              }}>
                 Category
               </Text>
-              <Text style={{color: '#BEE3DB', fontSize: 25, marginTop: 5}}>
-                {props.itemSelect ? props.itemSelect : 'N/A'}
-              </Text>
-            </TouchableOpacity>
+              <View style={{width: '90%'}}>
+                <CategoryItem name={'test'} frequency={'Daily'}
+                              available={'2000'}/>
+              </View>
+
+            </View>
+            <View style={styles.amountDetailView}>
+              <View style={styles.amountView}>
+                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
+                  Date
+                </Text>
+                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
+                  12/12/2023
+                </Text>
+
+              </View>
+              <View style={styles.frequencyView}>
+                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
+                  Payee
+                </Text>
+                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
+                  Choitrams
+                </Text>
+
+              </View>
+
+            </View>
+
           </View>
-          <View style={styles.otherPartsSectionStyle}>
-            <TouchableOpacity
-              onPress={() => {
-                setDatePicker(true);
-              }}
-              style={{width: '100%', display: 'flex'}}>
-              <Text
-                style={{
-                  color: '#BEE3DB',
-                  fontSize: 20,
-                  alignSelf: 'flex-start',
-                  marginTop: 5,
-                }}>
-                Date
-              </Text>
-              <Text style={{color: '#BEE3DB', fontSize: 25, marginTop: 5}}>
-                {dateValue.toISOString().split('T')[0]}
-              </Text>
-
-              {datePicker && (
-                <RNDateTimePicker value={dateValue} onChange={onChange} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => {
-                props.addTransaction(
-                  props.amount,
-                  dateValue,
-                  props.itemSelect,
-                  props.payeeName,
-                );
-                props.clearData();
-                navigation.goBack();
-              }}
-              style={{
-                width: 150,
-                height: 50,
-                display: 'flex',
-                backgroundColor: 'white',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 15,
-              }}>
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 20,
-                  textAlign: 'center',
-                  fontWeight: 'bold',
-                }}>
-                Add
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.transactionListView}>
+            <Buttons/>
           </View>
         </View>
+        <View style={styles.bottomBarView}>
+          <BottomBar balanceText={'test'} balanceAmount={100}/>
+        </View>
       </View>
-      <BottomBar />
-    </View>
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    amount: state.communication.numeric,
-    payeeName: state.communication.text,
-    itemSelect: state.communication.itemSelected,
-    categories: state.categories,
-    transactions: state.transactions,
-  };
-};
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    addTransaction: (amount, date, category, payee) =>
-      dispatch(addTransaction(payee, amount, date, category)),
-    clearData: () => dispatch(clearData()),
-  };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TransactionAddition);
+export default TransactionAddition;

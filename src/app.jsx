@@ -26,7 +26,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="CategoryPage"
+            initialRouteName="TransactionAddition"
             screenOptions={{
               headerShown: false,
             }}>
