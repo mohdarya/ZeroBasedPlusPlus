@@ -7,17 +7,20 @@ interface SpendingChartProps {
 
 function SpendingChart(props : SpendingChartProps) {
     return (
-        <View style={{margin: 10}}>
+        <View style={{margin: 10,  width: '90%',
+            height: '100%',}}>
             <View
                 style={{
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+
                 }}>
                 <View
                     style={{
                         backgroundColor: '#FAF9F9',
-                        width: '95%',
+
+                        width: '100%',
                         height: '100%',
                         borderRadius: 20,
                     }}>

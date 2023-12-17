@@ -34,7 +34,7 @@ function CategoryListPage(props: CategoryListPageProps) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: '25%',
-                width: '100%',
+                width: '100%'
 
             }
         ,
