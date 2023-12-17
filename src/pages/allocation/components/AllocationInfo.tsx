@@ -27,7 +27,6 @@ function BalanceInfo(props: balanceProps) {
             color: '#555B6E',
         },
         textDetail: {
-            width: 100,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

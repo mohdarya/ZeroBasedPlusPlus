@@ -16,6 +16,7 @@ import CategoryListPage from './pages/categoryListPage/CategoryListPage';
 import CategoryPage from './pages/categorypage/CategoryPage';
 import CategoryCreationPage
   from './pages/categorycreation/CategoryCreationPage';
+import AllocationPage from './pages/allocation/AllocationPage';
 
 function App(props) {
 
@@ -25,7 +26,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="CategoryCreationPage"
+            initialRouteName="AllocationPage"
             screenOptions={{
               headerShown: false,
             }}>
@@ -44,6 +45,7 @@ function App(props) {
             <Stack.Screen name="CategoryListPage" component={CategoryListPage} />
             <Stack.Screen name="CategoryPage" component={CategoryPage} />
             <Stack.Screen name="CategoryCreationPage" component={CategoryCreationPage} />
+            <Stack.Screen name="AllocationPage" component={AllocationPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
