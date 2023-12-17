@@ -30,10 +30,7 @@ function SpendingChart(props : SpendingChartProps) {
                             margin: 15,
                         }}>
                         <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
-                            Available
-                        </Text>
-                        <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
-                            1000000
+                            Spending Chart
                         </Text>
                     </View>
                 </View>
