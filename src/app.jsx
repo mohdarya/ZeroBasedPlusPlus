@@ -6,13 +6,16 @@ import {Provider} from 'react-redux';
 import {persistor, store} from './redux/store/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import HomePage from './pages/home/HomePage';
-import TransactionAddition from './pages/transactionAddition/TransactionAddition';
+import TransactionAddition
+  from './pages/transactionAddition/TransactionAddition';
 import NumberEntry from './pages/shared/containers/NumberEntry';
 import TextEntry from './pages/shared/containers/TextEntry';
 import ListSelection from './pages/shared/containers/ListSelection';
 import TransactionListPage from './pages/transactionList/TransactionListPage';
 import CategoryListPage from './pages/categoryListPage/CategoryListPage';
 import CategoryPage from './pages/categorypage/CategoryPage';
+import CategoryCreationPage
+  from './pages/categorycreation/CategoryCreationPage';
 
 function App(props) {
 
@@ -22,7 +25,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="CategoryPage"
+            initialRouteName="CategoryCreationPage"
             screenOptions={{
               headerShown: false,
             }}>
@@ -40,6 +43,7 @@ function App(props) {
             <Stack.Screen name="ListSelection" component={ListSelection} />
             <Stack.Screen name="CategoryListPage" component={CategoryListPage} />
             <Stack.Screen name="CategoryPage" component={CategoryPage} />
+            <Stack.Screen name="CategoryCreationPage" component={CategoryCreationPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
