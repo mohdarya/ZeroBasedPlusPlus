@@ -13,7 +13,7 @@ interface TransactionListProps {
 
 
 
-function TransactionList(props: TransactionListProps) {
+function CategoryList(props: TransactionListProps) {
 
     function loadData() {
         let categoryArray = makeCategoryArray();
@@ -54,7 +54,7 @@ function TransactionList(props: TransactionListProps) {
             borderTopRightRadius: 15,
             justifyContent: 'flex-start',
             alignItems: 'center',
-            height: '9%',
+            height: '10%',
             width: '100%',
             marginBottom: 10,
             marginLeft: 20,
@@ -88,4 +88,4 @@ const mapStateToProps = (state: RootState) => {
         transactions: state.transactions.transactions,
     };
 };
-export default connect(mapStateToProps)(TransactionList);
+export default connect(mapStateToProps)(CategoryList);
