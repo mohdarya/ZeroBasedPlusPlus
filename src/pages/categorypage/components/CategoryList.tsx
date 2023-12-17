@@ -45,6 +45,7 @@ function CategoryList(props: TransactionListProps) {
             flexDirection: 'column',
             width: '90%',
             height: '100%',
+
             borderRadius: 15,
             backgroundColor: '#FAF9F9',
         }, searchBox: {
@@ -65,13 +66,9 @@ function CategoryList(props: TransactionListProps) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.searchBox}>
-                <Icon name="search" size={25}/>
-                <TextInput placeholder={"Search"}/>
-
-            </View>
             <ScrollView
                 contentContainerStyle={{
+                    marginTop: 20,
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',

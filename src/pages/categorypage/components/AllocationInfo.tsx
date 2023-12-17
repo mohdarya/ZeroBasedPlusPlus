@@ -27,6 +27,7 @@ function BalanceInfo(props: balanceProps) {
             color: '#555B6E',
         },
         textDetail: {
+            width: 80,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -40,7 +41,7 @@ function BalanceInfo(props: balanceProps) {
                 <Text style={styles.spendingInfoAmountStyle}>{props.availableAmount}</Text>
             </View>
             <View style={styles.textDetail}>
-                <Text style={styles.spendingInfoTitleStyle}>Unallocated</Text>
+                <Text style={styles.spendingInfoTitleStyle}>Spent</Text>
                 <Text style={styles.spendingInfoAmountStyle}>{props.availableAmount}</Text>
             </View>
         </View>
