@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import React from "react";
 import TransactionItem from "../../home/components/TransactionItem";
 import Icon from 'react-native-vector-icons/Fontisto';
+import CategoryItem from "../../shared/components/CategoryLIstItem";
 interface TransactionListProps {
     transactions : any;
 }
@@ -17,7 +18,7 @@ function TransactionList(props: TransactionListProps) {
     function loadData() {
         let categoryArray = makeCategoryArray();
         return categoryArray.map((value, key) => (
-            <TransactionItem key={key} name={value.name} amount={value.amount} />
+            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={300} available={200}/>
         ));
     }
     function makeCategoryArray() {
@@ -74,7 +75,7 @@ function TransactionList(props: TransactionListProps) {
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
-                    width: '100%',
+                    width: '90%',
                     height: '100%'
                 }}>
                 {loadData()}
