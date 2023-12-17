@@ -55,16 +55,16 @@ function CategoryPage(props: CategoryPagProps) {
     return (
         <View style={styles.container}>
 
-            <TopBar categoryName={"CategoryA"} categoryFrequency={"Daily"} />
+            <TopBar categoryName={"CategoryA"} categoryFrequency={"Daily"}/>
 
             <View style={styles.spendingInfoView}>
-<AllocationInfo availableAmount={100} balanceAmount={100}/>
-            </View >
-            <View  style={styles.transactionListView}>
+                <AllocationInfo availableAmount={100} balanceAmount={100}/>
+            </View>
+            <View style={styles.transactionListView}>
                 <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={"test"} balanceAmount={100} />
+                <BottomBar balanceText={"test"} balanceAmount={100}/>
             </View>
         </View>
     );
