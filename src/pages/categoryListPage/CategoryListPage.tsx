@@ -3,7 +3,7 @@ import {useNavigation} from "@react-navigation/core";
 import TopBar from "./components/TopBar";
 import BottomBar from "../shared/components/BottomBar.tsx";
 import SpendingChart from "./components/SpendingChart.tsx";
-import TransactionList from "./components/TransactionList.tsx";
+import CategoryList from "./components/CategoryList.tsx";
 
 interface CategoryListPageProps {
 }
@@ -58,7 +58,7 @@ function CategoryListPage(props: CategoryListPageProps) {
                 <SpendingChart/>
             </View >
             <View  style={styles.transactionListView}>
-                <TransactionList/>
+                <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
                 <BottomBar balanceText={"test"} balanceAmount={100} />
