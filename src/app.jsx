@@ -26,7 +26,7 @@ function App(props) {
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="AllocationPage"
+            initialRouteName="CategoryPage"
             screenOptions={{
               headerShown: false,
             }}>

@@ -5,30 +5,40 @@ import BottomBar from "../shared/components/BottomBar.tsx";
 import TopBar from "./components/TopBar";
 import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
+import BalanceInfo from "../home/components/BalanceInfo.tsx";
+import Graph from "../home/components/Graph";
+import TransactionSection from "../home/components/TransactionSection";
+import React from "react";
 
 
 interface CategoryPagProps {
 }
 
 function CategoryPage(props: CategoryPagProps) {
-    const navigation = useNavigation();
-
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            display: "flex",
-            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: '#555B6E',
+            justifyContent: 'space-between',
+        },
+        graphView: {
             width: '100%',
-            flexDirection: "column",
-            backgroundColor: "#555B6E",
-            justifyContent: "space-between"
+            height: '34%',
+        },
+        transactionSectionView: {
+            width: '100%',
+            height: '48%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         bottomBarView: {
             height: 60,
-            marginBottom: "5%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         spendingInfoView:
             {
@@ -39,16 +49,7 @@ function CategoryPage(props: CategoryPagProps) {
                 width: '100%'
 
             }
-        ,
-        transactionListView:
-            {
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: '60%',
-                width: '100%',
 
-            }
 
     });
 
@@ -57,15 +58,22 @@ function CategoryPage(props: CategoryPagProps) {
 
             <TopBar categoryName={"CategoryA"} categoryFrequency={"Daily"}/>
 
-            <View style={styles.spendingInfoView}>
-                <AllocationInfo availableAmount={100} balanceAmount={100}/>
+            <View style={{height: "80%", display: 'flex', justifyContent: 'space-around'}}>
+                <View style={styles.spendingInfoView}>
+                    <AllocationInfo availableAmount={100} balanceAmount={100}/>
+                </View>
+                <View style={styles.graphView}>
+                    <Graph graphName="Weekly Spending"/>
+                </View>
+
+                <View style={styles.transactionSectionView}>
+                    <TransactionSection/>
+                </View>
+
             </View>
-            <View style={styles.transactionListView}>
-                <CategoryList/>
-            </View>
-            <View style={styles.bottomBarView}>
-                <BottomBar balanceText={"test"} balanceAmount={100}/>
-            </View>
+                <View style={styles.bottomBarView}>
+                    <BottomBar balanceAmount={200} balanceText={"test"}/>
+                </View>
         </View>
     );
 }
