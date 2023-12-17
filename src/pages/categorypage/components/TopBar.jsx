@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 function TopBar(props) {
   const Styles = StyleSheet.create({
     container: {
-      height: 40,
+      height: 20,
       width: '100%',
       display: 'flex',
       marginTop: 5,
@@ -45,7 +45,7 @@ function TopBar(props) {
   return (
     <View style={Styles.container}>
       <View style={Styles.pageNameContainer}>
-        <Text style={{color: '#FAF9F9', fontSize: 27}}>{props.categoryName}</Text>
+        <Text style={{color: '#FAF9F9', fontSize: 15}}>{props.categoryName}</Text>
         <Text style={{color: '#FAF9F9', fontSize: 15}}>#{props.categoryFrequency}</Text>
       </View>
 
