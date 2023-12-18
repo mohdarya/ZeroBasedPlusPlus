@@ -7,10 +7,10 @@ import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 
 
-interface CategoryPagProps {
+interface AllocationPageProps {
 }
 
-function CategoryPage(props: CategoryPagProps) {
+function AllocationPage(props: AllocationPageProps) {
     const navigation = useNavigation();
 
     const styles = StyleSheet.create({
@@ -70,4 +70,4 @@ function CategoryPage(props: CategoryPagProps) {
     );
 }
 
-export default CategoryPage;
+export default AllocationPage;
