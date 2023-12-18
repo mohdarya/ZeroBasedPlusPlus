@@ -11,10 +11,10 @@ import TransactionSection from "../home/components/TransactionSection";
 import React from "react";
 
 
-interface CategoryPagProps {
+interface CategoryPageProps {
 }
 
-function CategoryPage(props: CategoryPagProps) {
+function CategoryPage(props: CategoryPageProps) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
