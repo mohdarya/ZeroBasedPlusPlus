@@ -31,11 +31,11 @@ function BottomBar(props: bottomBarProps) {
 
     return (
         <View style={styles.container}>
-            <Icon name="list" size={35}/>
-            <Icon name="home" size={35}/>
+            <Icon name="list"     onPress={() => navigation.navigate('CategoryListPage')} size={35}/>
+            <Icon name="home"     onPress={() => navigation.navigate('HomePage')} size={35}/>
             <Icon
                 name="add-to-list"
-                onPress={() => navigation.navigate('NumberEntry')}
+                onPress={() => navigation.navigate('TransactionAddition')}
                 size={35}
             />
         </View>
