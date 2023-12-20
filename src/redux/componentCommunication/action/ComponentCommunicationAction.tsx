@@ -54,7 +54,7 @@ export function returnItemSelected(props: IComponentCommunicationAction) {
 export function returnItemKey(props: IReturnItemKey) {
     return {
         type: ComponentCommunicationActionTypes.RETURN_ITEM_KEY,
-        itemSelected: props.itemKey,
+        itemKey: props.itemKey,
     };
 }
 
