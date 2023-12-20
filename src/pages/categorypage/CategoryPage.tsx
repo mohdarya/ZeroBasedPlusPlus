@@ -30,7 +30,7 @@ function CategoryPage(props: CategoryPageProps) {
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: '#555B6E',
-            justifyContent: 'space-between',
+            justifyContent: 'space-around',
         },
         graphView: {
             width: '100%',
@@ -67,7 +67,7 @@ function CategoryPage(props: CategoryPageProps) {
 
             <TopBar categoryName={props.categories[categoryID].name} categoryFrequency={props.categories[categoryID].frequency}/>
 
-            <View style={{height: "80%", display: 'flex', justifyContent: 'space-around'}}>
+            <View style={{height: "70%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.spendingInfoView}>
                     <AllocationInfo availableAmount={props.categories[categoryID].available} spentAmount={props.categories[categoryID].spentThisMonth}/>
                 </View>
