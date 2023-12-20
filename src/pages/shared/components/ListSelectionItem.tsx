@@ -9,11 +9,24 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {
-  returnItemSelected,
-  returnText,
+    IComponentCommunicationAction,
+    returnItemKey,
+    returnItemSelected,
+    returnText,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
+import {RootState} from "../../../redux/rootReducer.tsx";
 
-function ListSelectionItem(props) {
+
+interface ListSelectionItemProp{
+
+    key: string,
+    value: string,
+    id: string,
+    returnItemSelected: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+    returnItemKey: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+}
+
+function ListSelectionItem(props : ListSelectionItemProp) {
   const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
@@ -73,7 +86,17 @@ function ListSelectionItem(props) {
             }}>
             <TouchableOpacity
               onPress={() => {
-                props.returnItemSelected(props.value);
+                  const returnParameter: IComponentCommunicationAction = {
+                      date: "",
+                      itemSelected:props.value,
+                      payee: "",
+                      text: "",
+                      type: "",
+                      number: 0.0,
+                      itemKey: props.id,
+                  };
+                props.returnItemKey(returnParameter);
+                props.returnItemSelected(returnParameter);
                 navigation.goBack();
               }}
               style={{color: '#BEE3DB', alignSelf: 'center'}}>
@@ -94,12 +117,11 @@ function ListSelectionItem(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {};
-};
-const mapDispatchToProps = (dispatch, ownProps) => {
+
+const mapDispatchToProps = (dispatch : any, ownProps : any) => {
   return {
-    returnItemSelected: item => dispatch(returnItemSelected(item)),
+    returnItemSelected: (item: IComponentCommunicationAction) => dispatch(returnItemSelected(item)),
+  returnItemKey: (item: IComponentCommunicationAction) => dispatch(returnItemKey(item)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ListSelectionItem);
+export default connect(null, mapDispatchToProps)(ListSelectionItem);

@@ -10,11 +10,18 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {returnNumeric} from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
-import ListSelectionItem from '../components/ListSelectionItem';
-function ListSelection(props) {
+import ListSelectionItem from '../components/ListSelectionItem.tsx';
+import {RootState} from "../../../redux/rootReducer.tsx";
+
+
+interface ListSelectionProps {
+
+}
+function ListSelection(props : ListSelectionProps) {
   const navigation = useNavigation();
   const route = useRoute();
 
+  // @ts-ignore
   const listToRender = route.params.list;
   const styles = StyleSheet.create({
     container: {
@@ -50,8 +57,6 @@ function ListSelection(props) {
     },
   });
 
-  console.log(listToRender);
-
   return (
     <View style={styles.container}>
       <View
@@ -67,9 +72,9 @@ function ListSelection(props) {
           <FlatList
             data={listToRender}
             renderItem={({item}) => (
-              <ListSelectionItem key={item} value={item} />
+              <ListSelectionItem key={item.id} id={item.id} value={item.name} />
             )}
-            keyExtractor={item => item}
+            keyExtractor={item => item.id}
           />
         </SafeAreaView>
       </View>
@@ -77,14 +82,5 @@ function ListSelection(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    amount: state.communication.numeric,
-  };
-};
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    returnNumeric: numeric => dispatch(returnNumeric(numeric)),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ListSelection);
+
+export default ListSelection;
