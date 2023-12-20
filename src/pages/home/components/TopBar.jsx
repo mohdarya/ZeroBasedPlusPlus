@@ -51,9 +51,4 @@ function TopBar(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    available: state.balance.available,
-  };
-};
-export default connect(mapStateToProps)(TopBar);
+export default TopBar;

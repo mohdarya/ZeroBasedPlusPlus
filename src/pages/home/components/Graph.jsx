@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
 
 function Graph(props) {
   return (
@@ -26,7 +27,7 @@ function Graph(props) {
               Available
             </Text>
             <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
-              1000000
+              {props.available}
             </Text>
           </View>
         </View>
@@ -34,5 +35,9 @@ function Graph(props) {
     </View>
   );
 }
-
-export default Graph;
+const mapStateToProps = state => {
+  return {
+    available: state.balance.available,
+  };
+};
+export default connect(mapStateToProps)(Graph);

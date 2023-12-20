@@ -5,6 +5,7 @@ import Graph from './components/Graph';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
+import {connect} from 'react-redux';
 
 function HomePage(props) {
   const styles = StyleSheet.create({
@@ -47,8 +48,8 @@ function HomePage(props) {
     <View style={styles.container}>
       <TopBar />
       <View style={styles.spendingLimitBarView}>
-        <BalanceInfo balanceAmount={1000} balanceText={'test'} />
-        <BalanceInfo balanceAmount={1000} balanceText={'test'} />
+        <BalanceInfo balanceAmount={props.dailyRemaining} balanceText={'Daily'} />
+        <BalanceInfo balanceAmount={props.weeklyRemaining} balanceText={'Weekly'} />
       </View>
       <View style={styles.graphView}>
         <Graph graphName="Weekly Spending" />
@@ -64,4 +65,10 @@ function HomePage(props) {
   );
 }
 
-export default HomePage;
+const mapStateToProps = state => {
+  return {
+    dailyRemaining: state.balance.dailyRemaining,
+    weeklyRemaining: state.balance.weeklyRemaining,
+  };
+};
+export default connect(mapStateToProps)(HomePage);
