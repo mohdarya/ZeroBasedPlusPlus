@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {transactionReducer} from './transactions/reducer/transactionReducer.tsx';
 import {balanceReducer} from './balance/reducer/balanceReducer';
 import {ComponentCommunicationReducer} from './componentCommunication/reducer/componentCommunicationReducer.tsx';
-import {categoryReducer} from './category/reducer/CategoryReducer';
+import {categoryReducer} from './category/reducer/CategoryReducer.tsx';
 
 const rootReducer = combineReducers({
   transactions: transactionReducer,
