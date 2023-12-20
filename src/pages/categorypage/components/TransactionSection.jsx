@@ -15,25 +15,11 @@ function TransactionSection(props) {
     },
   });
   function loadData() {
-    let categoryArray = makeCategoryArray();
-    return categoryArray.map((value, key) => (
-      <TransactionItem key={key} name={value.name} amount={value.amount} />
+    return props.transactions.filter((value,key) => (value.category === props.categoryId)).map((value, key) => (
+        <TransactionItem key={key} name={value.name} amount={value.amount} />
     ));
   }
 
-  function makeCategoryArray() {
-    let temp = [];
-    for (let key in props.transactions) {
-      let tempItem = props.transactions[key];
-      tempItem = {
-        ...tempItem,
-        categoryID: key,
-      };
-      temp.push(tempItem);
-    }
-
-    return temp;
-  }
 
   return (
     <View

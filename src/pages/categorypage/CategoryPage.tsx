@@ -7,11 +7,11 @@ import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 import BalanceInfo from "../home/components/BalanceInfo.tsx";
 import Graph from "../home/components/Graph";
-import TransactionSection from "../home/components/TransactionSection";
 import React from "react";
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
+import TransactionSection from "./components/TransactionSection";
 
 
 interface CategoryPageProps {
@@ -76,7 +76,7 @@ function CategoryPage(props: CategoryPageProps) {
                 </View>
 
                 <View style={styles.transactionSectionView}>
-                    <TransactionSection/>
+                    <TransactionSection categoryId={categoryID}/>
                 </View>
 
             </View>
