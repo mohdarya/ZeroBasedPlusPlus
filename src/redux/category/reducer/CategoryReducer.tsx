@@ -45,6 +45,7 @@ const initialState = {
     },
 };
 
+//@ts-ignore
 export function categoryReducer(state: ICategoryItem = initialState, action: any) {
     switch (action.type) {
         default:

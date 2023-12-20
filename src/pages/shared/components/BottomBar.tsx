@@ -31,11 +31,17 @@ function BottomBar(props: bottomBarProps) {
 
     return (
         <View style={styles.container}>
-            <Icon name="list"     onPress={() => navigation.navigate('CategoryListPage')} size={35}/>
-            <Icon name="home"     onPress={() => navigation.navigate('HomePage')} size={35}/>
+            <Icon name="list" onPress={() =>
+                //@ts-ignore
+                navigation.navigate('CategoryListPage')} size={35}/>
+            <Icon name="home" onPress={() =>
+                //@ts-ignore
+                navigation.navigate('HomePage')} size={35}/>
             <Icon
                 name="add-to-list"
-                onPress={() => navigation.navigate('TransactionAddition')}
+                onPress={() =>
+                    //@ts-ignore
+                    navigation.navigate('TransactionAddition')}
                 size={35}
             />
         </View>
