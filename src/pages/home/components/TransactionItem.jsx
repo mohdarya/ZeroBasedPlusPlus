@@ -58,7 +58,7 @@ function TransactionItem(props) {
               {props.name}
             </Text>
             <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
-              {props.amount}
+              {props.date}
             </Text>
           </View>
         </View>
