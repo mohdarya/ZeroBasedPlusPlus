@@ -1,5 +1,5 @@
 import {StyleSheet, View} from "react-native";
-import {useNavigation} from "@react-navigation/core";
+import {useNavigation, useRoute} from "@react-navigation/core";
 
 import BottomBar from "../shared/components/BottomBar.tsx";
 import TopBar from "./components/TopBar";
@@ -9,12 +9,21 @@ import BalanceInfo from "../home/components/BalanceInfo.tsx";
 import Graph from "../home/components/Graph";
 import TransactionSection from "../home/components/TransactionSection";
 import React from "react";
+import {RootState} from "../../redux/rootReducer.tsx";
+import {connect} from "react-redux";
+import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 
 
 interface CategoryPageProps {
+    categories:ICategoryItem
 }
 
 function CategoryPage(props: CategoryPageProps) {
+
+    const route = useRoute();
+
+    // @ts-ignore
+    const categoryID = route.params.categoryID;
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -56,11 +65,11 @@ function CategoryPage(props: CategoryPageProps) {
     return (
         <View style={styles.container}>
 
-            <TopBar categoryName={"CategoryA"} categoryFrequency={"Daily"}/>
+            <TopBar categoryName={props.categories[categoryID].name} categoryFrequency={props.categories[categoryID].frequency}/>
 
             <View style={{height: "80%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.spendingInfoView}>
-                    <AllocationInfo availableAmount={100} balanceAmount={100}/>
+                    <AllocationInfo availableAmount={props.categories[categoryID].available} spentAmount={props.categories[categoryID].spentThisMonth}/>
                 </View>
                 <View style={styles.graphView}>
                     <Graph graphName="Weekly Spending"/>
@@ -77,5 +86,9 @@ function CategoryPage(props: CategoryPageProps) {
         </View>
     );
 }
-
-export default CategoryPage;
+const mapStateToProps = (state: RootState) => {
+    return {
+        categories: state.categories,
+    };
+};
+export default connect(mapStateToProps)(CategoryPage);

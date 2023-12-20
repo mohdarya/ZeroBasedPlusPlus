@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
+import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
@@ -6,21 +6,36 @@ import React from "react";
 import TransactionItem from "../../home/components/TransactionItem";
 import Icon from 'react-native-vector-icons/Fontisto';
 import CategoryItem from "../../shared/components/CategoryLIstItem";
+import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx";
+
 interface TransactionListProps {
-    categories : any;
+    categories: ICategoryItem;
 }
 
 
-
-
 function CategoryList(props: TransactionListProps) {
+    const navigation = useNavigation();
 
     function loadData() {
         let categoryArray = makeCategoryArray();
         return categoryArray.map((value, key) => (
-            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={value.allocated} available={value.available}/>
+            <TouchableOpacity key={key}
+
+                              onPress={() => {
+                                  // @ts-ignore
+                                  navigation.navigate('CategoryPage',
+                                      {
+
+                                          categoryID: value.categoryID
+
+                                      })
+                              }}>
+                <CategoryItem name={value.name} allocated={value.allocated}
+                              available={value.available}/>
+            </TouchableOpacity>
         ));
     }
+
     function makeCategoryArray() {
         let temp = [];
         for (let key in props.categories) {
@@ -35,8 +50,6 @@ function CategoryList(props: TransactionListProps) {
         return temp;
     }
 
-
-    const navigation = useNavigation();
 
     const styles = StyleSheet.create({
         container: {
@@ -83,6 +96,7 @@ function CategoryList(props: TransactionListProps) {
         </View>
     );
 }
+
 const mapStateToProps = (state: RootState) => {
     return {
         categories: state.categories,
