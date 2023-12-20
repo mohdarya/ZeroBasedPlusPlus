@@ -9,6 +9,7 @@ import {returnNumeric} from "../../redux/componentCommunication/action/Component
 import {connect} from "react-redux";
 import rootReducer, {RootState} from "../../redux/rootReducer.tsx";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 
 interface TransactionAdditionProps {
@@ -21,6 +22,15 @@ interface TransactionAdditionProps {
 function TransactionAddition(props: TransactionAdditionProps) {
 
     const navigation = useNavigation();
+    const [datePicker, setDatePicker] = useState(false);
+    const [dateValue, setDateValue] = useState(new Date());
+
+    const onChange = (event : any, selectedValue :any) => {
+        setDatePicker(false);
+        const currentDate = selectedValue || new Date();
+        setDateValue(currentDate);
+
+    };
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -149,12 +159,20 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                     <View style={styles.amountDetailView}>
                         <View style={styles.amountView}>
-                            <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
-                                Date
-                            </Text>
-                            <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                12/12/2023
-                            </Text>
+                            <TouchableOpacity onPress={() => {
+                                setDatePicker(true)
+                            }} style={{width: "100%", display: "flex"}}>
+                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
+                                    Date
+                                </Text>
+                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
+                                    {dateValue.toISOString().split('T')[0]}
+                                </Text>
+
+                                {datePicker &&
+                                    <RNDateTimePicker value={dateValue} onChange={onChange}
+                                    />}
+                            </TouchableOpacity>
 
                         </View>
                         <View style={styles.frequencyView}>
