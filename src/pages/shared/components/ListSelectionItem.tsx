@@ -99,7 +99,8 @@ function ListSelectionItem(props : ListSelectionItemProp) {
                 props.returnItemSelected(returnParameter);
                 navigation.goBack();
               }}
-              style={{color: '#BEE3DB', alignSelf: 'center'}}>
+                // @ts-ignore
+              style={{color: "#BEE3DB", alignSelf: 'center'}}>
               <Text
                 style={{
                   color: '#555B6E',

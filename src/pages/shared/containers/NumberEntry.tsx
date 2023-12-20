@@ -5,15 +5,24 @@ import {connect} from 'react-redux';
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {
     IComponentCommunicationAction,
-    IReturnNumeric,
     returnNumeric
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 
-function money_round(num) {
-    return Math.floor(num * 100) / 100;
+function money_round(num: string) {
+    if (!isNaN(parseInt(num))) {
+        return Math.floor(Number(num)* 100) / 100;
+    }else {
+        return 0.0
+    }
 }
 
-function NumberEntry(props) {
+interface  NumberEntryProp{
+    amount: number,
+    returnNumeric: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+}
+
+
+function NumberEntry(props : NumberEntryProp) {
     const navigation = useNavigation();
     const [amount, setAmount] = useState(0.0);
     const styles = StyleSheet.create({
@@ -81,11 +90,18 @@ function NumberEntry(props) {
                                     navigation.goBack();
                                 }}
                                 onChangeText={text => {
-                                    if (!isNaN(parseInt(text))) {
-                                        props.returnNumeric(money_round(text));
-                                    } else {
-                                        props.returnNumeric(money_round(0.0));
-                                    }
+                                    const returnNumericParameter: IComponentCommunicationAction = {
+                                        date: "",
+                                        itemSelected: "",
+                                        payee: "",
+                                        text: "",
+                                        type: "",
+                                        number: money_round(text),
+                                        itemKey: ""
+                                    };
+
+                                        props.returnNumeric(returnNumericParameter);
+
                                 }}
                                 keyboardType={'numeric'}
                                 style={{
@@ -109,17 +125,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
 };
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
-        returnNumeric: (numeric: number) => {
-            const returnNumericParameter: IComponentCommunicationAction = {
-                date: "",
-                itemSelected: "",
-                payee: "",
-                text: "",
-                type: "",
-                number: numeric
-            };
-            dispatch(returnNumeric(returnNumericParameter))
-        },
+        returnNumeric: (numeric: IComponentCommunicationAction) => dispatch(returnNumeric(numeric)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NumberEntry);
