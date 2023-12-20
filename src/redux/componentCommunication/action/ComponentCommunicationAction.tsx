@@ -1,5 +1,6 @@
 export enum ComponentCommunicationActionTypes {
     RETURN_ITEM_SELECTED = 'RETURN_ITEM_SELECTED',
+    RETURN_ITEM_KEY = 'RETURN_ITEM_KEY',
     RETURN_NUMERIC = 'RETURN_NUMERIC',
     RETURN_TEXT = 'RETURN_TEXT',
     RETURN_DATE = 'RETURN_DATE',
@@ -10,6 +11,10 @@ export enum ComponentCommunicationActionTypes {
 interface IReturnItemSelected {
     type: string,
     itemSelected: string
+}
+interface IReturnItemKey {
+    type: string,
+    itemKey: string
 }
 
 interface IReturnNumeric {
@@ -35,7 +40,7 @@ interface IReturnDate {
 }
 
 
-export interface IComponentCommunicationAction extends IReturnNumeric, IReturnItemSelected, IReturnText, IReturnPayee, IReturnDate{
+export interface IComponentCommunicationAction extends IReturnNumeric, IReturnItemSelected, IReturnText, IReturnPayee, IReturnDate, IReturnItemKey{
 
 }
 
@@ -43,6 +48,13 @@ export function returnItemSelected(props: IComponentCommunicationAction) {
     return {
         type: ComponentCommunicationActionTypes.RETURN_ITEM_SELECTED,
         itemSelected: props.itemSelected,
+    };
+}
+
+export function returnItemKey(props: IReturnItemKey) {
+    return {
+        type: ComponentCommunicationActionTypes.RETURN_ITEM_KEY,
+        itemSelected: props.itemKey,
     };
 }
 

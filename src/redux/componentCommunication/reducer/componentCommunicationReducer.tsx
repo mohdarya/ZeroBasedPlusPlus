@@ -9,6 +9,8 @@ interface IComponentCommunication{
   payee: string,
   date: string,
   itemSelected: string,
+  itemKey: string,
+
 }
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
   payee: '',
   date: '',
   itemSelected: '',
+  itemKey: '',
 };
 
 export function ComponentCommunicationReducer(state : IComponentCommunication = initialState, action : IComponentCommunicationAction) {
@@ -47,6 +50,11 @@ export function ComponentCommunicationReducer(state : IComponentCommunication = 
       return {
         ...state,
         payee: action.payee,
+      };
+    case ComponentCommunicationActionTypes.RETURN_ITEM_KEY:
+      return {
+        ...state,
+        itemKey: action.itemKey,
       };
     case ComponentCommunicationActionTypes.CLEAR_DATA:
       return initialState;
