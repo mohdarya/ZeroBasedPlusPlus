@@ -39,7 +39,7 @@ function CategoryItem(props) {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        width: '29%',
+                        width: '50%',
                     }}>
                     <View>
                         <Icon
@@ -53,12 +53,12 @@ function CategoryItem(props) {
                             }}
                         />
                     </View>
-                  <View>
+                  <View style={{width: '100%', marginLeft: 10}}>
                     <View>
-                        <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
+                        <Text style={{color: '#555B6E', fontSize: 18, margin: 0}}>
                             {props.name}
                         </Text>
-                        <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
+                        <Text style={{color: '#555B6E', fontSize: 18, margin: 0}}>
                             {props.frequency}
                         </Text>
                     </View>
