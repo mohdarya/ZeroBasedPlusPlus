@@ -1,14 +1,26 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React from 'react';
+import {KeyboardTypeOptions, StyleSheet, Text, TextInput, TextInputProps, View} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {connect} from 'react-redux';
-import {returnText} from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
+import {
+  IComponentCommunicationAction,
+  returnText
+} from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
+import {RootState} from "../../../redux/rootReducer.tsx";
 
-function TextEntry(props) {
+
+interface  TextEntryProps{
+
+  text: string,
+  returnText: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+}
+
+function TextEntry(props: TextEntryProps) {
   const navigation = useNavigation();
   const route = useRoute();
-
+// @ts-ignore
   const placeHolderText = route.params.placeHolderText;
+  // @ts-ignore
   const textInputName = route.params.textInputName;
   const styles = StyleSheet.create({
     container: {
@@ -45,6 +57,10 @@ function TextEntry(props) {
     },
   });
 
+
+const textInputProps : KeyboardTypeOptions = "default"
+
+
   return (
     <View style={styles.container}>
       <View
@@ -73,11 +89,22 @@ function TextEntry(props) {
                 onEndEditing={event => {
                   navigation.goBack();
                 }}
-                onChangeText={text => {
-                  props.returnText(text);
+                onChangeText={(text: string) => {
+
+                  const returnTextParameter: IComponentCommunicationAction = {
+                    date: "",
+                    itemSelected: "",
+                    payee: "",
+                    text: text,
+                    type: "",
+                    number:0.0,
+                    itemKey: ""
+                  };
+                  props.returnText(returnTextParameter);
                 }}
-                keyboardType={'text'}
+              keyboardType={textInputProps}
                 style={{
+                  // @ts-ignore
                   color: '#BEE3DB',
                   fontSize: 35,
                   textAlign: 'center',
@@ -91,14 +118,15 @@ function TextEntry(props) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
+
+const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
     text: state.communication.text,
   };
 };
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    returnText: text => dispatch(returnText(text)),
+    returnText: (numeric: IComponentCommunicationAction) => dispatch(returnText(numeric)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TextEntry);
