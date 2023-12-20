@@ -43,7 +43,7 @@ function TopBar(props) {
   return (
     <View style={Styles.container}>
       <View style={Styles.pageNameContainer}>
-        <Text style={{color: '#FAF9F9', fontSize: 25}}>Test</Text>
+        <Text style={{color: '#FAF9F9', fontSize: 25}}>Home page</Text>
       </View>
 
       <View style={Styles.settingPageContainer} />
