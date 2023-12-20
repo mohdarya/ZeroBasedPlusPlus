@@ -69,6 +69,7 @@ const mapStateToProps = state => {
   return {
     dailyRemaining: state.balance.dailyRemaining,
     weeklyRemaining: state.balance.weeklyRemaining,
+    transactions: state.transactions
   };
 };
 export default connect(mapStateToProps)(HomePage);
