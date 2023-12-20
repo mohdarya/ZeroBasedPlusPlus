@@ -1,11 +1,22 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
 import Buttons from './components/Buttons';
 import CategoryItem from './components/CategoryLIstItem';
+import {useNavigation} from "@react-navigation/core";
+import {returnNumeric} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {connect} from "react-redux";
+import rootReducer, {RootState} from "../../redux/rootReducer.tsx";
 
-function TransactionAddition(props) {
+
+
+interface TransactionAdditionProps {
+  amount: number,
+}
+function TransactionAddition(props : TransactionAdditionProps) {
+
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -74,7 +85,7 @@ function TransactionAddition(props) {
 
         <View style={{width: '100%', height: '80%'}}>
           <View style={styles.spendingInfoView}>
-            <View style={{
+            <TouchableOpacity onPress={()=> {navigation.navigate('NumberEntry')}} style={{
               backgroundColor: 'white',
               height: '25%',
               width: '60%',
@@ -85,14 +96,15 @@ function TransactionAddition(props) {
             }}>
 
 
+
               <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
                 Amount
               </Text>
               <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
-                9
+                {props.amount}
               </Text>
 
-            </View>
+            </TouchableOpacity>
             <View style={{
               backgroundColor: 'white',
               height: '40%',
@@ -150,5 +162,14 @@ function TransactionAddition(props) {
       </View>
   );
 }
-
-export default TransactionAddition;
+const mapStateToProps = (state : RootState, ownProps : any) => {
+  return {
+    amount: state.communication.numeric,
+  };
+};
+const mapDispatchToProps = (dispatch, ownProps :any) => {
+  return {
+    returnNumeric: numeric => dispatch(returnNumeric(numeric)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionAddition);
