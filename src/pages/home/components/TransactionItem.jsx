@@ -36,10 +36,10 @@ function TransactionItem(props) {
         <View
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             alignItems: 'center',
             flexDirection: 'row',
-            width: '25%',
+            width: '70%',
           }}>
           <View>
             <Icon
@@ -53,7 +53,7 @@ function TransactionItem(props) {
               }}
             />
           </View>
-          <View>
+          <View style={{marginLeft: 10}}>
             <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
               {props.name}
             </Text>

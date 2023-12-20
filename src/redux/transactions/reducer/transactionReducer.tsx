@@ -1,4 +1,5 @@
 import {act} from 'react-test-renderer';
+import {ITransactionActionTypes, TransactionActionTypes} from "../types/transactionTypes.tsx";
 
 const initialState = {
   transactions: [
@@ -21,15 +22,9 @@ const initialState = {
 };
 
 
-export type Action = {
-  type: string,
-  payload?: any
-}
-
-
 export function transactionReducer(state = initialState, action : ITransactionActionTypes) {
   switch (action.type) {
-    case 'ADD_TRANSACTION':
+    case TransactionActionTypes.ADD_TRANSACTION:
       return {
         ...state,
         transactions: [

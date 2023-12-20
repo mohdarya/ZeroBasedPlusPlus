@@ -1,10 +1,13 @@
-export function addTransaction(payee:string, amount: number, date: string, category: string) {
+import {ITransactionActionTypes, TransactionActionTypes} from "../types/transactionTypes.tsx";
+
+
+export function addTransaction(payload : ITransactionActionTypes) {
   return {
-    type: 'ADD_TRANSACTION',
-    payee,
-    amount,
-    date,
-    category,
+    type: TransactionActionTypes.ADD_TRANSACTION,
+    payee : payload.payee,
+    amount : payload.amount,
+    date : payload.date,
+    category : payload.category,
   };
 }
 

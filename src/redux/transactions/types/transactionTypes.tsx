@@ -1,9 +1,9 @@
-enum ActionTypes {
-    addTransaction = 'ADD_TRANSACTION',
+export enum TransactionActionTypes {
+    ADD_TRANSACTION = 'ADD_TRANSACTION',
 }
 
 interface IAddTransaction {
-    type: ActionTypes.addTransaction;
+    type: TransactionActionTypes.ADD_TRANSACTION;
     payee : string,
     amount: number,
     date: string,
@@ -11,4 +11,4 @@ interface IAddTransaction {
 }
 
 
-type ITransactionActionTypes = IAddTransaction
+export type ITransactionActionTypes = IAddTransaction

@@ -2,14 +2,18 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
-import Buttons from './components/Buttons';
 import CategoryItem from './components/CategoryLIstItem';
 import {useNavigation} from "@react-navigation/core";
-import {returnNumeric} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {
+    clearData,
+    IComponentCommunicationAction
+} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import {connect} from "react-redux";
-import rootReducer, {RootState} from "../../redux/rootReducer.tsx";
+import {RootState} from "../../redux/rootReducer.tsx";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import {addTransaction} from "../../redux/transactions/action/TransactionsActions.tsx";
+import {ITransactionActionTypes, TransactionActionTypes} from "../../redux/transactions/types/transactionTypes.tsx";
 
 
 interface TransactionAdditionProps {
@@ -17,6 +21,9 @@ interface TransactionAdditionProps {
     categories: ICategoryItem,
     itemSelect: string,
     itemKey: string,
+    payee: string,
+    addTransaction: (data: ITransactionActionTypes) => {},
+    clearData: (data: IComponentCommunicationAction) => {},
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
@@ -150,9 +157,9 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
 
                         <View style={{width: '90%'}}>
-                            <CategoryItem name={props.itemKey != null ? props.categories[props.itemKey].name : "N/A"}
-                                          frequency={props.itemKey != null ? props.categories[props.itemKey].frequency : "N/A"}
-                                          available={props.itemKey != null ? props.categories[props.itemKey].available : "N/A"}/>
+                            <CategoryItem name={props.itemKey != '' ? props.categories[props.itemKey].name : "N/A"}
+                                          frequency={props.itemKey != '' ? props.categories[props.itemKey].frequency : "N/A"}
+                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : "N/A"}/>
                         </View>
                     </TouchableOpacity>
 
@@ -176,20 +183,83 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                         </View>
                         <View style={styles.frequencyView}>
-                            <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
-                                Payee
-                            </Text>
-                            <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                Choitrams
-                            </Text>
+                            <TouchableOpacity onPress={() => {
+                                // @ts-ignore
+                                navigation.navigate('TextEntry',
+                                    {
+                                        placeHolderText: "Enter Payee Name",
+                                        textInputName: "Payee"
+                                    })
+                            }} style={{width: "100%", display: "flex"}}>
 
+                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
+                                    Payee
+                                </Text>
+                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
+                                    {props.payee ? props.payee : "N/A"}
+
+                                </Text>
+                            </TouchableOpacity>
                         </View>
 
                     </View>
 
                 </View>
                 <View style={styles.transactionListView}>
-                    <Buttons/>
+                    <View style={{    width: '100%',
+
+                        flexDirection: 'row',
+                        height: 45,
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        borderRadius: 5}}>
+                        <TouchableOpacity onPress={() => {navigation.goBack()}} style={{ borderRadius: 5,
+                            width: '40%',
+                            height: '100%',
+                            backgroundColor: '#FAF9F9',
+                            display: 'flex',
+                            alignItems: "center",
+                            justifyContent: "center",}}>
+                            <Text style={{width: "auto",fontSize: 20}}>
+                                Cancel
+                            </Text>
+                        </TouchableOpacity>
+
+
+                            <TouchableOpacity onPress={() => {
+                                const transactionData : ITransactionActionTypes =
+                                {
+                                    amount: props.amount, category: props.itemKey, date:dateValue.toDateString(), payee: props.payee, type: TransactionActionTypes.ADD_TRANSACTION
+
+                                }
+                                const clearDataParameters: IComponentCommunicationAction = {
+                                    date: "",
+                                    itemSelected: "",
+                                    payee: "",
+                                    text: "",
+                                    type: "",
+                                    number: 0.0,
+                                    itemKey: ""
+                                };
+
+                                props.addTransaction(transactionData);
+                                props.clearData(clearDataParameters)
+                                navigation.goBack();
+                            }} style={{ borderRadius: 5,
+                                width: '40%',
+                                height: '100%',
+                                backgroundColor: '#FAF9F9',
+                                display: 'flex',
+                                alignItems: "center",
+                                justifyContent: "center",}}>
+                                <Text style={{width: "auto", fontSize: 20}}>
+                                    Add
+                                </Text>
+                            </TouchableOpacity>
+
+
+                    </View>
                 </View>
             </View>
             <View style={styles.bottomBarView}>
@@ -205,6 +275,15 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         categories: state.categories,
         itemSelect: state.communication.itemSelected,
         itemKey: state.communication.itemKey,
+        payee: state.communication.text,
     };
 };
-export default connect(mapStateToProps)(TransactionAddition);
+
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
+        addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
+        clearData: (data : IComponentCommunicationAction) => dispatch(clearData(data)),
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(TransactionAddition);
