@@ -7,7 +7,7 @@ import TransactionItem from "../../home/components/TransactionItem";
 import Icon from 'react-native-vector-icons/Fontisto';
 import CategoryItem from "../../shared/components/CategoryLIstItem";
 interface TransactionListProps {
-    transactions : any;
+    categories : any;
 }
 
 
@@ -18,13 +18,13 @@ function CategoryList(props: TransactionListProps) {
     function loadData() {
         let categoryArray = makeCategoryArray();
         return categoryArray.map((value, key) => (
-            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={300} available={200}/>
+            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={value.allocated} available={value.available}/>
         ));
     }
     function makeCategoryArray() {
         let temp = [];
-        for (let key in props.transactions) {
-            let tempItem = props.transactions[key];
+        for (let key in props.categories) {
+            let tempItem = props.categories[key];
             tempItem = {
                 ...tempItem,
                 categoryID: key,
@@ -75,7 +75,7 @@ function CategoryList(props: TransactionListProps) {
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
-                    width: '90%',
+                    width: '95%',
                     height: '100%'
                 }}>
                 {loadData()}
@@ -85,7 +85,7 @@ function CategoryList(props: TransactionListProps) {
 }
 const mapStateToProps = (state: RootState) => {
     return {
-        transactions: state.transactions.transactions,
+        categories: state.categories,
     };
 };
 export default connect(mapStateToProps)(CategoryList);
