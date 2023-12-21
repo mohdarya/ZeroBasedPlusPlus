@@ -64,7 +64,7 @@ function AllocationPage(props: AllocationPageProps) {
                 <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={"test"} balanceAmount={100}/>
+                <BottomBar page="AllocationPage"/>
             </View>
         </View>
     );

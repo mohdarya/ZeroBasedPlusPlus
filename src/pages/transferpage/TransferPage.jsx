@@ -148,7 +148,7 @@ function TransferPage(props) {
                 </View>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={'test'} balanceAmount={100}/>
+                <BottomBar page="TransferPage"/>
             </View>
         </View>
     );

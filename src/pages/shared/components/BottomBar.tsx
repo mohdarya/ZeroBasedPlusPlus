@@ -3,8 +3,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/core';
 
 interface bottomBarProps {
-    balanceText: string;
-    balanceAmount: number;
+    page: string,
 }
 
 function BottomBar(props: bottomBarProps) {

@@ -66,7 +66,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                     <Buttons/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={"test"} balanceAmount={100}/>
+                <BottomBar page="CategoryCreationPage"/>
             </View>
         </View>
     );

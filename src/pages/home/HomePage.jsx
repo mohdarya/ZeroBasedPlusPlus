@@ -59,7 +59,7 @@ function HomePage(props) {
         <TransactionSection />
       </View>
       <View style={styles.bottomBarView}>
-        <BottomBar />
+        <BottomBar  page={"HomePage"}/>
       </View>
     </View>
   );

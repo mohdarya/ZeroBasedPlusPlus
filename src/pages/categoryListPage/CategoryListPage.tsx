@@ -61,7 +61,7 @@ function CategoryListPage(props: CategoryListPageProps) {
                 <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={"test"} balanceAmount={100} />
+                <BottomBar page="CategoryListPage" />
             </View>
         </View>
     );

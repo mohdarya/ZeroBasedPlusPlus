@@ -60,7 +60,7 @@ function TransactionListPage(props: TransactionListPageProps) {
         <TransactionList/>
         </View>
       <View style={styles.bottomBarView}>
-        <BottomBar balanceText={"test"} balanceAmount={100} />
+        <BottomBar page="TransactionListPage" />
       </View>
     </View>
   );

@@ -263,7 +263,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                 </View>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar balanceText={'test'} balanceAmount={100}/>
+                <BottomBar page="TransactionAddition"/>
             </View>
         </View>
     );
