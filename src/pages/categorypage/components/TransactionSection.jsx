@@ -16,7 +16,7 @@ function TransactionSection(props) {
   });
   function loadData() {
     return props.transactions.filter((value,key) => (value.category === props.categoryId)).map((value, key) => (
-        <TransactionItem key={key} name={value.name}  date={value.date} amount={value.amount} />
+        <TransactionItem key={key} name={value.payee}  date={value.date} amount={value.amount} />
     ));
   }
 
