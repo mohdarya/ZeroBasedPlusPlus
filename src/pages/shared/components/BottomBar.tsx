@@ -38,13 +38,22 @@ function BottomBar(props: bottomBarProps) {
                 navigation.navigate('HomePage')} size={35}/>
             <Icon
                 name="add-to-list"
-                onPress={() =>
-                    //@ts-ignore
-                    navigation.navigate('TransactionAddition')}
-                size={35}
-            />
-        </View>
-    );
-}
+                onPress={() => {
+                    if (props.page === "HomePage") {
+                        //@ts-ignore
+                        navigation.navigate('TransactionAddition')
+                    }else if(props.page === "CategoryListPage") {
+                        //@ts-ignore
+                        navigation.navigate('CategoryCreationPage')
+                    }
+
+                }}
+
+
+                    size={35}
+                    />
+                    </View>
+                    );
+                }
 
 export default BottomBar;
