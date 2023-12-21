@@ -230,7 +230,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                             <TouchableOpacity onPress={() => {
                                 const transactionData : ITransactionActionTypes =
                                 {
-                                    amount: props.amount, category: props.itemKey, date:dateValue.toDateString(), payee: props.payee, type: TransactionActionTypes.ADD_TRANSACTION
+                                    amount: props.amount, category: props.itemKey, date:dateValue.toLocaleDateString(), payee: props.payee, type: TransactionActionTypes.ADD_TRANSACTION
 
                                 }
                                 const clearDataParameters: IComponentCommunicationAction = {
