@@ -157,9 +157,9 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
 
                         <View style={{width: '90%'}}>
-                            <CategoryItem name={props.itemKey != '' ? props.categories[props.itemKey].name : "N/A"}
-                                          frequency={props.itemKey != '' ? props.categories[props.itemKey].frequency : "N/A"}
-                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : "N/A"}/>
+                            <CategoryItem name={props.itemKey != '' ? props.categories[props.itemKey].name : ""}
+                                          frequency={props.itemKey != '' ? props.categories[props.itemKey].frequency : ""}
+                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : ""}/>
                         </View>
                     </TouchableOpacity>
 
@@ -196,7 +196,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                     Payee
                                 </Text>
                                 <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                    {props.payee ? props.payee : "N/A"}
+                                    {props.payee ? props.payee : ""}
 
                                 </Text>
                             </TouchableOpacity>

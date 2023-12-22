@@ -97,7 +97,7 @@ function InformationEntry(props: InformationEntryProps) {
                         Category Name
                     </Text>
                     <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                        {props.text ? props.text : "N/A"}
+                        {props.text ? props.text : ""}
 
                     </Text>
                 </TouchableOpacity>
