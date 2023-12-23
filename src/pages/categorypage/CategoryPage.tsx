@@ -15,7 +15,7 @@ import TransactionSection from "./components/TransactionSection";
 
 
 interface CategoryPageProps {
-    categories:ICategoryItem
+    categories: ICategoryItem
 }
 
 function CategoryPage(props: CategoryPageProps) {

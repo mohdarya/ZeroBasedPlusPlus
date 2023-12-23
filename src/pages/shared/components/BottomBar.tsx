@@ -46,6 +46,10 @@ function BottomBar(props: bottomBarProps) {
                         //@ts-ignore
                         navigation.navigate('CategoryCreationPage')
                     }
+                    else if (props.page === "CategoryPage") {
+                        //@ts-ignore
+                        navigation.navigate('TransactionAddition')
+                    }
 
                 }}
 
