@@ -5,13 +5,13 @@ export interface ICategoryItemDetails {
 
     type: string,
     name: string,
-    spentThisMonth: string,
-    available: string,
-    allocated: string,
-    unallocated: string,
+    spentThisMonth: number,
+    available: number,
+    allocated: number,
+    unallocated: number,
     frequency: string,
     categoryID: string,
-    budget: string,
+    budget: number,
 
 }
 
@@ -25,10 +25,10 @@ export interface ICategoryItem {
 export interface IAddCategory {
     type: CategoryActionTypes.ADD_CATEGORY;
     name: string,
-    spentThisMonth: string,
-    available: string,
-    allocated: string,
-    unallocated: string,
+    spentThisMonth: number,
+    available: number,
+    allocated: number,
+    unallocated: number,
     frequency: string,
     categoryID: string,
 }

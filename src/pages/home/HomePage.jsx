@@ -66,9 +66,16 @@ function HomePage(props) {
 }
 
 const mapStateToProps = state => {
+
+
+
   return {
-    dailyRemaining: state.balance.dailyRemaining,
-    weeklyRemaining: state.balance.weeklyRemaining,
+    dailyRemaining: Object.values(Object.filter(state.categories, ([key, value]) => value.frequency ==='daily')).reduce((accumulator, value) => {
+      return accumulator + value.available;
+    }, 0),
+    weeklyRemaining: Object.values(Object.filter(state.categories, ([key, value]) => value.frequency ==='weekly')).reduce((accumulator, value) => {
+      return accumulator + value.available;
+    }, 0),
     transactions: state.transactions
   };
 };
