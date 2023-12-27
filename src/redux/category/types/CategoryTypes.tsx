@@ -7,7 +7,6 @@ export interface ICategoryItemDetails {
     spentThisMonth: number,
     available: number,
     allocated: number,
-    unallocated: number,
     frequency: string,
     budget: number,
 
@@ -26,9 +25,9 @@ export interface IAddCategory {
     spentThisMonth: number,
     available: number,
     allocated: number,
-    unallocated: number,
     frequency: string,
     categoryID: string,
+    budget: number,
 }
 
 export interface ICategoryTransactionAction {

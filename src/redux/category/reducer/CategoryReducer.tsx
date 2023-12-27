@@ -6,7 +6,6 @@ const initialState = {
         spentThisMonth: 900.00,
         available: 300.00,
         allocated: 300.00,
-        unallocated: 0.00,
         frequency: 'weekly',
         budget: 0
     },
@@ -16,7 +15,6 @@ const initialState = {
         spentThisMonth: 900.00,
         available: 300.00,
         allocated: 300.00,
-        unallocated: 0.00,
         frequency: 'monthly',
         budget: 0
     },
@@ -26,7 +24,6 @@ const initialState = {
         spentThisMonth: 900.00,
         available: 300.00,
         allocated: 300.00,
-        unallocated: 0.00,
         frequency: 'daily',
         budget: 0
     },
@@ -35,7 +32,6 @@ const initialState = {
         spentThisMonth: 900.00,
         available: 300.00,
         allocated: 300.00,
-        unallocated: 0.00,
         frequency: 'daily',
         budget: 0
     },

@@ -75,14 +75,14 @@ function Buttons(props: buttonsProps) {
                 <TouchableOpacity onPress={() => {
                     const categoryData : IAddCategory =
                         {
-                            allocated: "0",
-                            available: "0",
+                            allocated: 0.00,
+                            available: 0.00,
                             categoryID: uuid.v4().toString(),
                             frequency: props.itemSelect,
                             name: props.text,
-                            spentThisMonth: "0",
+                            spentThisMonth: 0.00,
                             type: CategoryActionTypes.ADD_CATEGORY,
-                            unallocated: "0"
+                            budget: props.amount,
 
 
                         }
