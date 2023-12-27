@@ -6,12 +6,12 @@ import TopBar from "./components/TopBar";
 import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 import BalanceInfo from "../home/components/BalanceInfo.tsx";
-import Graph from "../home/components/Graph";
 import React from "react";
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import TransactionSection from "./components/TransactionSection";
+import Graph from "./components/Graph";
 
 
 interface CategoryPageProps {
@@ -69,10 +69,10 @@ function CategoryPage(props: CategoryPageProps) {
 
             <View style={{height: "70%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.spendingInfoView}>
-                    <AllocationInfo availableAmount={props.categories[categoryID].available} spentAmount={props.categories[categoryID].spentThisMonth}/>
+                    <AllocationInfo availableAmount={props.categories[categoryID].available} spentAmount={props.categories[categoryID].allocated}/>
                 </View>
                 <View style={styles.graphView}>
-                    <Graph graphName="Weekly Spending"/>
+                    <Graph graphName="Weekly Spending" spentAmount={props.categories[categoryID].spentThisMonth}/>
                 </View>
 
                 <View style={styles.transactionSectionView}>
