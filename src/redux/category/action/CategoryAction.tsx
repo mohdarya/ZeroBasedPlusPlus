@@ -1,4 +1,9 @@
-import {CategoryActionTypes, IAddCategory, ICategoryItemDetails} from "../types/CategoryTypes.tsx";
+import {
+  CategoryActionTypes,
+  IAddCategory,
+  ICategoryItemDetails,
+  ICategoryTransactionAction
+} from "../types/CategoryTypes.tsx";
 
 
 export function addCategory(payload : IAddCategory) {
@@ -6,6 +11,14 @@ export function addCategory(payload : IAddCategory) {
 
     ...payload,
     type: CategoryActionTypes.ADD_CATEGORY,
+  };
+}
+
+export function categoryTransactionAction(payload : ICategoryTransactionAction) {
+  return {
+
+    ...payload,
+    type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
   };
 }
 

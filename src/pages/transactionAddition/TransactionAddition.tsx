@@ -16,6 +16,13 @@ import {addTransaction} from "../../redux/transactions/action/TransactionsAction
 import {ITransactionActionTypes, TransactionActionTypes} from "../../redux/transactions/types/transactionTypes.tsx";
 import {addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
 import {BalanceActionTypes, IBalanceActionTypes} from "../../redux/balance/types/balanceTypes.tsx";
+import {categoryTransactionAction} from "../../redux/category/action/CategoryAction.tsx";
+import {
+    CategoryActionTypes,
+    IAddCategory,
+    ICategoryActionTypes,
+    ICategoryTransactionAction
+} from "../../redux/category/types/CategoryTypes.tsx";
 
 
 interface TransactionAdditionProps {
@@ -27,6 +34,7 @@ interface TransactionAdditionProps {
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
     reduceAvailable: (data: IBalanceActionTypes) => {},
+    categoryTransactionAction: (data: ICategoryTransactionAction) => {},
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
@@ -237,10 +245,22 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                                 }
 
+
+
                                 const balanceData : IBalanceActionTypes =
                                     {
                                         type: BalanceActionTypes.REDUCE_BALANCE,
                                         transactionAmount: props.amount
+
+                                    }
+
+
+                                    //@ts-ignore
+                                    const categoryData : ICategoryActionTypes =
+                                    {
+                                        type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                        categoryID: props.itemKey,
+                                        amount: props.amount,
 
                                     }
                                 const clearDataParameters: IComponentCommunicationAction = {
@@ -254,6 +274,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 };
                                 props.reduceAvailable(balanceData);
                                 props.addTransaction(transactionData);
+                                props.categoryTransactionAction(categoryData);
                                 props.clearData(clearDataParameters);
                                 navigation.goBack();
                             }} style={{ borderRadius: 5,
@@ -295,6 +316,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
         clearData: (data : IComponentCommunicationAction) => dispatch(clearData(data)),
         reduceAvailable: (data : IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
+        categoryTransactionAction: (data : ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
     };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(TransactionAddition);
