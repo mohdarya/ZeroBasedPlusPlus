@@ -66,7 +66,8 @@ function HomePage(props) {
 }
 
 const mapStateToProps = state => {
-
+  Object.filter = (obj, predicate) =>
+      Object.fromEntries(Object.entries(obj).filter(predicate));
 
 
   return {

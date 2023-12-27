@@ -14,6 +14,8 @@ import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {addTransaction} from "../../redux/transactions/action/TransactionsActions.tsx";
 import {ITransactionActionTypes, TransactionActionTypes} from "../../redux/transactions/types/transactionTypes.tsx";
+import {addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
+import {BalanceActionTypes, IBalanceActionTypes} from "../../redux/balance/types/balanceTypes.tsx";
 
 
 interface TransactionAdditionProps {
@@ -24,6 +26,7 @@ interface TransactionAdditionProps {
     payee: string,
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
+    reduceAvailable: (data: IBalanceActionTypes) => {},
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
@@ -233,6 +236,13 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                     amount: props.amount, category: props.itemKey, date:dateValue.toLocaleDateString(), payee: props.payee, type: TransactionActionTypes.ADD_TRANSACTION
 
                                 }
+
+                                const balanceData : IBalanceActionTypes =
+                                    {
+                                        type: BalanceActionTypes.REDUCE_BALANCE,
+                                        transactionAmount: props.amount
+
+                                    }
                                 const clearDataParameters: IComponentCommunicationAction = {
                                     date: "",
                                     itemSelected: "",
@@ -242,9 +252,9 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                     number: 0.0,
                                     itemKey: ""
                                 };
-
+                                props.reduceAvailable(balanceData);
                                 props.addTransaction(transactionData);
-                                props.clearData(clearDataParameters)
+                                props.clearData(clearDataParameters);
                                 navigation.goBack();
                             }} style={{ borderRadius: 5,
                                 width: '40%',
@@ -284,6 +294,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
         clearData: (data : IComponentCommunicationAction) => dispatch(clearData(data)),
+        reduceAvailable: (data : IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
     };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(TransactionAddition);
