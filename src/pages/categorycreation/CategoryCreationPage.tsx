@@ -17,6 +17,8 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
         container: {
             flex: 1,
             display: "flex",
+            borderRadius: 25,
+            marginBottom: 100,
             height: '100%',
             width: '100%',
             flexDirection: "column",
@@ -35,7 +37,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '18%',
+                height:150,
                 width: '100%',
                 marginTop: '20%',
                 marginBottom: '20%',
@@ -47,7 +49,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '10%',
+                height: 100,
                 width: '100%',
                 marginBottom: '30%',
 
@@ -64,9 +66,6 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
             </View>
             <View style={styles.transactionListView}>
                     <Buttons/>
-            </View>
-            <View style={styles.bottomBarView}>
-                <BottomBar page="CategoryCreationPage"/>
             </View>
         </View>
     );
