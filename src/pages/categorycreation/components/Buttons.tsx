@@ -5,19 +5,21 @@ import {
     clearData,
     IComponentCommunicationAction
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
-import React from "react";
+import React, {RefObject} from "react";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {addTransaction} from "../../../redux/transactions/action/TransactionsActions.tsx";
 import {connect} from "react-redux";
 import {useNavigation} from "@react-navigation/core";
 import {addCategory} from "../../../redux/category/action/CategoryAction.tsx";
 import {CategoryActionTypes, IAddCategory} from "../../../redux/category/types/CategoryTypes.tsx";
+import {BottomSheetRefProps} from "../../shared/components/bottomSheet.tsx";
 
 interface buttonsProps {
     amount: number,
     itemSelect: string,
     itemKey: string,
     text: string,
+    bottomSheetRef: RefObject<BottomSheetRefProps>,
     addCategory: (data: IAddCategory) => {},
     clearData: (data: IComponentCommunicationAction) => {},
 }
@@ -98,7 +100,7 @@ function Buttons(props: buttonsProps) {
 
                     props.addCategory(categoryData);
                     props.clearData(clearDataParameters)
-                    navigation.goBack();
+                    props.bottomSheetRef.current?.scrollTo( 0);
                 }} style={{ borderRadius: 5,
                     width: '40%',
                     height: '100%',

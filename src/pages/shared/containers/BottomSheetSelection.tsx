@@ -136,7 +136,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             <View style={styles.actionView}>
 
                 {viewTrigger.categoryCreation &&
-                <CategoryCreationPage/>}
+                <CategoryCreationPage bottomSheetRef={props.bottomSheetRef}/>}
 
                 {viewTrigger.fundsTransfer &&
                     <TransferPage/>}
@@ -144,7 +144,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
                 {viewTrigger.allocation &&
                     <AllocationPage/>}
                 {viewTrigger.transactionCreation &&
-                    <TransactionAddition/>}
+                    <TransactionAddition bottomSheetRef={props.bottomSheetRef}/>}
             </View>
         </View>
     );

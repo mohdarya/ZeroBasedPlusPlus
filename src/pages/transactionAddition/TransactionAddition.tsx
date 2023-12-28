@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {RefObject, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
@@ -23,6 +23,7 @@ import {
     ICategoryActionTypes,
     ICategoryTransactionAction
 } from "../../redux/category/types/CategoryTypes.tsx";
+import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 
 
 interface TransactionAdditionProps {
@@ -35,6 +36,7 @@ interface TransactionAdditionProps {
     clearData: (data: IComponentCommunicationAction) => {},
     reduceAvailable: (data: IBalanceActionTypes) => {},
     categoryTransactionAction: (data: ICategoryTransactionAction) => {},
+    bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
@@ -278,7 +280,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 props.addTransaction(transactionData);
                                 props.categoryTransactionAction(categoryData);
                                 props.clearData(clearDataParameters);
-                                navigation.goBack();
+                                props.bottomSheetRef.current?.scrollTo( 0);
                             }} style={{ borderRadius: 5,
                                 width: '40%',
                                 height: '100%',

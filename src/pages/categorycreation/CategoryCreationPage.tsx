@@ -5,9 +5,12 @@ import BottomBar from "../shared/components/BottomBar.tsx";
 import TopBar from "./components/TopBar";
 import InformationEntry from "./components/InformationEntry.tsx";
 import Buttons from "./components/Buttons.tsx";
+import {RefObject} from "react";
+import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 
 
 interface CategoryCreationPageProps {
+    bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
 
 function CategoryCreationPage(props: CategoryCreationPageProps) {
@@ -65,7 +68,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 <InformationEntry/>
             </View>
             <View style={styles.transactionListView}>
-                    <Buttons/>
+                    <Buttons bottomSheetRef={props.bottomSheetRef}/>
             </View>
         </View>
     );
