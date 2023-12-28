@@ -7,8 +7,15 @@ import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 import {connect} from 'react-redux';
 import BottomSheet from '../shared/components/bottomSheet';
+import {RootState} from "../../redux/rootReducer.tsx";
+import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
 
-function HomePage(props) {
+
+interface IHomepageProp {
+  dailyRemaining: number,
+  weeklyRemaining: number
+}
+function HomePage(props :IHomepageProp) {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -66,16 +73,14 @@ function HomePage(props) {
   );
 }
 
-const mapStateToProps = state => {
-  Object.filter = (obj, predicate) =>
-      Object.fromEntries(Object.entries(obj).filter(predicate));
+const mapStateToProps = (state : RootState) => {
 
 
   return {
-    dailyRemaining: Object.values(Object.filter(state.categories, ([key, value]) => value.frequency ==='daily')).reduce((accumulator, value) => {
+    dailyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
       return accumulator + value.available;
     }, 0),
-    weeklyRemaining: Object.values(Object.filter(state.categories, ([key, value]) => value.frequency ==='weekly')).reduce((accumulator, value) => {
+    weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
       return accumulator + value.available;
     }, 0),
     transactions: state.transactions
