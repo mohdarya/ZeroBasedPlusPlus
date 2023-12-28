@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import TransactionSection from './components/TransactionSection';
 import Graph from './components/Graph';
@@ -6,9 +6,10 @@ import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 import {connect} from 'react-redux';
-import BottomSheet from '../shared/components/bottomSheet';
+import BottomSheet, {BottomSheetRefProps} from '../shared/components/bottomSheet';
 import {RootState} from "../../redux/rootReducer.tsx";
 import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
+import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
 
 
 interface IHomepageProp {
@@ -16,6 +17,7 @@ interface IHomepageProp {
   weeklyRemaining: number
 }
 function HomePage(props :IHomepageProp) {
+  const ref = useRef<BottomSheetRefProps>(null);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -67,8 +69,11 @@ function HomePage(props :IHomepageProp) {
         <TransactionSection />
       </View>
       <View style={styles.bottomBarView}>
-        <BottomBar  page={"HomePage"}/>
+        <BottomBar  page={"HomePage"} bottomSheetRef={ref}/>
       </View>
+      <BottomSheet ref={ref}>
+        <CategoryCreationPage/>
+      </BottomSheet>
     </View>
   );
 }
