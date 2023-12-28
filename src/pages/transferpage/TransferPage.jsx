@@ -9,12 +9,14 @@ function TransferPage(props) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            display: 'flex',
+            display: "flex",
+            borderRadius: 25,
+            marginBottom: 100,
             height: '100%',
             width: '100%',
-            flexDirection: 'column',
-            backgroundColor: '#555B6E',
-            justifyContent: 'space-between',
+            flexDirection: "column",
+            backgroundColor: "#555B6E",
+            justifyContent: "space-between",
         },
         bottomBarView: {
             height: 60,
@@ -72,7 +74,7 @@ function TransferPage(props) {
         <View style={styles.container}>
             <TopBar/>
 
-            <View style={{width: '100%', height: '80%'}}>
+            <View style={{width: '100%', height: '100%'}}>
                 <View style={styles.spendingInfoView}>
                     <View style={{
                         backgroundColor: 'white',
@@ -85,7 +87,7 @@ function TransferPage(props) {
                     }}>
 
 
-                        <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
+                        <Text style={{width: '30%', textAlign: 'center', fontSize: 17}}>
                             Amount
                         </Text>
                         <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
@@ -146,9 +148,6 @@ function TransferPage(props) {
                 <View style={styles.transactionListView}>
                     <Buttons/>
                 </View>
-            </View>
-            <View style={styles.bottomBarView}>
-                <BottomBar page="TransferPage"/>
             </View>
         </View>
     );
