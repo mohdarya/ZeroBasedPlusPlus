@@ -52,12 +52,14 @@ function TransactionAddition(props: TransactionAdditionProps) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            display: 'flex',
+            display: "flex",
+            borderRadius: 25,
+            marginBottom: 100,
             height: '100%',
             width: '100%',
-            flexDirection: 'column',
-            backgroundColor: '#555B6E',
-            justifyContent: 'space-between',
+            flexDirection: "column",
+            backgroundColor: "#555B6E",
+            justifyContent: "space-between",
         },
         bottomBarView: {
             height: 60,
@@ -90,7 +92,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
             width: '90%',
 
             flexDirection: 'row',
-            height: '20%',
+            height: 60,
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -105,7 +107,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
         frequencyView: {
             borderRadius: 20,
             width: '40%',
-            height: '100%',
+            height: 60,
             backgroundColor: '#FAF9F9',
         },
 
@@ -115,15 +117,15 @@ function TransactionAddition(props: TransactionAdditionProps) {
         <View style={styles.container}>
             <TopBar/>
 
-            <View style={{width: '100%', height: '80%'}}>
+            <View style={{width: '100%', height: '100%'}}>
                 <View style={styles.spendingInfoView}>
                     <TouchableOpacity onPress={() => {
                         // @ts-ignore
                         navigation.navigate('NumberEntry')
                     }} style={{
                         backgroundColor: 'white',
-                        height: '25%',
-                        width: '60%',
+                        height:60,
+                        width:200,
                         borderRadius: 15,
                         display: 'flex',
                         justifyContent: 'center',
@@ -131,7 +133,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                     }}>
 
 
-                        <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
+                        <Text style={{width: '30%', textAlign: 'center', fontSize: 15}}>
                             Amount
                         </Text>
                         <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
@@ -150,7 +152,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                             })
                     }} style={{
                         backgroundColor: 'white',
-                        height: '40%',
+                        height: 100,
                         width: '90%',
                         borderRadius: 30,
                         display: 'flex',
@@ -160,8 +162,8 @@ function TransactionAddition(props: TransactionAdditionProps) {
                         <Text style={{
                             width: '100%',
                             textAlign: 'left',
-                            fontSize: 20,
-                            marginLeft: 20,
+                            fontSize: 17,
+                            marginLeft: 30,
                         }}>
                             Category
                         </Text>
@@ -203,7 +205,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                     })
                             }} style={{width: "100%", display: "flex"}}>
 
-                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
+                                <Text style={{width: '100%', textAlign: 'left', fontSize: 17, marginLeft: 10}}>
                                     Payee
                                 </Text>
                                 <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
@@ -292,9 +294,6 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                     </View>
                 </View>
-            </View>
-            <View style={styles.bottomBarView}>
-                <BottomBar page="TransactionAddition"/>
             </View>
         </View>
     );

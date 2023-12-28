@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 function TopBar(props) {
   const Styles = StyleSheet.create({
     container: {
-      height: 40,
+      height: 50,
       width: '100%',
       display: 'flex',
       marginTop: 5,
@@ -15,12 +15,12 @@ function TopBar(props) {
     },
 
     pageNameContainer: {
-      flex: 2,
       display: 'flex',
 
+      width: "100%",
       height: '100%',
       flexDirection: 'column',
-      paddingLeft: 10,
+      paddingLeft: 20,
       marginTop: 10,
     },
     financeDataContainer: {

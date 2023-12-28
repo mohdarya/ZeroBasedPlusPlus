@@ -89,7 +89,12 @@ const mapStateToProps = (state : RootState) => {
     weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
       return accumulator + value.available;
     }, 0),
-    transactions: state.transactions
+    transactions: state.transactions,
+    amount: state.communication.numeric,
+    categories: state.categories,
+    itemSelect: state.communication.itemSelected,
+    itemKey: state.communication.itemKey,
+    payee: state.communication.text,
   };
 };
 export default connect(mapStateToProps)(HomePage);

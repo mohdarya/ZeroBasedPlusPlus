@@ -75,7 +75,7 @@ function NumberEntry(props : NumberEntryProp) {
                 <View style={styles.amountStyle}>
                     <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
                         <Text style={{color: '#BEE3DB', fontSize: 50, alignSelf: 'center'}}>
-                            Amount Test
+                            Amount
                         </Text>
                         <View>
                             <TextInput
