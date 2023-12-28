@@ -5,10 +5,13 @@ import BottomBar from "../shared/components/BottomBar.tsx";
 import SpendingChart from "./components/SpendingChart.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
-import {useCallback, useRef} from "react";
+import React, {useCallback, useRef} from "react";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
 import AllocationPage from "../allocation/AllocationPage.tsx";
+import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
+import {RootState} from "../../redux/rootReducer.tsx";
+import {connect} from "react-redux";
 
 interface CategoryListPageProps {
 }
@@ -79,10 +82,21 @@ function CategoryListPage(props: CategoryListPageProps) {
                 <BottomBar bottomSheetRef={ref} page="CategoryListPage" />
             </View>
             <BottomSheet ref={ref}>
-                <CategoryCreationPage/>
+                <BottomSheetSelection bottomSheetRef={ref}/>
             </BottomSheet>
         </View>
     );
 }
 
-export default CategoryListPage;
+const mapStateToProps = (state : RootState) => {
+
+
+    return {
+        amount: state.communication.numeric,
+        categories: state.categories,
+        itemSelect: state.communication.itemSelected,
+        itemKey: state.communication.itemKey,
+        payee: state.communication.text,
+    };
+};
+export default connect(mapStateToProps)(CategoryListPage);
