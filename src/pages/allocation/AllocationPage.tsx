@@ -17,11 +17,13 @@ function AllocationPage(props: AllocationPageProps) {
         container: {
             flex: 1,
             display: "flex",
+            borderRadius: 25,
+            marginBottom: 100,
             height: '100%',
             width: '100%',
             flexDirection: "column",
             backgroundColor: "#555B6E",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
         },
         bottomBarView: {
             height: 60,
@@ -45,7 +47,7 @@ function AllocationPage(props: AllocationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '60%',
+                height: '75%',
                 width: '100%',
 
             }
@@ -62,9 +64,6 @@ function AllocationPage(props: AllocationPageProps) {
             </View>
             <View style={styles.transactionListView}>
                 <CategoryList/>
-            </View>
-            <View style={styles.bottomBarView}>
-                <BottomBar page="AllocationPage"/>
             </View>
         </View>
     );

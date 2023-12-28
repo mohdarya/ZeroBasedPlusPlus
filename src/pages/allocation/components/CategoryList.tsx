@@ -44,7 +44,7 @@ function CategoryList(props: TransactionListProps) {
             justifyContent: 'space-around',
             flexDirection: 'column',
             width: '90%',
-            height: '100%',
+            height: '90%',
             borderRadius: 15,
             backgroundColor: '#FAF9F9',
         }, searchBox: {
