@@ -10,6 +10,7 @@ import BottomSheet, {BottomSheetRefProps} from '../shared/components/bottomSheet
 import {RootState} from "../../redux/rootReducer.tsx";
 import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
 import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
+import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 
 
 interface IHomepageProp {
@@ -72,7 +73,7 @@ function HomePage(props :IHomepageProp) {
         <BottomBar  page={"HomePage"} bottomSheetRef={ref}/>
       </View>
       <BottomSheet ref={ref}>
-        <CategoryCreationPage/>
+        <BottomSheetSelection bottomSheetRef={ref}/>
       </BottomSheet>
     </View>
   );

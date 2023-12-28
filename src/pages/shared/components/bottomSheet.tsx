@@ -26,7 +26,6 @@ const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
     ({ children }, ref) => {
       const translateY = useSharedValue(0);
       const active = useSharedValue(false);
-
       const scrollTo = useCallback((destination: number) => {
         'worklet';
         active.value = destination !== 0;
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     height: SCREEN_HEIGHT,
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#FAF9F9',
     position: 'absolute',
     top: SCREEN_HEIGHT,
     borderRadius: 15,
