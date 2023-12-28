@@ -89,7 +89,6 @@ function CategoryList(props: TransactionListProps) {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     width: '95%',
-                    height: '100%'
                 }}>
                 {loadData()}
             </ScrollView>
