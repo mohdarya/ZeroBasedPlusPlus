@@ -1,14 +1,24 @@
 import {StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/core';
+import {BottomSheetRefProps} from "./bottomSheet.tsx";
+import {RefObject, useCallback} from "react";
 
 interface bottomBarProps {
     page: string,
+    bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
 
 function BottomBar(props: bottomBarProps) {
     const navigation = useNavigation();
-
+    const onPress = useCallback(() => {
+        const isActive = props.bottomSheetRef?.current?.isActive();
+        if (isActive) {
+            props.bottomSheetRef?.current?.scrollTo(0);
+        } else {
+            props.bottomSheetRef?.current?.scrollTo(-200);
+        }
+    }, []);
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -38,20 +48,7 @@ function BottomBar(props: bottomBarProps) {
                 navigation.navigate('HomePage')} size={35}/>
             <Icon
                 name="add-to-list"
-                onPress={() => {
-                    if (props.page === "HomePage") {
-                        //@ts-ignore
-                        navigation.navigate('TransactionAddition')
-                    }else if(props.page === "CategoryListPage") {
-                        //@ts-ignore
-                        navigation.navigate('CategoryCreationPage')
-                    }
-                    else if (props.page === "CategoryPage") {
-                        //@ts-ignore
-                        navigation.navigate('TransactionAddition')
-                    }
-
-                }}
+                onPress={onPress}
 
 
                     size={35}

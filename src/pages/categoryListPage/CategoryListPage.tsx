@@ -1,15 +1,22 @@
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import TopBar from "./components/TopBar";
 import BottomBar from "../shared/components/BottomBar.tsx";
 import SpendingChart from "./components/SpendingChart.tsx";
 import CategoryList from "./components/CategoryList.tsx";
+import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
+import {useCallback, useRef} from "react";
+import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
+import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
+import AllocationPage from "../allocation/AllocationPage.tsx";
 
 interface CategoryListPageProps {
 }
 
 function CategoryListPage(props: CategoryListPageProps) {
     const navigation = useNavigation();
+    const ref = useRef<BottomSheetRefProps>(null);
+
 
     const styles = StyleSheet.create({
         container: {
@@ -46,7 +53,15 @@ function CategoryListPage(props: CategoryListPageProps) {
                 height: '48%',
                 width: '100%',
 
-            }
+            },
+
+        button: {
+            height: 50,
+            borderRadius: 25,
+            aspectRatio: 1,
+            backgroundColor: 'white',
+            opacity: 0.6,
+        },
 
     });
 
@@ -61,8 +76,11 @@ function CategoryListPage(props: CategoryListPageProps) {
                 <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar page="CategoryListPage" />
+                <BottomBar bottomSheetRef={ref} page="CategoryListPage" />
             </View>
+            <BottomSheet ref={ref}>
+                <CategoryCreationPage/>
+            </BottomSheet>
         </View>
     );
 }

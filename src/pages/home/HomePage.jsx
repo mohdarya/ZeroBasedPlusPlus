@@ -6,6 +6,7 @@ import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 import {connect} from 'react-redux';
+import BottomSheet from '../shared/components/bottomSheet';
 
 function HomePage(props) {
   const styles = StyleSheet.create({
