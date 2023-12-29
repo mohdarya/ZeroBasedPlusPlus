@@ -28,22 +28,25 @@ function CategoryListPage(props: CategoryListPageProps) {
             height: '100%',
             width: '100%',
             flexDirection: "column",
-            backgroundColor: "#555B6E",
+            backgroundColor: "#E9EEEA",
             justifyContent: "space-between"
         },
         bottomBarView: {
-            height: 60,
-            marginBottom: "5%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
+            height: 65,
+            marginBottom: '2%',
+            width: '100%',
+            bottom:0,
+            display: 'flex',
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         spendingInfoView:
             {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '25%',
+                height: '55%',
                 width: '100%'
 
             }
@@ -70,8 +73,6 @@ function CategoryListPage(props: CategoryListPageProps) {
 
     return (
         <View style={styles.container}>
-            <TopBar />
-
             <View style={styles.spendingInfoView}>
                 <SpendingChart/>
             </View >
