@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import React from "react";
 import TransactionItem from "../../home/components/TransactionItem";
 import Icon from 'react-native-vector-icons/Fontisto';
-import CategoryItem from "../../shared/components/CategoryLIstItem";
+import CategoryItem from "../../shared/components/CategoryLIstItem.tsx";
 interface TransactionListProps {
     transactions : any;
 }

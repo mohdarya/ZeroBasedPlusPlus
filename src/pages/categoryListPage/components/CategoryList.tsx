@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import React from "react";
 import TransactionItem from "../../home/components/TransactionItem";
 import Icon from 'react-native-vector-icons/Fontisto';
-import CategoryItem from "../../shared/components/CategoryLIstItem";
+import CategoryItem from "../../shared/components/CategoryLIstItem.tsx";
 import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx";
 
 interface TransactionListProps {
@@ -31,7 +31,7 @@ function CategoryList(props: TransactionListProps) {
                                       })
                               }}>
                 <CategoryItem name={value.name} allocated={value.allocated}
-                              available={value.available}/>
+                              available={value.available} spentThisMonth={value.spentThisMonth}/>
             </TouchableOpacity>
         ));
     }
@@ -83,7 +83,7 @@ function CategoryList(props: TransactionListProps) {
                     display: 'flex',
                     justifyContent: 'flex-start',
                     alignItems: 'center',
-                    width: '95%',
+                    width: '100%',
                 }}>
                 {loadData()}
             </ScrollView>

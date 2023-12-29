@@ -3,6 +3,12 @@ import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 
+
+
+interface  CategoryItemProps{
+
+}
+
 function CategoryItem(props) {
     const Styles = StyleSheet.create({
         container: {
@@ -17,15 +23,21 @@ function CategoryItem(props) {
         },
     });
 
+    let percentageSpent : number = ((props.available - props.spentThisMonth)/ props.available) * 100
+
+
+    if( isNaN(percentageSpent) )
+    {
+       percentageSpent = 0
+    }
+    else {
+        percentageSpent = percentageSpent < 0 ? 100 : percentageSpent
+    }
+
+
     return (
         <View style={Styles.container}>
-            <View
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                }}
-            />
+
             <View
                 style={{
                     display: 'flex',
@@ -33,14 +45,19 @@ function CategoryItem(props) {
                     alignItems: 'center',
                     flexDirection: 'row',
                     width: '100%',
+                    height: 50,
+                  borderRadius: 20,
+                  backgroundColor: '#B1BBAE'
                 }}>
+                <View style={{position: 'absolute', backgroundColor: '#CFE1CB',        borderRadius: 20,    height: 50, width: percentageSpent+ "%"}}/>
                 <View
                     style={{
+                      marginLeft: 10,
                         display: 'flex',
                         justifyContent: 'flex-start',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        width: '50%',
+                        width: '60%',
                     }}>
                     <View>
                         <Icon
@@ -65,29 +82,21 @@ function CategoryItem(props) {
                   display: 'flex',
                   flexDirection: 'row',
 
-                  justifyContent: 'space-between',
-                  width: '35%',
+                  justifyContent: 'flex-start',
+                  width: '25%',
 
                 }}>
 
 
                   <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
-                      Available
+                      Remaining
                     </Text>
                       <Text style={{color: '#555B6E', fontSize: 12, margin: 0} }>
-                        {props.available}
+                        {props.available - props.spentThisMonth}
                       </Text>
                   </View>
-                  <View style={{backgroundColor: 'black', width: 1}}/>
-                  <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
-                      Allocated
-                    </Text>
-                      <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
-                        {props.allocated}
-                      </Text>
-                  </View>
+
                   </View>
                 </View>
 

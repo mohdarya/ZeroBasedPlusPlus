@@ -14,6 +14,10 @@ import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 
 interface CategoryListPageProps {
+    name: string,
+    allocated: number,
+    available: number,
+    spentThisMonth: number
 }
 
 function CategoryListPage(props: CategoryListPageProps) {
@@ -35,7 +39,7 @@ function CategoryListPage(props: CategoryListPageProps) {
             height: 65,
             marginBottom: '2%',
             width: '100%',
-            bottom:0,
+            bottom: 0,
             display: 'flex',
             position: 'absolute',
             justifyContent: 'center',
@@ -75,12 +79,12 @@ function CategoryListPage(props: CategoryListPageProps) {
         <View style={styles.container}>
             <View style={styles.spendingInfoView}>
                 <SpendingChart/>
-            </View >
-            <View  style={styles.transactionListView}>
+            </View>
+            <View style={styles.transactionListView}>
                 <CategoryList/>
             </View>
             <View style={styles.bottomBarView}>
-                <BottomBar bottomSheetRef={ref} page="CategoryListPage" />
+                <BottomBar bottomSheetRef={ref} page="CategoryListPage"/>
             </View>
             <BottomSheet ref={ref}>
                 <BottomSheetSelection bottomSheetRef={ref}/>
@@ -89,7 +93,7 @@ function CategoryListPage(props: CategoryListPageProps) {
     );
 }
 
-const mapStateToProps = (state : RootState) => {
+const mapStateToProps = (state: RootState) => {
 
 
     return {
