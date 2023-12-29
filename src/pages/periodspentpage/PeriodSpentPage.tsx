@@ -1,5 +1,5 @@
 import {StyleSheet, View} from "react-native";
-import {useNavigation} from "@react-navigation/core";
+import {useNavigation, useRoute} from "@react-navigation/core";
 import BottomBar from "../shared/components/BottomBar.tsx";
 import SpendingChart from "./components/SpendingChart.tsx";
 import CategoryList from "./components/CategoryList.tsx";
@@ -20,6 +20,10 @@ function PeriodSpentPage(props: PeriodSpentPageProps) {
     const navigation = useNavigation();
     const ref = useRef<BottomSheetRefProps>(null);
 
+    const route = useRoute();
+
+    // @ts-ignore
+    const sourcePage = route.params.sourcePage;
 
     const styles = StyleSheet.create({
         container: {
@@ -74,7 +78,7 @@ function PeriodSpentPage(props: PeriodSpentPageProps) {
     return (
         <View style={styles.container}>
             <View style={styles.spendingInfoView}>
-                <SpendingChart/>
+                <SpendingChart period={sourcePage} />
             </View>
             <View style={styles.transactionListView}>
                 <CategoryList/>

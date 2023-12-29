@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 interface SpendingChartProps {
+    period: string
 }
 
 
@@ -44,12 +45,12 @@ function SpendingChart(props: SpendingChartProps) {
                                 alignItems: 'center'
                             }}>
                                 <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
-                                    Daily
+                                    {props.period}
                                 </Text>
                             </View>
                         </View>
                         <Text style={{color: '#282828', fontSize: 36, fontWeight: 'bold'}}>
-                            Daily Spending
+                            { props.period + " Spending"}
                         </Text>
                         <Text style={{color: '#282828', fontSize: 64, fontWeight: 'bold'}}>
                             50000
