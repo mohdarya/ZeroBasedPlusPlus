@@ -19,10 +19,10 @@ function Graph(props) {
               height: '25%',
               margin: 15,
             }}>
-            <Text style={{color: '#555B6E', fontSize: 20}}>
+            <Text style={{color: '#282828', fontSize: 20}}>
               Available
             </Text>
-            <Text style={{color: '#555B6E', fontSize: 35}}>
+            <Text style={{color: '#282828', fontSize: 35}}>
               {props.available}
             </Text>
           </View>
