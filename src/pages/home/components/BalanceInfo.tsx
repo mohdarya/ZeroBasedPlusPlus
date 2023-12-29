@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Icon from "react-native-vector-icons/MaterialIcons";
 import React from "react";
 import {forSlideLeft} from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/HeaderStyleInterpolators";
+import {useNavigation} from "@react-navigation/core";
 
 interface balanceProps {
   balanceText: string;
@@ -9,6 +10,7 @@ interface balanceProps {
 }
 
 function BalanceInfo(props: balanceProps) {
+    const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
       alignItems: 'flex-start',
@@ -41,6 +43,7 @@ function BalanceInfo(props: balanceProps) {
       <Text style={styles.balanceAmountStyle}>{props.balanceAmount}</Text>
       <View style={{width: '90%', display: 'flex', justifyContent: 'flex-end', flexDirection: 'row'}}>
       <Icon
+          onPress={()=> {   navigation.navigate('PeriodSpentPage',{sourcePage: props.balanceText.split(" " )[0]})}}
           name="arrow-forward"
           size={20}
           style={{

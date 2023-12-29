@@ -6,10 +6,14 @@ import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 
 
 interface  CategoryItemProps{
+    available: number,
+    spentThisMonth: number;
+    name: string
 
 }
 
-function CategoryItem(props) {
+function CategoryItem(props: CategoryItemProps) {
+
     const Styles = StyleSheet.create({
         container: {
             height: 60,
