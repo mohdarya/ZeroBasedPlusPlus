@@ -24,7 +24,7 @@ function HomePage(props :IHomepageProp) {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: '#555B6E',
+      backgroundColor: '#E9EEEA',
       justifyContent: 'space-between',
     },
     graphView: {

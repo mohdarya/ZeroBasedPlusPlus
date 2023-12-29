@@ -1,19 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
+import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 
 function Graph(props) {
   return (
-    <View style={{}}>
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+
         <View
           style={{
-            backgroundColor: '#FAF9F9',
+            backgroundColor: '#D8DFE9',
             width: '100%',
             height: '100%',
             borderBottomRightRadius: 20,
@@ -31,9 +26,27 @@ function Graph(props) {
               {props.available}
             </Text>
           </View>
+          <View style={{height: '50%'}}>
+
+          </View>
+          <View style={{display: 'flex',flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center'}}>
+            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+                Month
+              </Text>
+            </View>
+            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+                Week
+              </Text>
+            </View>
+            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+                Day
+              </Text>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
   );
 }
 const mapStateToProps = state => {
