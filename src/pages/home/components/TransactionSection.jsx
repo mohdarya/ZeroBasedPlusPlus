@@ -24,22 +24,29 @@ function TransactionSection(props) {
   return (
     <View
       style={{
-        backgroundColor: 'white',
         borderRadius: 25,
         width: '90%',
-        height: '88%',
+        height: '95%',
       }}>
+      <View style={{display: 'flex',flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems:'center'}}>
       <Text
         style={{
           color: '#555B6E',
+          width: 110,
           fontSize: 18,
           marginTop: 10,
           marginLeft: 15,
-          marginBottom: 10,
+          marginBottom: 15,
           fontWeight: 'bold',
         }}>
         Transactions
       </Text>
+        <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+            View All
+          </Text>
+        </View>
+      </View>
       <ScrollView
         contentContainerStyle={{
           display: 'flex',

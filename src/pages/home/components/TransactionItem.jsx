@@ -46,10 +46,10 @@ function TransactionItem(props) {
               name="list"
               size={25}
               style={{
-                backgroundColor: '#D63535',
+                backgroundColor: '#FF7171',
                 borderRadius: 100,
-                padding: 5,
-                color: 'white',
+                padding: 6,
+                color: '#282828',
               }}
             />
           </View>
