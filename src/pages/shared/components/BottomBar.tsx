@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
 import {BottomSheetRefProps} from "./bottomSheet.tsx";
 import {RefObject, useCallback} from "react";
@@ -21,37 +21,31 @@ function BottomBar(props: bottomBarProps) {
     }, []);
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
             alignItems: 'center',
             justifyContent: 'space-around',
             flexDirection: 'row',
-            width: '95%',
+            width: '65%',
             height: '100%',
             borderRadius: 25,
-            backgroundColor: '#FAF9F9',
-        },
-        balanceTitleStyle: {
-            fontSize: 20,
-        },
-        balanceAmountStyle: {
-            fontSize: 35,
-        },
+            backgroundColor: '#282828',
+        }
     });
 
     return (
         <View style={styles.container}>
-            <Icon name="list" onPress={() =>
+            <Icon name="list"  style={{color: '#E9EEEA'}} onPress={() =>
                 //@ts-ignore
-                navigation.navigate('CategoryListPage')} size={35}/>
-            <Icon name="home" onPress={() =>
+                navigation.navigate('CategoryListPage')} size={40}/>
+            <Icon style={{color: '#E9EEEA'}} name="home" onPress={() =>
                 //@ts-ignore
-                navigation.navigate('HomePage')} size={35}/>
+                navigation.navigate('HomePage')} size={40}/>
             <Icon
-                name="add-to-list"
+                style={{color: '#E9EEEA'}}
+                name="playlist-add"
                 onPress={onPress}
 
 
-                    size={35}
+                    size={40}
                     />
                     </View>
                     );

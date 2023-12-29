@@ -29,7 +29,7 @@ function HomePage(props :IHomepageProp) {
     },
     graphView: {
       width: '100%',
-      height: '30%',
+      height: '35%',
     },
     spendingLimitBarView: {
       width: '100%',
@@ -47,9 +47,12 @@ function HomePage(props :IHomepageProp) {
       alignItems: 'center',
     },
     bottomBarView: {
-      height: 60,
-      marginBottom: '5%',
+      height: 65,
+      marginBottom: '2%',
+      width: '100%',
+      bottom:0,
       display: 'flex',
+      position: 'absolute',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -57,7 +60,7 @@ function HomePage(props :IHomepageProp) {
 
   return (
     <View style={styles.container}>
-      <TopBar />
+
 
       <View style={styles.graphView}>
         <Graph graphName="Weekly Spending" />

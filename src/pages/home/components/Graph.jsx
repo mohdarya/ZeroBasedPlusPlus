@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 function Graph(props) {
   return (
-    <View style={{margin: 10}}>
+    <View style={{}}>
       <View
         style={{
           display: 'flex',
@@ -14,19 +14,20 @@ function Graph(props) {
         <View
           style={{
             backgroundColor: '#FAF9F9',
-            width: '95%',
+            width: '100%',
             height: '100%',
-            borderRadius: 20,
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
           }}>
           <View
             style={{
               height: '25%',
               margin: 15,
             }}>
-            <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
+            <Text style={{color: '#555B6E', fontSize: 20}}>
               Available
             </Text>
-            <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
+            <Text style={{color: '#555B6E', fontSize: 35}}>
               {props.available}
             </Text>
           </View>
