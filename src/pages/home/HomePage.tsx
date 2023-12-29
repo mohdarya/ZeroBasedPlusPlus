@@ -33,7 +33,7 @@ function HomePage(props :IHomepageProp) {
     },
     spendingLimitBarView: {
       width: '100%',
-      height: '12%',
+      height: 176,
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'center',
@@ -58,14 +58,14 @@ function HomePage(props :IHomepageProp) {
   return (
     <View style={styles.container}>
       <TopBar />
-      <View style={styles.spendingLimitBarView}>
-        <BalanceInfo balanceAmount={props.dailyRemaining} balanceText={'Daily'} />
-        <BalanceInfo balanceAmount={props.weeklyRemaining} balanceText={'Weekly'} />
-      </View>
+
       <View style={styles.graphView}>
         <Graph graphName="Weekly Spending" />
       </View>
-
+      <View style={styles.spendingLimitBarView}>
+        <BalanceInfo balanceAmount={props.dailyRemaining} balanceText={'Daily Spent'} />
+        <BalanceInfo balanceAmount={props.weeklyRemaining} balanceText={'Weekly Spent'} />
+      </View>
       <View style={styles.transactionSectionView}>
         <TransactionSection />
       </View>
