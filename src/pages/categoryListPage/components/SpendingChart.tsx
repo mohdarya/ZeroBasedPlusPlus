@@ -27,35 +27,7 @@ function SpendingChart(props: SpendingChartProps) {
                         height: '100%',
                         borderRadius: 20,
                     }}>
-                    <View
-                        style={{
-                            height: 150,
-                            margin: 15,
-                        }}>
-                        <View
-                            style={{width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
-                            <View style={{
-                                backgroundColor: '#282828',
-                                width: 80,
-                                height: 25,
-                                borderRadius: 5,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                                <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
-                                    Daily
-                                </Text>
-                            </View>
-                        </View>
-                        <Text style={{color: '#282828', fontSize: 36, fontWeight: 'bold'}}>
-                            Daily Spending
-                        </Text>
-                        <Text style={{color: '#282828', fontSize: 64, fontWeight: 'bold'}}>
-                            50000
-                        </Text>
-                    </View>
-                    <View style={{width: '90%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
+                    <View style={{height: '100%',width: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <View style={{borderColor: '#282828', height: 200, width: 200, borderRadius: 100, borderWidth: 15, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
                             <Text style={{textAlign: 'center', fontSize: 45}}>

@@ -50,7 +50,7 @@ function CategoryListPage(props: CategoryListPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '55%',
+                height: '40%',
                 width: '100%'
 
             }
@@ -60,7 +60,7 @@ function CategoryListPage(props: CategoryListPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '48%',
+                height: '60%',
                 width: '100%',
 
             },
