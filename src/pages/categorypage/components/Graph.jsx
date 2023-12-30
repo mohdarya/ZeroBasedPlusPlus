@@ -13,20 +13,35 @@ function Graph(props) {
             }}>
           <View
               style={{
-                backgroundColor: '#FAF9F9',
                 width: '95%',
                 height: '100%',
                 borderRadius: 20,
+
               }}>
             <View
                 style={{
+
                   height: '25%',
-                  margin: 15,
+                  display:'flex',
+                  width:'95%',
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+
                 }}>
-              <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
-                Spent This Month
-              </Text>
-              <Text style={{color: '#555B6E', fontSize: 15, fontWeight: 'bold'}}>
+              <View style={    {
+                backgroundColor: '#282828',
+                width: 90,
+                height: 25,
+                borderRadius: 5,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+                <Text style={{color: '#E9EEEA', textAlign: 'center',fontSize: 15}}>
+                  Available
+                </Text>
+              </View>
+              <Text style={{color: '#555B6E', fontSize: 30, fontWeight: 'bold'}}>
                 {props.spentAmount}
               </Text>
             </View>

@@ -29,23 +29,27 @@ function CategoryPage(props: CategoryPageProps) {
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            backgroundColor: '#555B6E',
+            backgroundColor: "#E9EEEA",
             justifyContent: 'space-around',
         },
         graphView: {
             width: '100%',
-            height: '34%',
+            height: '30%',
         },
         transactionSectionView: {
             width: '100%',
-            height: '48%',
+            height: '70%',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         },
         bottomBarView: {
-            height: 60,
+            height: 65,
+            marginBottom: '2%',
+            width: '100%',
+            bottom:0,
             display: 'flex',
+            position: 'absolute',
             justifyContent: 'center',
             alignItems: 'center',
         },
@@ -67,10 +71,7 @@ function CategoryPage(props: CategoryPageProps) {
 
             <TopBar categoryName={props.categories[categoryID].name} categoryFrequency={props.categories[categoryID].frequency}/>
 
-            <View style={{height: "70%", display: 'flex', justifyContent: 'space-around'}}>
-                <View style={styles.spendingInfoView}>
-                    <AllocationInfo availableAmount={props.categories[categoryID].available} spentAmount={props.categories[categoryID].allocated}/>
-                </View>
+            <View style={{height: "90%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.graphView}>
                     <Graph graphName="Weekly Spending" spentAmount={props.categories[categoryID].spentThisMonth}/>
                 </View>

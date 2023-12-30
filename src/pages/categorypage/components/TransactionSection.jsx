@@ -13,43 +13,102 @@ function TransactionSection(props) {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    monthContainerBean: {
+      backgroundColor: '#CFE1CB',
+      width: 55,
+      height: 20,
+      borderRadius: 5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
+
   function loadData() {
-    return props.transactions.filter((value,key) => (value.category === props.categoryId)).map((value, key) => (
-        <TransactionItem key={key} name={value.payee}  date={value.date} amount={value.amount} />
+    return props.transactions.map((value, key) => (
+        <TransactionItem key={key} name={value.payee} date={value.date}
+                         amount={value.amount}/>
     ));
   }
 
-
   return (
-    <View
-      style={{
-        backgroundColor: 'white',
-        borderRadius: 25,
-        width: '90%',
-        height: '88%',
-      }}>
-      <Text
-        style={{
-          color: '#555B6E',
-          fontSize: 18,
-          marginTop: 10,
-          marginLeft: 15,
-          marginBottom: 10,
-          fontWeight: 'bold',
-        }}>
-        Transactions
-      </Text>
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+      <View
+          style={{
+            borderRadius: 25,
+            width: '90%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+        <View style={{
+          backgroundColor: '#B1BBAE',
           width: '100%',
+          height: 35,
+          borderRadius: 10,
+          flexDirection: 'row',
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
         }}>
-        {loadData()}
-      </ScrollView>
-    </View>
+          <View style={Styles.monthContainerBean}>
+            <Text style={{color: '#282828', textAlign: 'center'}}>
+              AUG
+            </Text>
+          </View>
+          <View style={Styles.monthContainerBean}>
+            <Text style={{color: '#282828', textAlign: 'center'}}>
+              SEP
+            </Text>
+          </View>
+          <View style={Styles.monthContainerBean}>
+            <Text style={{color: '#282828', textAlign: 'center'}}>
+              OCT
+            </Text>
+          </View>
+          <View style={Styles.monthContainerBean}>
+            <Text style={{color: '#282828', textAlign: 'center'}}>
+              NOV
+            </Text>
+          </View> <View style={Styles.monthContainerBean}>
+          <Text style={{color: '#282828', textAlign: 'center'}}>
+            DEC
+          </Text>
+        </View>
+
+        </View>
+        <View style={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '100%',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}>
+          <Text
+              style={{
+                color: '#555B6E',
+                width: 110,
+                fontSize: 18,
+                marginTop: 10,
+                marginLeft: 15,
+                marginBottom: 15,
+                fontWeight: 'bold',
+              }}>
+            Transactions
+          </Text>
+
+        </View>
+        <ScrollView
+            contentContainerStyle={{
+
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+          {loadData()}
+        </ScrollView>
+      </View>
   );
 }
 
