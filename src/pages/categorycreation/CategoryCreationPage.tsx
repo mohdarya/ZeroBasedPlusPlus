@@ -25,7 +25,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
             height: '100%',
             width: '100%',
             flexDirection: "column",
-            backgroundColor: "#555B6E",
+            backgroundColor: "#E9EEEA",
             justifyContent: "space-between",
         },
         bottomBarView: {
@@ -40,7 +40,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height:150,
+                height:250,
                 width: '100%',
                 marginTop: '20%',
                 marginBottom: '20%',
@@ -62,7 +62,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
 
     return (
         <View style={styles.container}>
-            <TopBar/>
+
 
             <View style={styles.spendingInfoView}>
                 <InformationEntry/>

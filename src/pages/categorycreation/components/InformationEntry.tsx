@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx";
 import {useNavigation} from "@react-navigation/core";
 import CategoryItem from "../../transactionAddition/components/CategoryLIstItem";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 interface InformationEntryProps {
     amount: number,
@@ -35,6 +36,7 @@ function InformationEntry(props: InformationEntryProps) {
             height: '100%',
             borderRadius: 15,
 
+
         },
         spendingInfoTitleStyle: {
 
@@ -47,33 +49,35 @@ function InformationEntry(props: InformationEntryProps) {
         },
         textEntryView: {
             width: '100%',
-            backgroundColor: '#FAF9F9',
-            height: 55,
+            height: 80,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 5,
         },
         amountDetailView: {
-            width: '100%',
+            width: '90%',
+
 
             flexDirection: 'row',
-            height: 50,
+            height: 60,
+
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'center',
             borderRadius: 5,
         },
         amountView: {
             borderRadius: 5,
-            width: '55%',
+            width: '50%',
             height: '100%',
-            backgroundColor: '#FAF9F9',
+
         },
         frequencyView: {
             borderRadius: 5,
             width: '40%',
             height: '100%',
+
             backgroundColor: '#FAF9F9',
         }
 
@@ -82,7 +86,34 @@ function InformationEntry(props: InformationEntryProps) {
     return (
         <View style={styles.container}>
 
+            <View style={{display: 'flex', width: '100%', alignItems: 'flex-end'}}>
+            <View style={    {
+                backgroundColor: '#282828',
+                width: 90,
+                height: 25,
+                borderRadius: 5,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <Text style={{color: '#E9EEEA', textAlign: 'center',fontSize: 15}}>
+                    Daily
+                </Text>
+            </View>
+            </View>
+            <View style={{display: 'flex', width: '100%', alignItems: 'flex-start'}}>
+            <Icon
 
+                name="home"
+                size={30}
+                style={{
+                    backgroundColor: '#282828',
+                    borderRadius: 100,
+                    padding: 5,
+                    color: '#E9EEEA',
+                }}
+            />
+            </View>
             <View style={styles.textEntryView}>
                 <TouchableOpacity onPress={() => {
                     // @ts-ignore
@@ -93,11 +124,9 @@ function InformationEntry(props: InformationEntryProps) {
                         })
                 }} style={{width: "100%", display: "flex"}}>
 
-                    <Text style={{width: '100%', textAlign: 'left', fontSize: 15, marginLeft: 10}}>
-                        Category Name
-                    </Text>
-                    <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                        {props.text ? props.text : ""}
+
+                    <Text style={{width: '100%', textAlign: 'left', fontSize: 64}}>
+                        {props.text ? props.text : "Category"}
 
                     </Text>
                 </TouchableOpacity>
@@ -109,41 +138,14 @@ function InformationEntry(props: InformationEntryProps) {
                     navigation.navigate('NumberEntry')
                 }} style={styles.amountView}>
 
-
-                    <Text style={{width: '90%', textAlign: 'left', fontSize: 15, marginLeft: 10}}>
-                        Budget
-                    </Text>
-                    <Text style={{width: '90%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                        {props.amount}
+                    <Text style={{width: '100%', textAlign: 'right', fontSize: 48}}>
+                        {props.amount == 0 ? "Budget": props.amount}
                     </Text>
 
                 </TouchableOpacity>
 
 
 
-                    <TouchableOpacity onPress={() => {
-                        // @ts-ignore
-                        navigation.navigate('ListSelection',
-                            {
-                                list: Object.keys(props.frequency).map((value, index, array) => ({
-                                    name: props.frequency[index],
-                                    id: props.frequency[index]
-                                }))
-                            })
-                    }}  style={styles.frequencyView}>
-                        <Text style={{
-                            width: '90%', textAlign: 'left', fontSize: 15, marginLeft: 10
-                        }}>
-                            Frequency
-                        </Text>
-
-
-                        <View style={{width: '90%'}}>
-                            <Text style={{width: '90%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                {props.itemSelect}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
 
 
             </View>

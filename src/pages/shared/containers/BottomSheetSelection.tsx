@@ -40,7 +40,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             height: '100%',
             width: '100%',
             flexDirection: "column",
-            backgroundColor: "#FAF9F9",
+            backgroundColor: "#B1BBAE",
             marginTop: 25,
             justifyContent: "flex-start",
             alignItems: "center"
@@ -59,7 +59,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             borderRadius: 5,
             width: 80,
             height: 40,
-            backgroundColor: '#555B6E',
+            backgroundColor: '#282828',
             display: 'flex',
             alignItems: "center",
             justifyContent: "center",
