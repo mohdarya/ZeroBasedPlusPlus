@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 function CategoryItem(props) {
     const Styles = StyleSheet.create({
         container: {
-            height: 60,
+            height: "100%",
             width: '100%',
             display: 'flex',
 
@@ -57,9 +57,6 @@ function CategoryItem(props) {
                     <View>
                         <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
                             {props.name}
-                        </Text>
-                        <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
-                            {props.frequency}
                         </Text>
                     </View>
                   </View>
