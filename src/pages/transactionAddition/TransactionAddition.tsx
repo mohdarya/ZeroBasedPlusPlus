@@ -2,7 +2,7 @@ import React, {RefObject, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
-import CategoryItem from './components/CategoryLIstItem';
+import CategoryItem from './components/CategoryLIstItem.tsx';
 import {useNavigation} from "@react-navigation/core";
 import {
     clearData,
@@ -45,7 +45,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
     const [datePicker, setDatePicker] = useState(false);
     const [dateValue, setDateValue] = useState(new Date());
 
-    const onChange = (event : any, selectedValue :any) => {
+    const onChange = (event: any, selectedValue: any) => {
         setDatePicker(false);
         const currentDate = selectedValue || new Date();
         setDateValue(currentDate);
@@ -60,7 +60,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
             height: '100%',
             width: '100%',
             flexDirection: "column",
-            backgroundColor: "#555B6E",
+            backgroundColor: "#E9EEEA",
             justifyContent: "space-between",
         },
         bottomBarView: {
@@ -72,10 +72,11 @@ function TransactionAddition(props: TransactionAdditionProps) {
         },
         spendingInfoView:
             {
+
                 display: 'flex',
                 justifyContent: 'space-around',
                 alignItems: 'center',
-                height: '50%',
+                height: '60%',
                 width: '100%',
 
             }
@@ -101,48 +102,90 @@ function TransactionAddition(props: TransactionAdditionProps) {
             borderRadius: 5,
         },
         amountView: {
-            borderRadius: 20,
-            width: '55%',
-            height: '100%',
-            backgroundColor: '#FAF9F9',
+            marginTop: 40,
+
+            width: '90%',
+            height: '10%',
         },
         frequencyView: {
             borderRadius: 20,
-            width: '40%',
+            width: '100%',
             height: 60,
-            backgroundColor: '#FAF9F9',
+
         },
 
     });
 
     return (
         <View style={styles.container}>
-            <TopBar/>
+
+
 
             <View style={{width: '100%', height: '100%'}}>
+                <View style={styles.amountView}>
+                    <TouchableOpacity onPress={() => {
+                        setDatePicker(true)
+                    }} style={{width: "100%", display: "flex"}}>
+
+                        <View style={{display: 'flex', width: '100%', alignItems: 'flex-end'}}>
+                            <View style={{
+                                backgroundColor: '#282828',
+                                width: 90,
+                                height: 25,
+                                borderRadius: 5,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}>
+                                <Text style={{color: '#E9EEEA', textAlign: 'center', fontSize: 15}}>
+                                    {dateValue.toISOString().split('T')[0]}
+                                </Text>
+                            </View>
+                        </View>
+
+                        {datePicker &&
+                            <RNDateTimePicker value={dateValue} onChange={onChange}
+                            />}
+                    </TouchableOpacity>
+
+                </View>
                 <View style={styles.spendingInfoView}>
                     <TouchableOpacity onPress={() => {
                         // @ts-ignore
                         navigation.navigate('NumberEntry')
                     }} style={{
-                        backgroundColor: 'white',
-                        height:60,
-                        width:200,
-                        borderRadius: 15,
+                        height: 110,
+                        width: "90%",
                         display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        alignItems: 'flex-start',
                     }}>
 
 
-                        <Text style={{width: '30%', textAlign: 'center', fontSize: 15}}>
-                            Amount
+                        <Text style={{width: '100%', textAlign: 'left',fontSize: 20}}>
+                            AED
                         </Text>
-                        <Text style={{width: '30%', textAlign: 'center', fontSize: 20}}>
+                        <Text style={{width: '100%', textAlign: 'left', fontSize: 96}}>
                             {props.amount}
                         </Text>
 
                     </TouchableOpacity>
+                    <View style={styles.frequencyView}>
+                        <TouchableOpacity onPress={() => {
+                            // @ts-ignore
+                            navigation.navigate('TextEntry',
+                                {
+                                    placeHolderText: "Enter Payee Name",
+                                    textInputName: "Payee"
+                                })
+                        }} style={{width: "100%", display: "flex"}}>
+                            <Text style={{width: '90%', textAlign: 'right', fontSize: 40}}>
+                                {props.payee ? props.payee : "Payee"}
+
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
                     <TouchableOpacity onPress={() => {
                         // @ts-ignore
                         navigation.navigate('ListSelection',
@@ -153,7 +196,6 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 }))
                             })
                     }} style={{
-                        backgroundColor: 'white',
                         height: 100,
                         width: '90%',
                         borderRadius: 30,
@@ -161,137 +203,101 @@ function TransactionAddition(props: TransactionAdditionProps) {
                         alignItems: 'center',
                         justifyContent: 'space-around',
                     }}>
-                        <Text style={{
-                            width: '100%',
-                            textAlign: 'left',
-                            fontSize: 17,
-                            marginLeft: 30,
-                        }}>
-                            Category
-                        </Text>
+
 
 
                         <View style={{width: '90%'}}>
                             <CategoryItem name={props.itemKey != '' ? props.categories[props.itemKey].name : ""}
                                           frequency={props.itemKey != '' ? props.categories[props.itemKey].frequency : ""}
-                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : ""}/>
+                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : ""} spentThisMonth={props.itemKey != '' ? props.categories[props.itemKey].spentThisMonth : ""}/>
                         </View>
                     </TouchableOpacity>
 
 
-                    <View style={styles.amountDetailView}>
-                        <View style={styles.amountView}>
-                            <TouchableOpacity onPress={() => {
-                                setDatePicker(true)
-                            }} style={{width: "100%", display: "flex"}}>
-                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 10}}>
-                                    Date
-                                </Text>
-                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                    {dateValue.toISOString().split('T')[0]}
-                                </Text>
-
-                                {datePicker &&
-                                    <RNDateTimePicker value={dateValue} onChange={onChange}
-                                    />}
-                            </TouchableOpacity>
-
-                        </View>
-                        <View style={styles.frequencyView}>
-                            <TouchableOpacity onPress={() => {
-                                // @ts-ignore
-                                navigation.navigate('TextEntry',
-                                    {
-                                        placeHolderText: "Enter Payee Name",
-                                        textInputName: "Payee"
-                                    })
-                            }} style={{width: "100%", display: "flex"}}>
-
-                                <Text style={{width: '100%', textAlign: 'left', fontSize: 17, marginLeft: 10}}>
-                                    Payee
-                                </Text>
-                                <Text style={{width: '100%', textAlign: 'left', fontSize: 20, marginLeft: 30}}>
-                                    {props.payee ? props.payee : ""}
-
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
                 </View>
                 <View style={styles.transactionListView}>
-                    <View style={{    width: '100%',
+                    <View style={{
+                        width: '100%',
 
                         flexDirection: 'row',
                         height: 45,
                         display: 'flex',
                         justifyContent: 'space-around',
                         alignItems: 'center',
-                        borderRadius: 5}}>
-                        <TouchableOpacity onPress={() => {navigation.goBack()}} style={{ borderRadius: 5,
+                        borderRadius: 5
+                    }}>
+                        <TouchableOpacity onPress={() => {
+                            navigation.goBack()
+                        }} style={{
+                            borderRadius: 5,
                             width: '40%',
                             height: '100%',
                             backgroundColor: '#FAF9F9',
                             display: 'flex',
                             alignItems: "center",
-                            justifyContent: "center",}}>
-                            <Text style={{width: "auto",fontSize: 20}}>
+                            justifyContent: "center",
+                        }}>
+                            <Text style={{width: "auto", fontSize: 20}}>
                                 Cancel
                             </Text>
                         </TouchableOpacity>
 
 
-                            <TouchableOpacity onPress={() => {
-                                const transactionData : ITransactionActionTypes =
+                        <TouchableOpacity onPress={() => {
+                            const transactionData: ITransactionActionTypes =
                                 {
-                                    amount: props.amount, category: props.itemKey, date:dateValue.toLocaleDateString(), payee: props.payee, type: TransactionActionTypes.ADD_TRANSACTION
+                                    amount: props.amount,
+                                    category: props.itemKey,
+                                    date: dateValue.toLocaleDateString(),
+                                    payee: props.payee,
+                                    type: TransactionActionTypes.ADD_TRANSACTION
 
                                 }
 
 
+                            const balanceData: IBalanceActionTypes =
+                                {
+                                    type: BalanceActionTypes.REDUCE_BALANCE,
+                                    transactionAmount: props.amount
 
-                                const balanceData : IBalanceActionTypes =
-                                    {
-                                        type: BalanceActionTypes.REDUCE_BALANCE,
-                                        transactionAmount: props.amount
-
-                                    }
+                                }
 
 
-                                    //@ts-ignore
-                                    const categoryData : ICategoryActionTypes =
-                                    {
-                                        type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                                        categoryID: props.itemKey,
-                                        amount: props.amount,
+                            //@ts-ignore
+                            const categoryData: ICategoryActionTypes =
+                                {
+                                    type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                    categoryID: props.itemKey,
+                                    amount: props.amount,
 
-                                    }
-                                const clearDataParameters: IComponentCommunicationAction = {
-                                    date: "",
-                                    itemSelected: "",
-                                    payee: "",
-                                    text: "",
-                                    type: "",
-                                    number: 0.0,
-                                    itemKey: ""
-                                };
-                                props.reduceAvailable(balanceData);
-                                props.addTransaction(transactionData);
-                                props.categoryTransactionAction(categoryData);
-                                props.clearData(clearDataParameters);
-                                props.bottomSheetRef.current?.scrollTo( 0);
-                            }} style={{ borderRadius: 5,
-                                width: '40%',
-                                height: '100%',
-                                backgroundColor: '#FAF9F9',
-                                display: 'flex',
-                                alignItems: "center",
-                                justifyContent: "center",}}>
-                                <Text style={{width: "auto", fontSize: 20}}>
-                                    Add
-                                </Text>
-                            </TouchableOpacity>
+                                }
+                            const clearDataParameters: IComponentCommunicationAction = {
+                                date: "",
+                                itemSelected: "",
+                                payee: "",
+                                text: "",
+                                type: "",
+                                number: 0.0,
+                                itemKey: ""
+                            };
+                            props.reduceAvailable(balanceData);
+                            props.addTransaction(transactionData);
+                            props.categoryTransactionAction(categoryData);
+                            props.clearData(clearDataParameters);
+                            props.bottomSheetRef.current?.scrollTo(0);
+                        }} style={{
+                            borderRadius: 5,
+                            width: '40%',
+                            height: '100%',
+                            backgroundColor: '#FAF9F9',
+                            display: 'flex',
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>
+                            <Text style={{width: "auto", fontSize: 20}}>
+                                Add
+                            </Text>
+                        </TouchableOpacity>
 
 
                     </View>
@@ -315,9 +321,9 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
-        clearData: (data : IComponentCommunicationAction) => dispatch(clearData(data)),
-        reduceAvailable: (data : IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
-        categoryTransactionAction: (data : ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
+        clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+        reduceAvailable: (data: IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
+        categoryTransactionAction: (data: ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
     };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(TransactionAddition);
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionAddition);

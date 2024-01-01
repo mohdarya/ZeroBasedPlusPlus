@@ -10,7 +10,7 @@ import {
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx";
 import {useNavigation} from "@react-navigation/core";
-import CategoryItem from "../../transactionAddition/components/CategoryLIstItem";
+import CategoryItem from "../../transactionAddition/components/CategoryLIstItem.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 interface InformationEntryProps {
