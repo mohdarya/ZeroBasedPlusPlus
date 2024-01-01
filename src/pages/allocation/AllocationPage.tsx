@@ -22,7 +22,7 @@ function AllocationPage(props: AllocationPageProps) {
             height: '100%',
             width: '100%',
             flexDirection: "column",
-            backgroundColor: "#555B6E",
+            backgroundColor: "#E9EEEA",
             justifyContent: "space-between",
         },
         bottomBarView: {
@@ -37,7 +37,7 @@ function AllocationPage(props: AllocationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: 60,
+                height: 120,
                 width: '100%'
 
             }
@@ -57,7 +57,6 @@ function AllocationPage(props: AllocationPageProps) {
     return (
         <View style={styles.container}>
 
-            <TopBar categoryName={"CategoryA"} categoryFrequency={"Daily"}/>
 
             <View style={styles.spendingInfoView}>
                 <AllocationInfo availableAmount={100} balanceAmount={100}/>

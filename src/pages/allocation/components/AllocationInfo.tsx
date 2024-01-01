@@ -12,24 +12,27 @@ function BalanceInfo(props: balanceProps) {
             justifyContent: 'space-around',
             flexDirection: 'row',
             width: '90%',
-            height: 60,
+            height: "100%",
 
             borderRadius: 10,
-            backgroundColor: '#FAF9F9',
+
         },
         spendingInfoTitleStyle: {
 
-            fontSize: 18,
-            color: '#555B6E',
+            fontSize: 20,
+            color: '#282828',
+
         },
         spendingInfoAmountStyle: {
-            fontSize: 25,
-            color: '#555B6E',
+            fontSize: 36,
+            color: '#282828',
+
         },
         textDetail: {
+
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'flex-start',
         },
     });
 
