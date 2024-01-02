@@ -1,24 +1,27 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import TransactionSection from './components/TransactionSection';
 import Graph from './components/Graph';
-import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 import {connect} from 'react-redux';
 import BottomSheet, {BottomSheetRefProps} from '../shared/components/bottomSheet';
 import {RootState} from "../../redux/rootReducer.tsx";
-import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
-import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
+import {useAppState} from "@react-native-community/hooks";
+import {setBalanceJobTime} from "../../redux/appDetails/actions/AppDetailActions.tsx";
+import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/types/AppDetailTypes.tsx";
 
 
 interface IHomepageProp {
   dailyRemaining: number,
-  weeklyRemaining: number
+  weeklyRemaining: number,
+  lastBalanceJob: number,
+  setBalanceJobTime: (data: ISetBalanceJobTime) => {},
 }
 function HomePage(props :IHomepageProp) {
   const ref = useRef<BottomSheetRefProps>(null);
+  const appState = useAppState();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -57,6 +60,20 @@ function HomePage(props :IHomepageProp) {
       alignItems: 'center',
     },
   });
+  useEffect(() => {
+    if(appState === "active")
+    {
+      let dateNow : Date = new Date();
+      let date12Am : Date = new Date();
+      date12Am.setHours(0,0,0,0)
+
+        if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
+        {
+
+        }
+        
+    }
+  }, [appState]);
 
   return (
     <View style={styles.container}>
@@ -99,6 +116,13 @@ const mapStateToProps = (state : RootState) => {
     itemKey: state.communication.itemKey,
     payee: state.communication.text,
     available: state.balance.available,
+    lastBalanceJob: state.appDetail.lastBalanceJob
   };
 };
-export default connect(mapStateToProps)(HomePage);
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+  return {
+    setBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setBalanceJobTime(data)),
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(HomePage);
