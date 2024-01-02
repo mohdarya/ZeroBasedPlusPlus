@@ -47,6 +47,7 @@ function TransactionSection(props) {
           </Text>
         </View>
       </View>
+      <View style={{height: 170}}>
       <ScrollView
         contentContainerStyle={{
           display: 'flex',
@@ -56,6 +57,7 @@ function TransactionSection(props) {
         }}>
         {loadData()}
       </ScrollView>
+      </View>
     </View>
   );
 }
