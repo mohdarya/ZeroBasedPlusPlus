@@ -70,11 +70,12 @@ function TransactionSection(props) {
             <Text style={{color: '#282828', textAlign: 'center'}}>
               NOV
             </Text>
-          </View> <View style={Styles.monthContainerBean}>
-          <Text style={{color: '#282828', textAlign: 'center'}}>
-            DEC
-          </Text>
-        </View>
+          </View>
+          <View style={Styles.monthContainerBean}>
+            <Text style={{color: '#282828', textAlign: 'center'}}>
+              DEC
+            </Text>
+          </View>
 
         </View>
         <View style={{
