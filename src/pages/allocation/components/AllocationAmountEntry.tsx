@@ -1,12 +1,16 @@
-import React, {RefObject, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from "@react-navigation/core";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {
-    IComponentCommunicationAction, returnNumeric
+    clearData,
+    IComponentCommunicationAction,
+    returnNumeric
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {allocateMoney} from "../../../redux/balance/actions/balanceActions.tsx";
+import {BalanceActionTypes, IAllocateMoney} from "../../../redux/balance/types/balanceTypes.tsx";
+import NumberEntry from "../../shared/containers/NumberEntry.tsx";
 
 
 interface TransactionAdditionProps {
@@ -15,6 +19,8 @@ interface TransactionAdditionProps {
     itemKey: string,
     payee: string,
     returnNumeric: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+    clearData: (data: IComponentCommunicationAction) => {},
+    allocateMoney: (data: IAllocateMoney) => {},
 }
 
 function AllocationAmountEntry(props: TransactionAdditionProps) {
@@ -27,7 +33,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
             flex: 1,
             display: "flex",
             borderRadius: 25,
-            marginBottom: 100,
+
             height: '100%',
             width: '100%',
             flexDirection: "column",
@@ -36,7 +42,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
         },
         bottomBarView: {
             height: 60,
-            marginBottom: '5%',
+
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -158,16 +164,36 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
                             onSubmitEditing={event => {
                             }}
                             onEndEditing={event => {
-                                navigation.goBack();
-                            }}
-                            onChangeText={text => {
-                                const returnNumericParameter: IComponentCommunicationAction = {
+                                const clearDataParameters: IComponentCommunicationAction = {
                                     date: "",
                                     itemSelected: "",
                                     payee: "",
                                     text: "",
                                     type: "",
                                     number: 0.0,
+                                    itemKey: ""
+                                };
+                                props.clearData(clearDataParameters);
+                                let amount : number  = props.amount
+                                if(allocationAction === "deduct") {
+                                    amount = 0 - amount;
+                                }
+                                const allocateMoneyParameters: IAllocateMoney = {
+                                    type: BalanceActionTypes.ALLOCATE_MONEY,
+                                    allocationAmount: amount
+                                };
+                                props.allocateMoney(allocateMoneyParameters);
+                                navigation.goBack();
+                            }}
+                            onChangeText={text => {
+
+                                const returnNumericParameter: IComponentCommunicationAction = {
+                                    date: "",
+                                    itemSelected: "",
+                                    payee: "",
+                                    text: "",
+                                    type: "",
+                                    number: Number(text),
                                     itemKey: ""
                                 };
 
@@ -207,6 +233,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
         returnNumeric: (numeric: IComponentCommunicationAction) => dispatch(returnNumeric(numeric)),
+        clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+        allocateMoney: (data: IAllocateMoney) => dispatch(allocateMoney(data)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationAmountEntry);

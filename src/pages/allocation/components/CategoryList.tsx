@@ -21,7 +21,12 @@ function CategoryList(props: TransactionListProps) {
         return categoryArray.map((value, key) => (
             <TouchableOpacity key={key} onPress={() => {
                 // @ts-ignore
-                navigation.navigate('AllocationAmountEntry')
+                navigation.navigate('AllocationAmountEntry',
+                    {
+
+                        categoryID: value.categoryID
+
+                    })
             }}>
                 <CategoryItem  name={value.name}
                               available={value.available} spentThisMonth={value.spentThisMonth}/>

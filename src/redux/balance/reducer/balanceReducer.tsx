@@ -2,19 +2,25 @@ import {BalanceActionTypes, IBalanceActionTypes, IBalanceState} from '../types/b
 import {act} from "react-test-renderer";
 
 const initialState = {
-  available: 1000.0,
-  unallocated:  1000.0,
-  allocated: 0.0,
+    available: 1000.0,
+    unallocated: 1000.0,
+    allocated: 0.0,
 };
 
 export function balanceReducer(state: IBalanceState = initialState, action: IBalanceActionTypes) {
-  switch (action.type) {
-    case BalanceActionTypes.REDUCE_BALANCE:
-      return {
-        ...state,
-        available :state.available - action.transactionAmount
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case BalanceActionTypes.REDUCE_BALANCE:
+            return {
+                ...state,
+                available: state.available - action.transactionAmount
+            };
+        case BalanceActionTypes.ALLOCATE_MONEY:
+            return {
+                ...state,
+                unallocated: state.unallocated - action.allocationAmount
+
+            };
+        default:
+            return state;
+    }
 }
