@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 
 interface balanceProps {
     availableAmount: number;
-    balanceAmount: number;
+    unallocatedAmount: number;
 }
 
 function BalanceInfo(props: balanceProps) {
@@ -44,7 +44,7 @@ function BalanceInfo(props: balanceProps) {
             </View>
             <View style={styles.textDetail}>
                 <Text style={styles.spendingInfoTitleStyle}>Unallocated</Text>
-                <Text style={styles.spendingInfoAmountStyle}>{props.availableAmount}</Text>
+                <Text style={styles.spendingInfoAmountStyle}>{props.unallocatedAmount}</Text>
             </View>
         </View>
     );

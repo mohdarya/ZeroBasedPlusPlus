@@ -5,9 +5,13 @@ import BottomBar from "../shared/components/BottomBar.tsx";
 import TopBar from "./components/TopBar";
 import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
+import {RootState} from "../../redux/rootReducer.tsx";
+import {connect} from "react-redux";
 
 
 interface AllocationPageProps {
+    available: number,
+    unallocated: number
 }
 
 function AllocationPage(props: AllocationPageProps) {
@@ -59,7 +63,7 @@ function AllocationPage(props: AllocationPageProps) {
 
 
             <View style={styles.spendingInfoView}>
-                <AllocationInfo availableAmount={100} balanceAmount={100}/>
+                <AllocationInfo availableAmount={props.available} unallocatedAmount={props.unallocated}/>
             </View>
             <View style={styles.transactionListView}>
                 <CategoryList/>
@@ -67,5 +71,14 @@ function AllocationPage(props: AllocationPageProps) {
         </View>
     );
 }
+const mapStateToProps = (state : RootState) => {
 
-export default AllocationPage;
+
+    return {
+
+        available: state.balance.available,
+        unallocated: state.balance.unallocated,
+
+    };
+};
+export default connect(mapStateToProps)(AllocationPage);

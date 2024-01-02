@@ -3,7 +3,7 @@ import {act} from "react-test-renderer";
 
 const initialState = {
   available: 1000.0,
-  unallocated: 0.0,
+  unallocated:  1000.0,
   allocated: 0.0,
 };
 
