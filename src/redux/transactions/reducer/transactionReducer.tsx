@@ -1,4 +1,4 @@
-import {ITransactionActionTypes, TransactionActionTypes} from "../types/transactionTypes.tsx";
+import {ITransactionActionTypes, TransactionActionTypes, TransactionTypes} from "../types/transactionTypes.tsx";
 
 const initialState: ITransactionStateType = {
     transactions: [
@@ -31,6 +31,7 @@ interface ITransactionItemType {
     amount: number,
     date: string,
     category: string,
+    type: TransactionTypes
 }
 
 
@@ -48,6 +49,7 @@ export function transactionReducer(state: ITransactionStateType = initialState,
                 category: action.category,
                 amount: action.amount,
                 date: action.date,
+                type: action.transactionType
             })
             return {
                 ...state,

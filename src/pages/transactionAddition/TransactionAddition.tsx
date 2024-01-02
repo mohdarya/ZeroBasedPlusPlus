@@ -1,7 +1,5 @@
 import React, {RefObject, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import TopBar from './components/TopBar';
-import BottomBar from '../shared/components/BottomBar';
 import CategoryItem from './components/CategoryLIstItem.tsx';
 import {useNavigation} from "@react-navigation/core";
 import {
@@ -13,13 +11,16 @@ import {RootState} from "../../redux/rootReducer.tsx";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {addTransaction} from "../../redux/transactions/action/TransactionsActions.tsx";
-import {ITransactionActionTypes, TransactionActionTypes} from "../../redux/transactions/types/transactionTypes.tsx";
+import {
+    ITransactionActionTypes,
+    TransactionActionTypes,
+    TransactionTypes
+} from "../../redux/transactions/types/transactionTypes.tsx";
 import {addBalance, addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
-import {BalanceActionTypes, IAddTransaction, IBalanceActionTypes} from "../../redux/balance/types/balanceTypes.tsx";
+import {BalanceActionTypes, IAddTransaction} from "../../redux/balance/types/balanceTypes.tsx";
 import {categoryTransactionAction} from "../../redux/category/action/CategoryAction.tsx";
 import {
     CategoryActionTypes,
-    IAddCategory,
     ICategoryActionTypes,
     ICategoryTransactionAction
 } from "../../redux/category/types/CategoryTypes.tsx";
@@ -34,7 +35,7 @@ interface TransactionAdditionProps {
     payee: string,
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
-    reduceAvailable: (data: IBalanceActionTypes) => {},
+    reduceAvailable: (data: IAddTransaction) => {},
     addBalance: (data: IAddTransaction) => {},
     categoryTransactionAction: (data: ICategoryTransactionAction) => {},
     bottomSheetRef: RefObject<BottomSheetRefProps>,
@@ -258,8 +259,11 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
 
                         <TouchableOpacity onPress={() => {
+
+
                             const transactionData: ITransactionActionTypes =
                                 {
+                                    transactionType:props.itemSelect === "available" ? TransactionTypes.CREDIT :TransactionTypes.DEBIT,
                                     amount: props.amount,
                                     category: props.itemKey,
                                     date: dateValue.toLocaleDateString(),
@@ -269,7 +273,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 }
 
 
-                            const balanceData: IBalanceActionTypes =
+                            const balanceData: IAddTransaction =
                                 {
                                     type: BalanceActionTypes.REDUCE_BALANCE,
                                     transactionAmount: props.amount
@@ -344,7 +348,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
         clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
-        reduceAvailable: (data: IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
+        reduceAvailable: (data: IAddTransaction) => dispatch(addTransactionBalanceChange(data)),
         addBalance: (data: IAddTransaction) => dispatch(addBalance(data)),
         categoryTransactionAction: (data: ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
     };
