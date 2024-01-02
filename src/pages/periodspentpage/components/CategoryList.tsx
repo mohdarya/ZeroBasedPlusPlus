@@ -10,6 +10,7 @@ import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx
 
 interface TransactionListProps {
     categories: ICategoryItem;
+    period: string
 }
 
 
@@ -39,12 +40,14 @@ function CategoryList(props: TransactionListProps) {
     function makeCategoryArray() {
         let temp = [];
         for (let key in props.categories) {
-            let tempItem = props.categories[key];
-            tempItem = {
-                ...tempItem,
-                categoryID: key,
-            };
-            temp.push(tempItem);
+            if(props.categories[key].frequency === props.period.toLowerCase()) {
+                let tempItem = props.categories[key];
+                tempItem = {
+                    ...tempItem,
+                    categoryID: key,
+                };
+                temp.push(tempItem);
+            }
         }
 
         return temp;

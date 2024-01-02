@@ -81,7 +81,7 @@ function PeriodSpentPage(props: PeriodSpentPageProps) {
                 <SpendingChart period={sourcePage} />
             </View>
             <View style={styles.transactionListView}>
-                <CategoryList/>
+                <CategoryList period={sourcePage}/>
             </View>
             <View style={styles.bottomBarView}>
                 <BottomBar bottomSheetRef={ref} page="CategoryListPage"/>

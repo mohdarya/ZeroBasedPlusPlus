@@ -70,8 +70,13 @@ function HomePage(props :IHomepageProp) {
         if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
         {
 
-        }
-        
+        }else if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
+        {
+
+        }else if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
+        {}
+
+
     }
   }, [appState]);
 
