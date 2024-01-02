@@ -1,6 +1,7 @@
 export enum CategoryActionTypes {
     ADD_CATEGORY = 'ADD_CATEGORY',
     CATEGORY_TRANSACTION_ACTION = 'CATEGORY_TRANSACTION_ACTION',
+    ALLOCATE_MONEY_TO_CATEGORY = 'ALLOCATE_MONEY_TO_CATEGORY',
 }
 export interface ICategoryItemDetails {
     name: string,
@@ -37,4 +38,11 @@ export interface ICategoryTransactionAction {
 }
 
 
-export type ICategoryActionTypes = IAddCategory & ICategoryTransactionAction
+export interface IAllocateMoneyToCategory {
+    type: CategoryActionTypes;
+    categoryID: string,
+    amount : number
+}
+
+
+export type ICategoryActionTypes = IAddCategory & ICategoryTransactionAction& IAllocateMoneyToCategory

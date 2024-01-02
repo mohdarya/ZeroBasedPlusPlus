@@ -55,6 +55,15 @@ export function categoryReducer(state: ICategoryItem = initialState, action: ICa
                     available: state[action.categoryID].available - action.amount,
                 }
             };
+            case CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY:
+            return {
+                ...state,
+                [action.categoryID]: {
+                    ...state[action.categoryID],
+                    available: state[action.categoryID].available + action.amount,
+                    allocated: state[action.categoryID].allocated + action.amount,
+                }
+            };
         default:
             return state;
     }

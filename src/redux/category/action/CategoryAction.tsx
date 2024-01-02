@@ -1,6 +1,6 @@
 import {
   CategoryActionTypes,
-  IAddCategory,
+  IAddCategory, IAllocateMoney, IAllocateMoneyToCategory,
   ICategoryItemDetails,
   ICategoryTransactionAction
 } from "../types/CategoryTypes.tsx";
@@ -19,6 +19,13 @@ export function categoryTransactionAction(payload : ICategoryTransactionAction) 
 
     ...payload,
     type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+  };
+}
+export function allocateMoneyToCategoryAction(payload : IAllocateMoneyToCategory) {
+  return {
+
+    ...payload,
+    type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY,
   };
 }
 

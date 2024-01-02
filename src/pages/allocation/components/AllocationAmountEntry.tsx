@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {useNavigation} from "@react-navigation/core";
+import {useNavigation, useRoute} from "@react-navigation/core";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import {
@@ -10,7 +10,8 @@ import {
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import {allocateMoney} from "../../../redux/balance/actions/balanceActions.tsx";
 import {BalanceActionTypes, IAllocateMoney} from "../../../redux/balance/types/balanceTypes.tsx";
-import NumberEntry from "../../shared/containers/NumberEntry.tsx";
+import {allocateMoneyToCategoryAction} from "../../../redux/category/action/CategoryAction.tsx";
+import {CategoryActionTypes, IAllocateMoneyToCategory} from "../../../redux/category/types/CategoryTypes.tsx";
 
 
 interface TransactionAdditionProps {
@@ -21,13 +22,16 @@ interface TransactionAdditionProps {
     returnNumeric: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
     clearData: (data: IComponentCommunicationAction) => {},
     allocateMoney: (data: IAllocateMoney) => {},
+    allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {},
 }
 
 function AllocationAmountEntry(props: TransactionAdditionProps) {
 
     const navigation = useNavigation();
+    const route = useRoute();
     const [allocationAction, setAllocationAction] = useState("add");
-
+    // @ts-ignore
+    const categoryID = route.params.categoryID;
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -173,7 +177,6 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
                                     number: 0.0,
                                     itemKey: ""
                                 };
-                                props.clearData(clearDataParameters);
                                 let amount : number  = props.amount
                                 if(allocationAction === "deduct") {
                                     amount = 0 - amount;
@@ -182,7 +185,16 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
                                     type: BalanceActionTypes.ALLOCATE_MONEY,
                                     allocationAmount: amount
                                 };
+                                const allocateMoneyToCategoryParameters: IAllocateMoneyToCategory = {
+                                    amount: amount, categoryID: categoryID, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
+
+                                };
+
+
+                                props.clearData(clearDataParameters);
+
                                 props.allocateMoney(allocateMoneyParameters);
+                                props.allocateMoneyToCategoryAction(allocateMoneyToCategoryParameters);
                                 navigation.goBack();
                             }}
                             onChangeText={text => {
@@ -235,6 +247,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         returnNumeric: (numeric: IComponentCommunicationAction) => dispatch(returnNumeric(numeric)),
         clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
         allocateMoney: (data: IAllocateMoney) => dispatch(allocateMoney(data)),
+        allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => dispatch(allocateMoneyToCategoryAction(data)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationAmountEntry);
