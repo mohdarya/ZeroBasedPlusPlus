@@ -19,6 +19,8 @@ import CategoryCreationPage
 import AllocationPage from './pages/allocation/AllocationPage';
 import TransferPage from './pages/transferpage/TransferPage';
 import PeriodSpentPage from './pages/periodspentpage/PeriodSpentPage';
+import AllocationAmountEntry
+  from './pages/allocation/components/AllocationAmountEntry';
 
 function App(props) {
 
@@ -50,6 +52,7 @@ function App(props) {
             <Stack.Screen name="AllocationPage" component={AllocationPage} />
             <Stack.Screen name="TransferPage" component={TransferPage} />
             <Stack.Screen name="PeriodSpentPage" component={PeriodSpentPage} />
+            <Stack.Screen name="AllocationAmountEntry" component={AllocationAmountEntry} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
