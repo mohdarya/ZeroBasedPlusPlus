@@ -14,8 +14,8 @@ import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {addTransaction} from "../../redux/transactions/action/TransactionsActions.tsx";
 import {ITransactionActionTypes, TransactionActionTypes} from "../../redux/transactions/types/transactionTypes.tsx";
-import {addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
-import {BalanceActionTypes, IBalanceActionTypes} from "../../redux/balance/types/balanceTypes.tsx";
+import {addBalance, addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
+import {BalanceActionTypes, IAddTransaction, IBalanceActionTypes} from "../../redux/balance/types/balanceTypes.tsx";
 import {categoryTransactionAction} from "../../redux/category/action/CategoryAction.tsx";
 import {
     CategoryActionTypes,
@@ -35,6 +35,7 @@ interface TransactionAdditionProps {
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
     reduceAvailable: (data: IBalanceActionTypes) => {},
+    addBalance: (data: IAddTransaction) => {},
     categoryTransactionAction: (data: ICategoryTransactionAction) => {},
     bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
@@ -187,13 +188,26 @@ function TransactionAddition(props: TransactionAdditionProps) {
                     </View>
 
                     <TouchableOpacity onPress={() => {
+
+                        let list = [
+                            {
+                                name: "available",
+                                id: ""
+
+                            }
+                        ]
+
+                        list = [...list,  ...Object.keys(props.categories).map((categoryKey: string) => ({
+                            name: props.categories[categoryKey].name,
+                            id: categoryKey
+                        }))]
+
+
+
                         // @ts-ignore
                         navigation.navigate('ListSelection',
                             {
-                                list: Object.keys(props.categories).map((categoryKey: string) => ({
-                                    name: props.categories[categoryKey].name,
-                                    id: categoryKey
-                                }))
+                                list
                             })
                     }} style={{
                         height: 100,
@@ -280,9 +294,17 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 number: 0.0,
                                 itemKey: ""
                             };
-                            props.reduceAvailable(balanceData);
+
+                            if(props.itemSelect === "available") {
+                                props.addBalance(balanceData);
+                            }
+                            else {
+                                props.reduceAvailable(balanceData);
+                                props.categoryTransactionAction(categoryData);
+                            }
+
                             props.addTransaction(transactionData);
-                            props.categoryTransactionAction(categoryData);
+
                             props.clearData(clearDataParameters);
                             props.bottomSheetRef.current?.scrollTo(0);
                         }} style={{
@@ -323,6 +345,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
         clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
         reduceAvailable: (data: IBalanceActionTypes) => dispatch(addTransactionBalanceChange(data)),
+        addBalance: (data: IAddTransaction) => dispatch(addBalance(data)),
         categoryTransactionAction: (data: ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
     };
 };

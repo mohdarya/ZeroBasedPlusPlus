@@ -1,6 +1,7 @@
 export enum BalanceActionTypes {
     REDUCE_BALANCE = 'REDUCE_BALANCE',
     ALLOCATE_MONEY = 'ALLOCATE_MONEY',
+    ADD_BALANCE= "ADD_BALANCE",
 }
 
 export interface IAddTransaction {

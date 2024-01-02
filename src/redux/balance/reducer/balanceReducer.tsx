@@ -14,6 +14,13 @@ export function balanceReducer(state: IBalanceState = initialState, action: IBal
                 ...state,
                 available: state.available - action.transactionAmount
             };
+        case BalanceActionTypes.ADD_BALANCE:
+            console.log(state);
+            return {
+                ...state,
+                available: state.available + action.transactionAmount,
+                unallocated: state.unallocated + action.transactionAmount
+            };
         case BalanceActionTypes.ALLOCATE_MONEY:
             return {
                 ...state,

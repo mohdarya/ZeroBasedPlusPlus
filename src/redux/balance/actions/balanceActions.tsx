@@ -8,6 +8,12 @@ export function addTransactionBalanceChange(payload : IAddTransaction) {
         ...payload,
         type: BalanceActionTypes.REDUCE_BALANCE,
     };
+}export function addBalance(payload : IAddTransaction) {
+    return {
+
+        ...payload,
+        type: BalanceActionTypes.ADD_BALANCE,
+    };
 }
 
 

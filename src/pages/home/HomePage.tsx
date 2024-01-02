@@ -98,6 +98,7 @@ const mapStateToProps = (state : RootState) => {
     itemSelect: state.communication.itemSelected,
     itemKey: state.communication.itemKey,
     payee: state.communication.text,
+    available: state.balance.available,
   };
 };
 export default connect(mapStateToProps)(HomePage);
