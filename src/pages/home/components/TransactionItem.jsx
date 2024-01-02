@@ -1,6 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import {
+  TransactionTypes
+} from '../../../redux/transactions/types/transactionTypes';
 
 function TransactionItem(props) {
   const Styles = StyleSheet.create({
@@ -45,12 +48,17 @@ function TransactionItem(props) {
             <Icon
               name="list"
               size={25}
-              style={{
+              style={[props.type === TransactionTypes.DEBIT ? {
                 backgroundColor: '#FF7171',
                 borderRadius: 100,
                 padding: 6,
                 color: '#282828',
-              }}
+              } : {
+                backgroundColor: '#71FFAA',
+                borderRadius: 100,
+                padding: 6,
+                color: '#282828',
+              } ]}
             />
           </View>
           <View style={{marginLeft: 10}}>

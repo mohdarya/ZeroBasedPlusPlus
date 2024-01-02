@@ -7,6 +7,7 @@ const initialState: ITransactionStateType = {
             amount: 200,
             date: '12/27/2023',
             payee: 'test',
+            type: TransactionTypes.DEBIT
         },
         {
 
@@ -14,6 +15,7 @@ const initialState: ITransactionStateType = {
             amount: 300,
             date: '12/27/2023',
             payee: 'test',
+            type: TransactionTypes.DEBIT
         },
         {
 
@@ -21,6 +23,7 @@ const initialState: ITransactionStateType = {
             amount: 400,
             date: '12/27/2023',
             payee: 'test',
+            type: TransactionTypes.DEBIT
         },
     ],
 };
