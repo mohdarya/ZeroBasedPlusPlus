@@ -5,13 +5,16 @@ import {RootState} from "../../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {
-    IComponentCommunicationAction
+    IComponentCommunicationAction, returnNumeric
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 
 
 interface TransactionAdditionProps {
     amount: number,
-
+    itemSelect: string,
+    itemKey: string,
+    payee: string,
+    returnNumeric: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
 }
 
 function AllocationAmountEntry(props: TransactionAdditionProps) {
@@ -101,44 +104,44 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
                 <View style={styles.amountView}>
 
 
-                            <TouchableOpacity onPress={() => {
-                                setAllocationAction("deduct")
-                            }} >
+                    <TouchableOpacity onPress={() => {
+                        setAllocationAction("deduct")
+                    }} >
 
-                            <View style={[{
-                                backgroundColor: '#CFE1CB',
-                                width: 90,
-                                height: 25,
-                                margin: 10,
-                                borderRadius: 5,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }, allocationAction === "deduct" ? styles.activeAction : null]}>
-                                <Text style={[{color: '#282828', textAlign: 'center', fontSize: 15},  allocationAction === "deduct" ? styles.activeAction : null]}>
-                                  Deduct
-                                </Text>
-                            </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => {
-                                setAllocationAction("add")
-                            }} >
+                        <View style={[{
+                            backgroundColor: '#CFE1CB',
+                            width: 90,
+                            height: 25,
+                            margin: 10,
+                            borderRadius: 5,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }, allocationAction === "deduct" ? styles.activeAction : null]}>
+                            <Text style={[{color: '#282828', textAlign: 'center', fontSize: 15},  allocationAction === "deduct" ? styles.activeAction : null]}>
+                                Deduct
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        setAllocationAction("add")
+                    }} >
 
-                            <View style={[{
-                                backgroundColor: '#CFE1CB',
-                                margin: 10,
-                                width: 90,
-                                height: 25,
-                                borderRadius: 5,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            },  allocationAction === "add" ? styles.activeAction : null]}>
-                                <Text style={[{color: '#282828', textAlign: 'center', fontSize: 15}, allocationAction === "add" ? styles.activeAction : null]}>
-                                    Add
-                                </Text>
-                            </View>
-                            </TouchableOpacity>
+                        <View style={[{
+                            backgroundColor: '#CFE1CB',
+                            margin: 10,
+                            width: 90,
+                            height: 25,
+                            borderRadius: 5,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        },  allocationAction === "add" ? styles.activeAction : null]}>
+                            <Text style={[{color: '#282828', textAlign: 'center', fontSize: 15}, allocationAction === "add" ? styles.activeAction : null]}>
+                                Add
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
 
 
 
@@ -158,7 +161,17 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
                                 navigation.goBack();
                             }}
                             onChangeText={text => {
+                                const returnNumericParameter: IComponentCommunicationAction = {
+                                    date: "",
+                                    itemSelected: "",
+                                    payee: "",
+                                    text: "",
+                                    type: "",
+                                    number: 0.0,
+                                    itemKey: ""
+                                };
 
+                                props.returnNumeric(returnNumericParameter);
 
                             }}
                             keyboardType={'numeric'}
@@ -183,14 +196,17 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
 const mapStateToProps = (state: RootState, ownProps: any) => {
     return {
         amount: state.communication.numeric,
-
+        categories: state.categories,
+        itemSelect: state.communication.itemSelected,
+        itemKey: state.communication.itemKey,
+        payee: state.communication.text,
     };
 };
 
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
-
+        returnNumeric: (numeric: IComponentCommunicationAction) => dispatch(returnNumeric(numeric)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AllocationAmountEntry);
