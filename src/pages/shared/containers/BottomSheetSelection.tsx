@@ -8,7 +8,7 @@ import {
     IComponentCommunicationAction
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import CategoryCreationPage from "../../categorycreation/CategoryCreationPage.tsx";
-import TransferPage from "../../transferpage/TransferPage";
+import TransferPage from "../../transferpage/TransferPage.tsx";
 import TransactionAddition from "../../transactionAddition/TransactionAddition.tsx";
 import AllocationPage from "../../allocation/AllocationPage.tsx";
 

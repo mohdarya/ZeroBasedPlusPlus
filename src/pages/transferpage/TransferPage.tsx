@@ -5,8 +5,24 @@ import BottomBar from '../shared/components/BottomBar';
 import Buttons from './components/Buttons';
 import CategoryItem from './components/CategoryLIstItem';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/core';
+import {RootState} from "../../redux/rootReducer.tsx";
+import {connect} from "react-redux";
+import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
 
-function TransferPage(props) {
+
+
+interface TransferPageProp {
+
+  amount : number,
+  itemKey: string,
+  categories: ICategoryItem,
+  from: string,
+  to: string,
+}
+function TransferPage(props : TransferPageProp) {
+
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -93,8 +109,8 @@ function TransferPage(props) {
               <Text style={{width: '100%', textAlign: 'left', fontSize: 20}}>
                 AED
               </Text>
-              <Text style={{width: '100%', textAlign: 'left', fontSize: 96}}>
-                5000
+              <Text style={{width: '100%', textAlign: 'left', fontSize: 90}}>
+                {props.amount == 0 ? "Amount": props.amount}
               </Text>
 
             </TouchableOpacity>
@@ -120,10 +136,22 @@ function TransferPage(props) {
 
               }}>
 
-                <View style={{width: '100%'}}>
-                  <CategoryItem name={'test'} frequency={'Daily'}
-                                available={'2000'}/>
-                </View>
+                <TouchableOpacity onPress={() => {
+
+                  // @ts-ignore
+                  navigation.navigate('ListSelection',
+                      {
+                        list: Object.keys(props.categories).map((categoryKey: string) => ({
+                          name: props.categories[categoryKey].name,
+                          id: categoryKey
+                        })),
+                        stateVariable: "from"
+                      })
+                }}  style={{width: '100%'}}>
+                  <CategoryItem name={props.from != '' ? props.categories[props.from].name : ""}
+                                frequency={props.from != '' ? props.categories[props.from].frequency : ""}
+                                available={props.from != '' ? props.categories[props.from].available : ""} spentThisMonth={props.from != '' ? props.categories[props.from].spentThisMonth : ""}/>
+                </TouchableOpacity>
 
               </View>
               <View style={{
@@ -161,10 +189,24 @@ function TransferPage(props) {
                 justifyContent: 'space-around',
               }}>
 
-                <View style={{width: '100%'}}>
-                  <CategoryItem name={'test'} frequency={'Daily'}
-                                available={'2000'}/>
-                </View>
+                <TouchableOpacity onPress={() => {
+
+
+
+                  // @ts-ignore
+                  navigation.navigate('ListSelection',
+                      {
+                        list: Object.keys(props.categories).map((categoryKey: string) => ({
+                          name: props.categories[categoryKey].name,
+                          id: categoryKey
+                        })),
+                        stateVariable: "to"
+                      })
+                }}  style={{width: '100%'}}>
+                  <CategoryItem name={props.to != '' ? props.categories[props.to].name : ""}
+                                frequency={props.to != '' ? props.categories[props.to].frequency : ""}
+                                available={props.to != '' ? props.categories[props.to].available : ""} spentThisMonth={props.to != '' ? props.categories[props.to].spentThisMonth : ""}/>
+                </TouchableOpacity>
 
               </View>
             </View>
@@ -176,5 +218,17 @@ function TransferPage(props) {
       </View>
   );
 }
+const mapStateToProps = (state: RootState) => {
 
-export default TransferPage;
+
+  return {
+    amount: state.communication.numeric,
+    categories: state.categories,
+    itemSelect: state.communication.itemSelected,
+    itemKey: state.communication.itemKey,
+    payee: state.communication.text,
+    from: state.communication.from,
+    to: state.communication.to,
+  };
+};
+export default connect(mapStateToProps)(TransferPage);

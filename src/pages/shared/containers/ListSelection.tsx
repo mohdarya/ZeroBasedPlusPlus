@@ -23,6 +23,9 @@ function ListSelection(props : ListSelectionProps) {
 
   // @ts-ignore
   const listToRender = route.params.list;
+  // @ts-ignore
+  const stateVariable = route.params.stateVariable;
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -72,7 +75,7 @@ function ListSelection(props : ListSelectionProps) {
           <FlatList
             data={listToRender}
             renderItem={({item}) => (
-              <ListSelectionItem key={item.id} id={item.id} value={item.name} />
+              <ListSelectionItem key={item.id} id={item.id} value={item.name} stateVariable={stateVariable === undefined ? "" : stateVariable } />
             )}
             keyExtractor={item => item.id}
           />

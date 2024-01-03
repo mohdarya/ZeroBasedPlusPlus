@@ -9,10 +9,10 @@ import {
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {
-    IComponentCommunicationAction,
+    IComponentCommunicationAction, IReturnFrom, IReturnTo, returnFrom,
     returnItemKey,
     returnItemSelected,
-    returnText,
+    returnText, returnTo,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
 import {RootState} from "../../../redux/rootReducer.tsx";
 
@@ -24,10 +24,14 @@ interface ListSelectionItemProp{
     id: string,
     returnItemSelected: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
     returnItemKey: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+    returnFrom: (IComponentCommunicationAction: IReturnFrom) => {},
+    returnTo: (IComponentCommunicationAction: IReturnTo) => {},
+    stateVariable: string,
 }
 
 function ListSelectionItem(props : ListSelectionItemProp) {
   const navigation = useNavigation();
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -86,17 +90,37 @@ function ListSelectionItem(props : ListSelectionItemProp) {
             }}>
             <TouchableOpacity
               onPress={() => {
-                  const returnParameter: IComponentCommunicationAction = {
-                      date: "",
-                      itemSelected:props.value,
-                      payee: "",
-                      text: "",
-                      type: "",
-                      number: 0.0,
-                      itemKey: props.id,
-                  };
-                props.returnItemKey(returnParameter);
-                props.returnItemSelected(returnParameter);
+
+
+                  if(props.stateVariable === "from") {
+                      const returnFrom : IReturnFrom  = {
+                          from: props.id, type: ""
+                      }
+                      props.returnFrom(returnFrom);
+                  }
+                  else if(props.stateVariable === "to") {
+                      const returnTo: IReturnTo = {
+                          to: props.id, type: ""
+
+                      };
+                      props.returnTo(returnTo);
+                  }else {
+                      const returnParameter: IComponentCommunicationAction = {
+                          from: "", to: "",
+                          date: "",
+                          itemSelected:props.value,
+                          payee: "",
+                          text: "",
+                          type: "",
+                          number: 0.0,
+                          itemKey: props.id
+                      };
+
+                      props.returnItemKey(returnParameter);
+                      props.returnItemSelected(returnParameter);
+                  }
+                
+
                 navigation.goBack();
               }}
                 // @ts-ignore
@@ -123,6 +147,8 @@ const mapDispatchToProps = (dispatch : any, ownProps : any) => {
   return {
     returnItemSelected: (item: IComponentCommunicationAction) => dispatch(returnItemSelected(item)),
   returnItemKey: (item: IComponentCommunicationAction) => dispatch(returnItemKey(item)),
+  returnFrom: (item: IReturnFrom) => dispatch(returnFrom(item)),
+  returnTo: (item: IReturnTo) => dispatch(returnTo(item)),
   };
 };
 export default connect(null, mapDispatchToProps)(ListSelectionItem);

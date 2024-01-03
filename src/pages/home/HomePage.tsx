@@ -121,7 +121,9 @@ const mapStateToProps = (state : RootState) => {
     itemKey: state.communication.itemKey,
     payee: state.communication.text,
     available: state.balance.available,
-    lastBalanceJob: state.appDetail.lastBalanceJob
+    lastBalanceJob: state.appDetail.lastBalanceJob,
+    from: state.communication.from,
+    to: state.communication.to,
   };
 };
 

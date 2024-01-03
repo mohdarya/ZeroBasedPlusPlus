@@ -10,6 +10,8 @@ interface IComponentCommunication{
   date: string,
   itemSelected: string,
   itemKey: string,
+  from: string,
+  to: string,
 
 }
 
@@ -20,6 +22,8 @@ const initialState = {
   date: '',
   itemSelected: '',
   itemKey: '',
+  from: '',
+  to: '',
 };
 
 export function ComponentCommunicationReducer(state : IComponentCommunication = initialState, action : IComponentCommunicationAction) {
@@ -55,6 +59,18 @@ export function ComponentCommunicationReducer(state : IComponentCommunication = 
       return {
         ...state,
         itemKey: action.itemKey,
+      };
+
+    case ComponentCommunicationActionTypes.RETURN_FROM:
+      return {
+        ...state,
+        from: action.from,
+      };
+
+    case ComponentCommunicationActionTypes.RETURN_TO:
+      return {
+        ...state,
+        to: action.to,
       };
     case ComponentCommunicationActionTypes.CLEAR_DATA:
       return initialState;

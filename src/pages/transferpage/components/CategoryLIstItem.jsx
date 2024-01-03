@@ -39,7 +39,7 @@ function CategoryItem(props) {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         flexDirection: 'row',
-                        width: '29%',
+                        width: '55%',
                     }}>
                     <View>
                         <Icon
