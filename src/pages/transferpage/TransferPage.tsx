@@ -8,7 +8,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
-import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
+import {IAllocateMoneyToCategory, ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
+import {
+  clearData,
+  IComponentCommunicationAction,
+  returnNumeric
+} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {IAllocateMoney} from "../../redux/balance/types/balanceTypes.tsx";
+import {allocateMoney} from "../../redux/balance/actions/balanceActions.tsx";
+import {allocateMoneyToCategoryAction} from "../../redux/category/action/CategoryAction.tsx";
 
 
 
@@ -19,6 +27,7 @@ interface TransferPageProp {
   categories: ICategoryItem,
   from: string,
   to: string,
+  allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {},
 }
 function TransferPage(props : TransferPageProp) {
 
@@ -229,6 +238,13 @@ const mapStateToProps = (state: RootState) => {
     payee: state.communication.text,
     from: state.communication.from,
     to: state.communication.to,
+
   };
 };
-export default connect(mapStateToProps)(TransferPage);
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+  return {
+    allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => dispatch(allocateMoneyToCategoryAction(data)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(TransferPage);

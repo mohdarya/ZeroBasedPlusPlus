@@ -73,7 +73,7 @@ function CategoryPage(props: CategoryPageProps) {
 
             <View style={{height: "90%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.graphView}>
-                    <Graph graphName="Weekly Spending" spentAmount={props.categories[categoryID].spentThisMonth}/>
+                    <Graph graphName="Weekly Spending" spentAmount={props.categories[categoryID].available}/>
                 </View>
 
                 <View style={styles.transactionSectionView}>

@@ -1,6 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {RootState} from "../../../redux/rootReducer.tsx";
+import {CategoryActionTypes, IAllocateMoneyToCategory} from "../../../redux/category/types/CategoryTypes.tsx";
+import {allocateMoneyToCategoryAction} from "../../../redux/category/action/CategoryAction.tsx";
+import {connect} from "react-redux";
+import {
+    clearData,
+    IComponentCommunicationAction
+} from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {BalanceActionTypes, IAllocateMoney} from "../../../redux/balance/types/balanceTypes.tsx";
 
 interface buttonsProps {
+    from: string,
+    amount: number,
+    to: string,
+    clearData: (data: IComponentCommunicationAction) => {},
+    allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {},
 }
 
 function Buttons(props: buttonsProps) {
@@ -45,16 +59,62 @@ function Buttons(props: buttonsProps) {
                         Cancel
                     </Text>
                 </View>
-                <View style={styles.amountView}>
+                <TouchableOpacity onPress={() => {
+                    const clearDataParameters: IComponentCommunicationAction = {
+                        from: "", to: "",
+                        date: "",
+                        itemSelected: "",
+                        payee: "",
+                        text: "",
+                        type: "",
+                        number: 0.0,
+                        itemKey: ""
+                    };
+                    let amount : number  = props.amount
+
+                        amount = 0 - amount;
+
+                    const deallocateMoneyFromCategoryParameters: IAllocateMoneyToCategory = {
+                        amount: amount, categoryID: props.from, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
+
+                    };
+
+                    const allocateMoneyToCategoryParameters: IAllocateMoneyToCategory = {
+                        amount: props.amount, categoryID: props.to, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
+
+                    };
+
+
+                    props.allocateMoneyToCategoryAction(deallocateMoneyFromCategoryParameters);
+                    props.allocateMoneyToCategoryAction(allocateMoneyToCategoryParameters);
+                    props.clearData(clearDataParameters);
+                }} style={styles.amountView}>
+
                     <Text style={{width: "auto", fontSize: 20}}>
                         Transfer
                     </Text>
 
-                </View>
+                </TouchableOpacity>
 
             </View>
         </View>
     );
 }
+const mapStateToProps = (state: RootState) => {
 
-export default Buttons;
+
+    return {
+        amount: state.communication.numeric,
+        from: state.communication.from,
+        to: state.communication.to,
+
+    };
+};
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
+        clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+        allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => dispatch(allocateMoneyToCategoryAction(data)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons);
