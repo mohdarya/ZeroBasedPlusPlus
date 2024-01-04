@@ -1,8 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {RootState} from "../../../redux/rootReducer.tsx";
+import {ISetBalanceJobTime} from "../../../redux/appDetails/types/AppDetailTypes.tsx";
+import {setBalanceJobTime} from "../../../redux/appDetails/actions/AppDetailActions.tsx";
+import {connect} from "react-redux";
 
 interface SpendingChartProps {
-    period: string
+    period: string,
+    remaining: number
 }
 
 
@@ -53,7 +58,7 @@ function SpendingChart(props: SpendingChartProps) {
                             { props.period + " Spending"}
                         </Text>
                         <Text style={{color: '#282828', fontSize: 64, fontWeight: 'bold'}}>
-                            50000
+                            {props.remaining}
                         </Text>
                     </View>
                     <View style={{width: '90%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
@@ -69,5 +74,20 @@ function SpendingChart(props: SpendingChartProps) {
         </View>
     );
 }
+const mapStateToProps = (state : RootState, ownProp: SpendingChartProps) => {
 
-export default SpendingChart;
+
+    return {
+        remaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ===ownProp.period.toLowerCase()))).reduce((accumulator, value) => {
+            return accumulator + value.available;
+        }, 0),
+
+    };
+};
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
+        setBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setBalanceJobTime(data)),
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(SpendingChart);

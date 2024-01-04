@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
+import {LineGraph} from 'react-native-graph';
 
 function Graph(props) {
   return (
@@ -25,6 +26,13 @@ function Graph(props) {
             <Text style={{color: '#282828', fontSize: 35}}>
               {props.available}
             </Text>
+            <LineGraph animated={false} points={[{
+              date: new Date(),
+              value: 1
+            },{
+              date: new Date(),
+              value: 1
+            }]} color={"#282828"}/>
           </View>
           <View style={{height: '50%'}}>
 
