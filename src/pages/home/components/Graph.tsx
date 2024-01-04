@@ -49,9 +49,33 @@ function Graph(props : any) {
 
           <View style={{height: '50%', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LineChart.Provider data={data}>
-                  <LineChart height={130} width={320}>
+                  <LineChart height={110} width={300}>
                       <LineChart.Path />
-                      <LineChart.CursorCrosshair />
+                      <LineChart.CursorCrosshair>
+                          <LineChart.Tooltip   textStyle={{
+                              backgroundColor: '#282828',
+                              borderRadius: 5,
+                              color: '#CFE1CB',
+                              fontSize: 12,
+                              padding: 4,
+                          }} />
+                              <LineChart.Tooltip  position="bottom">
+
+                                  <LineChart.DatetimeText style={{
+                                      backgroundColor: '#282828',
+                                      borderRadius: 5,
+                                      color: '#CFE1CB',
+                                      fontSize: 12,
+                                      padding: 4,
+                                  }}
+                                                          options={{
+                                                              year: 'numeric',
+                                                              month: 'numeric',
+                                                              day: 'numeric',
+
+                                                          }} />
+                              </LineChart.Tooltip>
+                      </LineChart.CursorCrosshair>
                   </LineChart>
               </LineChart.Provider>
           </View>
