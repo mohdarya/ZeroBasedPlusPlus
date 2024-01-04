@@ -79,28 +79,41 @@ function NumberEntry(props : NumberEntryProp) {
                         </Text>
                         <View>
                             <TextInput
-                                defaultValue={String(props.amount === 0.0 ? '' : props.amount)}
+                                defaultValue={String(amount === 0.0 ? '' : amount)}
                                 pointerEvents={'none'}
                                 placeholder={'0.00'}
                                 selectTextOnFocus={true}
                                 autoFocus={true}
                                 onSubmitEditing={event => {
-                                }}
-                                onEndEditing={event => {
-                                    navigation.goBack();
-                                }}
-                                onChangeText={text => {
                                     const returnNumericParameter: IComponentCommunicationAction = {
                                         date: "",
                                         itemSelected: "",
                                         payee: "",
                                         text: "",
                                         type: "",
-                                        number: money_round(text),
+                                        number: amount,
                                         itemKey: ""
                                     };
 
-                                        props.returnNumeric(returnNumericParameter);
+                                    props.returnNumeric(returnNumericParameter);
+                                }}
+                                onEndEditing={event => {
+                                    const returnNumericParameter: IComponentCommunicationAction = {
+                                        date: "",
+                                        itemSelected: "",
+                                        payee: "",
+                                        text: "",
+                                        type: "",
+                                        number: amount,
+                                        itemKey: ""
+                                    };
+
+                                    props.returnNumeric(returnNumericParameter);
+                                    navigation.goBack();
+                                }}
+                                onChangeText={text => {
+
+                                    setAmount(money_round(text))
 
                                 }}
                                 keyboardType={'numeric'}
