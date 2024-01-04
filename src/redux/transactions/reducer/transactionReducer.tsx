@@ -1,4 +1,5 @@
 import {ITransactionActionTypes, TransactionActionTypes, TransactionTypes} from "../types/transactionTypes.tsx";
+import {act} from "react-test-renderer";
 
 const initialState: ITransactionStateType = {
     transactions: [

@@ -290,6 +290,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                                 }
                             const clearDataParameters: IComponentCommunicationAction = {
+                                from: "", to: "",
                                 date: "",
                                 itemSelected: "",
                                 payee: "",

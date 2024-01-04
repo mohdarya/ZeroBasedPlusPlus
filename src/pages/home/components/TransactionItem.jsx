@@ -19,6 +19,7 @@ function TransactionItem(props) {
     },
   });
 
+  console.log(props.type)
   return (
     <View style={Styles.container}>
       <View
@@ -48,7 +49,7 @@ function TransactionItem(props) {
             <Icon
               name="list"
               size={25}
-              style={[props.type === TransactionTypes.DEBIT ? {
+              style={props.type === TransactionTypes.DEBIT ? {
                 backgroundColor: '#FF7171',
                 borderRadius: 100,
                 padding: 6,
@@ -58,7 +59,7 @@ function TransactionItem(props) {
                 borderRadius: 100,
                 padding: 6,
                 color: '#282828',
-              } ]}
+              } }
             />
           </View>
           <View style={{marginLeft: 10}}>
