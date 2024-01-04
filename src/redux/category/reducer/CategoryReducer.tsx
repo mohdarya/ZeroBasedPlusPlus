@@ -28,7 +28,7 @@ const initialState = {
         budget: 0
     },
     'a15339ab-4d99-4d63-ad58-26e573792eb5': {
-        name: 'category test 3',
+        name: 'category test 4',
         spentThisMonth: 180.00,
         available: 300.00,
         allocated: 300.00,
