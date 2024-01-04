@@ -1,10 +1,26 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
-import {LineGraph} from 'react-native-graph';
+import {LineChart} from "react-native-wagmi-charts";
+import {center} from "@shopify/react-native-skia";
 
-function Graph(props) {
+
+
+
+function Graph(props : any) {
+
+    let data : {value: number,
+        timestamp: number}[] = [
+        { value: 100,
+            timestamp: new Date('2023-07-16T00:00:00.000Z').getTime()},
+        { value: 23,
+            timestamp: new Date('2023-07-19T14:23:21.723Z').getTime()},
+        { value: 299,
+            timestamp: new Date('2023-07-19T14:23:31.384Z').getTime() },
+
+
+    ]
+
   return (
 
         <View
@@ -18,6 +34,7 @@ function Graph(props) {
           <View
             style={{
               height: '25%',
+                width: '100%',
               margin: 15,
             }}>
             <Text style={{color: '#282828', fontSize: 20}}>
@@ -26,17 +43,19 @@ function Graph(props) {
             <Text style={{color: '#282828', fontSize: 35}}>
               {props.available}
             </Text>
-            <LineGraph animated={false} points={[{
-              date: new Date(),
-              value: 1
-            },{
-              date: new Date(),
-              value: 1
-            }]} color={"#282828"}/>
-          </View>
-          <View style={{height: '50%'}}>
+
 
           </View>
+
+          <View style={{height: '50%', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <LineChart.Provider data={data}>
+                  <LineChart height={130} width={320}>
+                      <LineChart.Path />
+                      <LineChart.CursorCrosshair />
+                  </LineChart>
+              </LineChart.Provider>
+          </View>
+
           <View style={{display: 'flex',flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center'}}>
             <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <Text style={{color: '#E9EEEA', textAlign: 'center'}}>

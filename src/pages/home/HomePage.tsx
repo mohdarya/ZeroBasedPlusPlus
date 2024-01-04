@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import TransactionSection from './components/TransactionSection';
-import Graph from './components/Graph';
+import Graph from './components/Graph.tsx';
 import BottomBar from '../shared/components/BottomBar';
 import BalanceInfo from './components/BalanceInfo';
 import {connect} from 'react-redux';
