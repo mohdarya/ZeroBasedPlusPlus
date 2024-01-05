@@ -159,7 +159,7 @@ function TransferPage(props : TransferPageProp) {
                 }}  style={{width: '100%'}}>
                   <CategoryItem name={props.from != '' ? props.categories[props.from].name : ""}
                                 frequency={props.from != '' ? props.categories[props.from].frequency : ""}
-                                available={props.from != '' ? props.categories[props.from].available : ""} spentThisMonth={props.from != '' ? props.categories[props.from].spentThisMonth : ""}/>
+                                available={props.from != '' ? props.categories[props.from].available : ""} spent={props.from != '' ? props.categories[props.from].spent : ""}/>
                 </TouchableOpacity>
 
               </View>
@@ -214,7 +214,7 @@ function TransferPage(props : TransferPageProp) {
                 }}  style={{width: '100%'}}>
                   <CategoryItem name={props.to != '' ? props.categories[props.to].name : ""}
                                 frequency={props.to != '' ? props.categories[props.to].frequency : ""}
-                                available={props.to != '' ? props.categories[props.to].available : ""} spentThisMonth={props.to != '' ? props.categories[props.to].spentThisMonth : ""}/>
+                                available={props.to != '' ? props.categories[props.to].available : ""} spent={props.to != '' ? props.categories[props.to].spent : ""}/>
                 </TouchableOpacity>
 
               </View>

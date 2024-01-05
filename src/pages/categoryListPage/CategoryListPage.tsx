@@ -17,7 +17,7 @@ interface CategoryListPageProps {
     name: string,
     allocated: number,
     available: number,
-    spentThisMonth: number
+    spent: number
 }
 
 function CategoryListPage(props: CategoryListPageProps) {

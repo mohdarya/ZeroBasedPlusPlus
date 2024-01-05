@@ -13,7 +13,7 @@ interface PeriodSpentPageProps {
     name: string,
     allocated: number,
     available: number,
-    spentThisMonth: number
+    spent: number
 }
 
 function PeriodSpentPage(props: PeriodSpentPageProps) {

@@ -82,7 +82,7 @@ function Buttons(props: buttonsProps) {
                             categoryID: uuid.v4().toString(),
                             frequency: props.itemSelect,
                             name: props.text,
-                            spentThisMonth: 0.00,
+                            spent: 0.00,
                             type: CategoryActionTypes.ADD_CATEGORY,
                             budget: props.amount,
 

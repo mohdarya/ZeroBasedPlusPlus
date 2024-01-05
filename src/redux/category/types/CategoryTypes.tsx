@@ -5,7 +5,7 @@ export enum CategoryActionTypes {
 }
 export interface ICategoryItemDetails {
     name: string,
-    spentThisMonth: number,
+    spent: number,
     available: number,
     allocated: number,
     frequency: string,
@@ -23,7 +23,7 @@ export interface ICategoryItem {
 export interface IAddCategory {
     type: CategoryActionTypes;
     name: string,
-    spentThisMonth: number,
+    spent: number,
     available: number,
     allocated: number,
     frequency: string,

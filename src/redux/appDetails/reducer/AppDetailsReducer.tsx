@@ -3,7 +3,12 @@ import {AppDetailActionTypes, IAppDetailActionTypes} from "../types/AppDetailTyp
 interface IAppDetails {
 
     categoryFrequency: string[]
-    lastBalanceJob: number,
+    lastDailyBalanceJob: number,
+    lastWeeklyBalanceJob: number,
+    lastMonthlyJob: number,
+
+
+
 
 
 }
@@ -16,7 +21,9 @@ const initialState = {
         'Monthly',
         'No-Limit'
     ],
-    lastBalanceJob: 0
+    lastDailyBalanceJob: 0,
+    lastWeeklyBalanceJob: 0,
+    lastMonthlyJob: 0,
 };
 
 export function AppDetailReducer(state: IAppDetails = initialState, action: IAppDetailActionTypes) {

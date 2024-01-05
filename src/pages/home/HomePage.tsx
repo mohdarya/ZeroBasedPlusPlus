@@ -16,7 +16,9 @@ import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/t
 interface IHomepageProp {
   dailyRemaining: number,
   weeklyRemaining: number,
-  lastBalanceJob: number,
+  lastDailyBalanceJob: number,
+  lastWeeklyBalanceJob: number,
+  lastMonthlyJob: number,
   setBalanceJobTime: (data: ISetBalanceJobTime) => {},
 }
 function HomePage(props :IHomepageProp) {
@@ -67,16 +69,16 @@ function HomePage(props :IHomepageProp) {
       let date12Am : Date = new Date();
       date12Am.setHours(0,0,0,0)
 
-        if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
+        if(dateNow.getTime() - props.lastDailyBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastDailyBalanceJob )
         {
 
-        }else if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
+        }else if(dateNow.getTime() - props.lastWeeklyBalanceJob  > 4234000000 ||  date12Am.getTime() > props.lastWeeklyBalanceJob )
         {
 
-        }else if(dateNow.getTime() - props.lastBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastBalanceJob )
-        {}
+        }else if(dateNow.getTime() - props.lastMonthlyJob  > 2628000000 ||  date12Am.getTime() > props.lastMonthlyJob )
+        {
 
-
+        }
     }
   }, [appState]);
 
@@ -121,7 +123,9 @@ const mapStateToProps = (state : RootState) => {
     itemKey: state.communication.itemKey,
     payee: state.communication.text,
     available: state.balance.available,
-    lastBalanceJob: state.appDetail.lastBalanceJob,
+    lastDailyBalanceJob: state.appDetail.lastDailyBalanceJob,
+    lastWeeklyBalanceJob: state.appDetail.lastWeeklyBalanceJob,
+    lastMonthlyJob: state.appDetail.lastMonthlyJob,
     from: state.communication.from,
     to: state.communication.to,
   };
