@@ -167,8 +167,8 @@ function TransactionAddition(props: TransactionAdditionProps) {
                         <Text style={{width: '100%', textAlign: 'left',fontSize: 20}}>
                             AED
                         </Text>
-                        <Text style={{width: '100%', textAlign: 'left', fontSize: 96}}>
-                            {props.amount}
+                        <Text style={{width: '100%', textAlign: 'left', fontSize: 90}}>
+                            {props.amount === 0 ? "Amount" : props.amount}
                         </Text>
 
                     </TouchableOpacity>
