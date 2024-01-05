@@ -1,27 +1,34 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
 import {LineChart} from "react-native-wagmi-charts";
 import {center} from "@shopify/react-native-skia";
+import {useAppState} from "@react-native-community/hooks";
+import {useIsFocused} from "@react-navigation/native";
+import {RootState} from "../../../redux/rootReducer.tsx";
 
 
 
 
 function Graph(props : any) {
 
-    let data : {value: number,
-        timestamp: number}[] = [
-        { value: 100,
-            timestamp: new Date('2023-07-16T00:00:00.000Z').getTime()},
-        { value: 23,
-            timestamp: new Date('2023-07-19T14:23:21.723Z').getTime()},
-        { value: 299,
-            timestamp: new Date('2023-07-19T14:23:31.384Z').getTime() },
+
+    const [data,setData] = useState(props.statistics.daily);
+    const [dataToShow, setDataToShow] = useState('daily');
+    const styles = StyleSheet.create({
+
+        activeAction: {
+            backgroundColor: '#282828',
+            color: '#B1BBAE'
+        }
+
+    });
 
 
-    ]
-
-  return (
+    useEffect(() => {
+        setData(props.statistics[dataToShow]);
+    }, [dataToShow]);
+    return (
 
         <View
           style={{
@@ -47,21 +54,21 @@ function Graph(props : any) {
 
           </View>
 
-          <View style={{height: '50%', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{height: '50%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
               <LineChart.Provider data={data}>
-                  <LineChart height={110} width={300}>
+                  <LineChart height={110} width={340}>
                       <LineChart.Path />
-                      <LineChart.CursorCrosshair>
+
+                      <LineChart.CursorCrosshair >
                           <LineChart.Tooltip   textStyle={{
                               backgroundColor: '#282828',
                               borderRadius: 5,
                               color: '#CFE1CB',
-                              fontSize: 12,
-                              padding: 4,
-                          }} />
-                              <LineChart.Tooltip  position="bottom">
+                              fontSize: 13,
+                          }} position="top"/>
+                              <LineChart.Tooltip   position="bottom">
 
-                                  <LineChart.DatetimeText style={{
+                                  <LineChart.DatetimeText  style={{
                                       backgroundColor: '#282828',
                                       borderRadius: 5,
                                       color: '#CFE1CB',
@@ -81,28 +88,56 @@ function Graph(props : any) {
           </View>
 
           <View style={{display: 'flex',flexDirection: 'row', width: '100%', justifyContent: 'space-around', alignItems: 'center'}}>
-            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+            <TouchableOpacity onPress={() => { setDataToShow("monthly")}} style={[{
+                backgroundColor: '#B1BBAE',
+
+                width: 90,
+                height: 25,
+                borderRadius: 5,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            },  dataToShow === "monthly" ? styles.activeAction : null]}>
+              <Text  style={[{color: '#282828', textAlign: 'center', fontSize: 15}, dataToShow === "monthly" ? styles.activeAction : null]}>
                 Month
               </Text>
-            </View>
-            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
-                Week
-              </Text>
-            </View>
-            <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
-                Day
-              </Text>
-            </View>
+            </TouchableOpacity>
+              <TouchableOpacity onPress={() => { setDataToShow("weekly")}}  style={[{
+                  backgroundColor: '#B1BBAE',
+
+                  width: 90,
+                  height: 25,
+                  borderRadius: 5,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+              },  dataToShow === "weekly" ? styles.activeAction : null]}>
+                  <Text  style={[{color: '#282828', textAlign: 'center', fontSize: 15}, dataToShow === "weekly" ? styles.activeAction : null]}>
+                      Weekly
+                  </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => { setDataToShow("daily")}}  style={[{
+                  backgroundColor: '#B1BBAE',
+
+                  width: 90,
+                  height: 25,
+                  borderRadius: 5,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+              },  dataToShow === "daily" ? styles.activeAction : null]}>
+                  <Text  style={[{color: '#282828', textAlign: 'center', fontSize: 15}, dataToShow === "daily" ? styles.activeAction : null]}>
+                      Daily
+                  </Text>
+              </TouchableOpacity>
           </View>
         </View>
   );
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
   return {
     available: state.balance.available,
+      statistics: state.statistics
   };
 };
 export default connect(mapStateToProps)(Graph);

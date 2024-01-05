@@ -19,7 +19,6 @@ function TransactionItem(props) {
     },
   });
 
-  console.log(props.type)
   return (
     <View style={Styles.container}>
       <View
