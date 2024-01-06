@@ -7,7 +7,7 @@ import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 
 interface  CategoryItemProps{
     available: number,
-    spent: number;
+    periodSpent: number;
     name: string
 
 }
