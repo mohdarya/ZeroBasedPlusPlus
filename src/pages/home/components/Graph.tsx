@@ -41,7 +41,7 @@ function Graph(props : any) {
 
     useEffect(() => {
         setData(props.statistics[dataToShow].slice(props.statistics[dataToShow].length - 1 > datePeriods[graphPeriodIndex] ?props.statistics[dataToShow].length - 1 - datePeriods[graphPeriodIndex] : 0, props.statistics[dataToShow].length - 1 ));
-    }, [dataToShow,graphPeriodIndex]);
+    }, [dataToShow,graphPeriodIndex, props.statistics]);
     return (
 
         <View
