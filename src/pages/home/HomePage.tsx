@@ -119,6 +119,7 @@ function HomePage(props :IHomepageProp) {
 
         Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='daily'))).map((value, index) => {value.periodSpent = 0});
 
+
         const balanceVariable : ISetBalanceJobTime = {
           time: date12Am.getTime(),
           type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
@@ -158,7 +159,7 @@ function HomePage(props :IHomepageProp) {
         props.addTotalStatistics(totalStatisticsVariable);
 
         props.setDailyBalanceJobTime(balanceVariable);
-
+        Object.values(  Object.fromEntries(Object.entries(categories))).map((value, index) => {value.dailySpent = 0});
         updated = true;
 
 
