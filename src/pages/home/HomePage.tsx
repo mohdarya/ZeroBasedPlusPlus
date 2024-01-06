@@ -9,17 +9,42 @@ import BottomSheet, {BottomSheetRefProps} from '../shared/components/bottomSheet
 import {RootState} from "../../redux/rootReducer.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import {useAppState} from "@react-native-community/hooks";
-import {setBalanceJobTime} from "../../redux/appDetails/actions/AppDetailActions.tsx";
+import {
+    setDailyBalanceJobTime,
+    setMonthlyBalanceJobTime,
+    setWeeklyBalanceJobTime
+} from "../../redux/appDetails/actions/AppDetailActions.tsx";
 import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/types/AppDetailTypes.tsx";
+import {CategoryActionTypes, ICategoryItem, IUpdateCategoryAction} from "../../redux/category/types/CategoryTypes.tsx";
+import {
+    addDailyStatistics,
+    addMonthlyStatistics,
+    addWeeklyStatistics
+} from "../../redux/statistics/action/StatisticsActions.tsx";
+import {IAddStatistics, StatisticsActionTypes} from "../../redux/statistics/types/StatisticsTypes.tsx";
+import {updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
 
 
 interface IHomepageProp {
   dailyRemaining: number,
   weeklyRemaining: number,
+  monthlyRemaining: number,
+
   lastDailyBalanceJob: number,
   lastWeeklyBalanceJob: number,
   lastMonthlyJob: number,
-  setBalanceJobTime: (data: ISetBalanceJobTime) => {},
+
+  setDailyBalanceJobTime: (data: ISetBalanceJobTime) => {},
+  setWeeklyBalanceJobTime: (data: ISetBalanceJobTime) => {},
+  setMonthlyBalanceJobTime: (data: ISetBalanceJobTime) => {},
+
+  addDailyStatistics: (data: IAddStatistics) => {},
+  addWeeklyStatistics: (data: IAddStatistics) => {},
+  addMonthlyStatistics: (data: IAddStatistics) => {},
+  updateCategoriesState: (data: IUpdateCategoryAction) => {},
+
+  categories: ICategoryItem,
+  available: number,
 }
 function HomePage(props :IHomepageProp) {
   const ref = useRef<BottomSheetRefProps>(null);
@@ -63,23 +88,115 @@ function HomePage(props :IHomepageProp) {
     },
   });
   useEffect(() => {
-    if(appState === "active")
-    {
+
+
       let dateNow : Date = new Date();
       let date12Am : Date = new Date();
+      let dateMonday : Date = new Date();
+      let dateLastMonday : Date = new Date();
+      let updated: boolean  = false;
+    let categories = props.categories;
       date12Am.setHours(0,0,0,0)
+    let target = 1;
+      if(dateNow.getDay() !== 1)
+      {
+    dateMonday.setDate(dateNow.getDate() - ( dateNow.getDay() == target ? 7 : (dateNow.getDay() + (7 - target)) % 7 ))
+        }
+    dateMonday.setHours(0, 0, 0, 0)
 
-        if(dateNow.getTime() - props.lastDailyBalanceJob  > 86400000 ||  date12Am.getTime() > props.lastDailyBalanceJob )
-        {
 
-        }else if(dateNow.getTime() - props.lastWeeklyBalanceJob  > 4234000000 ||  date12Am.getTime() > props.lastWeeklyBalanceJob )
-        {
+    dateLastMonday.setDate(dateNow.getDate() - ( dateNow.getDay() == target ? 7 : (dateNow.getDay() + (7 - target)) % 7 ))
+    dateLastMonday.setHours(0, 0, 0, 0)
 
-        }else if(dateNow.getTime() - props.lastMonthlyJob  > 2628000000 ||  date12Am.getTime() > props.lastMonthlyJob )
-        {
+      if((dateNow.getTime() - props.lastDailyBalanceJob  > 86400000 && props.lastDailyBalanceJob !== 0) || (dateNow.getTime() >= date12Am.getTime() && props.lastDailyBalanceJob === 0))
+      {
+
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='daily'))).map((value, index) => {value.spent = 0});
+
+        const balanceVariable : ISetBalanceJobTime = {
+          time: date12Am.getTime(),
+          type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
 
         }
-    }
+        const dailyStatisticsVariable : IAddStatistics = {
+          type: StatisticsActionTypes.ADD_DAILY_STATISTICS,
+          value: props.dailyRemaining,
+          timestamp: date12Am.getTime()
+        }
+
+        const weeklyStatisticsVariable : IAddStatistics = {
+          type: StatisticsActionTypes.ADD_WEEKLY_STATISTICS,
+          value: props.weeklyRemaining,
+          timestamp:  dateMonday.getTime()
+        }
+
+
+        const monthlyStatisticsVariable : IAddStatistics = {
+          type: StatisticsActionTypes.ADD_MONTHLY_STATISTICS,
+          value: props.monthlyRemaining,
+          timestamp: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime()
+        }
+
+
+        props.addMonthlyStatistics(monthlyStatisticsVariable);
+        props.addWeeklyStatistics(weeklyStatisticsVariable);
+        props.addDailyStatistics(dailyStatisticsVariable);
+
+        props.setDailyBalanceJobTime(balanceVariable);
+
+        updated = true;
+
+
+      } if((dateNow.getTime() - props.lastWeeklyBalanceJob  >  604800000 && props.lastWeeklyBalanceJob !== 0) || (dateNow.getTime() - dateLastMonday.getTime()  >  604800000 && props.lastWeeklyBalanceJob === 0) )
+      {
+
+
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='weekly'))).map((value, index) => {value.spent = 0});
+
+        const balanceVariable : ISetBalanceJobTime = {
+          time:  dateNow.getDay() === 1 ? dateLastMonday.getTime(): dateNow.getTime(),
+          type: AppDetailActionTypes.SET_WEEKLY_BALANCE_JOB_TIME,
+
+        }
+
+
+
+
+        props.setWeeklyBalanceJobTime(balanceVariable);
+
+
+        updated = true;
+      } if((dateNow.getTime() - props.lastMonthlyJob  > (new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getDate() * 86400000)   && props.lastMonthlyJob !== 0) || (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0))
+      {
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='monthly'))).map((value, index) => {value.spent = 0});
+        const balanceVariable : ISetBalanceJobTime = {
+          time: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime(),
+          type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,
+
+        }
+
+
+
+        props.setMonthlyBalanceJobTime(balanceVariable);
+
+
+        updated = true;
+      }
+
+
+      if(updated)
+      {
+          const categoryActionVariable : IUpdateCategoryAction = {
+              categories: categories,
+              type: CategoryActionTypes.UPDATE_CATEGORIES
+          }
+        props.updateCategoriesState(categoryActionVariable);
+      }
+
+
+
+
+
   }, [appState]);
 
   return (
@@ -111,10 +228,13 @@ const mapStateToProps = (state : RootState) => {
 
   return {
     dailyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
-      return accumulator + value.available;
+      return accumulator + value.spent;
     }, 0),
     weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
-      return accumulator + value.available;
+      return accumulator + value.spent;
+    }, 0),
+    monthlyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='monthly'))).reduce((accumulator, value) => {
+      return accumulator + value.spent;
     }, 0),
     transactions: state.transactions,
     amount: state.communication.numeric,
@@ -128,12 +248,21 @@ const mapStateToProps = (state : RootState) => {
     lastMonthlyJob: state.appDetail.lastMonthlyJob,
     from: state.communication.from,
     to: state.communication.to,
+    statistics:state.statistics
   };
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    setBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setBalanceJobTime(data)),
+    setDailyBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setDailyBalanceJobTime(data)),
+    setWeeklyBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setWeeklyBalanceJobTime(data)),
+    setMonthlyBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setMonthlyBalanceJobTime(data)),
+
+    addDailyStatistics: (data: IAddStatistics) => dispatch(addDailyStatistics(data)),
+    addWeeklyStatistics: (data: IAddStatistics) => dispatch(addWeeklyStatistics(data)),
+    addMonthlyStatistics: (data: IAddStatistics) => dispatch(addMonthlyStatistics(data)),
+
+    updateCategoriesState: (data: IUpdateCategoryAction) => dispatch(updateCategoriesState(data)),
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(HomePage);

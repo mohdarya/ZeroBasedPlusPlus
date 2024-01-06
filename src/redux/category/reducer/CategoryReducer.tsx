@@ -37,8 +37,10 @@ const initialState = {
     },
 };
 
-export function categoryReducer(state: ICategoryItem = initialState, action: ICategoryActionTypes) {
-    switch (action.type) {
+export function categoryReducer(state: ICategoryItem = initialState, action: ICategoryActionTypes)
+{
+    switch (action.type)
+    {
         case CategoryActionTypes.ADD_CATEGORY:
             return {
                 ...state,
@@ -55,7 +57,7 @@ export function categoryReducer(state: ICategoryItem = initialState, action: ICa
                     available: state[action.categoryID].available - action.amount,
                 }
             };
-            case CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY:
+        case CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY:
             return {
                 ...state,
                 [action.categoryID]: {
@@ -63,7 +65,12 @@ export function categoryReducer(state: ICategoryItem = initialState, action: ICa
                     available: state[action.categoryID].available + action.amount,
                     allocated: state[action.categoryID].allocated + action.amount,
                 }
-            };
+            }
+        case CategoryActionTypes.UPDATE_CATEGORIES:
+            return {
+                ...state,
+                ...action.categories
+            }
         default:
             return state;
     }

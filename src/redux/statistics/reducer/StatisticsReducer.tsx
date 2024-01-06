@@ -1,144 +1,79 @@
-import {IStatisticsActionTypes, IStatisticsState} from "../types/StatisticsTypes.tsx";
+import {
+    IStatisticsActionTypes,
+    IStatisticsItem,
+    IStatisticsState,
+    StatisticsActionTypes
+} from "../types/StatisticsTypes.tsx";
+import {CategoryActionTypes} from "../../category/types/CategoryTypes.tsx";
+import {act} from "react-test-renderer";
 
 const initialState: IStatisticsState = {
-    daily: [{
-        value: 100,
-        timestamp: new Date('2023-07-16T00:00:00.000Z').getTime()
-        },
-        {
-            value: 23,
-            timestamp: new Date('2023-07-19T14:23:21.723Z').getTime()
-        },
-        {
-            value: 299,
-            timestamp: new Date('2023-07-20T14:23:31.384Z').getTime()
-        },
-        {
-            value: 300,
-            timestamp: new Date('2023-07-21T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1200,
-            timestamp: new Date('2023-07-22T14:23:31.384Z').getTime()
-        },
-        {
-            value: 2000,
-            timestamp: new Date('2023-07-23T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1201,
-            timestamp: new Date('2023-07-24T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1000,
-            timestamp: new Date('2023-07-25T14:23:31.384Z').getTime()
-        },
-        {
-            value: 0,
-            timestamp: new Date('2023-07-26T14:23:31.384Z').getTime()
-        },
-        {
-            value: 500,
-            timestamp: new Date('2023-07-27T14:23:31.384Z').getTime()
-        },
-        {
-            value: 8000,
-            timestamp: new Date('2023-07-28T14:23:31.384Z').getTime()
-        }
-    ],
-    weekly: [{
-        value: 2000,
-        timestamp: new Date('2023-07-16T00:00:00.000Z').getTime()
-    },
-        {
-            value: 23000,
-            timestamp: new Date('2023-07-19T14:23:21.723Z').getTime()
-        },
-        {
-            value: 2990,
-            timestamp: new Date('2023-07-20T14:23:31.384Z').getTime()
-        },
-        {
-            value: 3000,
-            timestamp: new Date('2023-07-21T14:23:31.384Z').getTime()
-        },
-        {
-            value: 12000,
-            timestamp: new Date('2023-07-22T14:23:31.384Z').getTime()
-        },
-        {
-            value: 20000,
-            timestamp: new Date('2023-07-23T14:23:31.384Z').getTime()
-        },
-        {
-            value: 12010,
-            timestamp: new Date('2023-07-24T14:23:31.384Z').getTime()
-        },
-        {
-            value: 10000,
-            timestamp: new Date('2023-07-25T14:23:31.384Z').getTime()
-        },
-        {
-            value: 100,
-            timestamp: new Date('2023-07-26T14:23:31.384Z').getTime()
-        },
-        {
-            value: 5000,
-            timestamp: new Date('2023-07-27T14:23:31.384Z').getTime()
-        },
-        {
-            value: 80,
-            timestamp: new Date('2023-07-28T14:23:31.384Z').getTime()
-        }],
-    monthly: [{
-        value: 100,
-        timestamp: new Date('2023-07-16T00:00:00.000Z').getTime()
-    },
-        {
-            value: 23,
-            timestamp: new Date('2023-07-19T14:23:21.723Z').getTime()
-        },
-        {
-            value: 299,
-            timestamp: new Date('2023-07-20T14:23:31.384Z').getTime()
-        },
-        {
-            value: 300,
-            timestamp: new Date('2023-07-21T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1200,
-            timestamp: new Date('2023-07-22T14:23:31.384Z').getTime()
-        },
-        {
-            value: 2000,
-            timestamp: new Date('2023-07-23T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1201,
-            timestamp: new Date('2023-07-24T14:23:31.384Z').getTime()
-        },
-        {
-            value: 1000,
-            timestamp: new Date('2023-07-25T14:23:31.384Z').getTime()
-        },
-        {
-            value: 10000,
-            timestamp: new Date('2023-07-26T14:23:31.384Z').getTime()
-        },
-        {
-            value: 500,
-            timestamp: new Date('2023-07-27T14:23:31.384Z').getTime()
-        },
-        {
-            value: 8000,
-            timestamp: new Date('2023-07-28T14:23:31.384Z').getTime()
-        }]
+    daily: [],
+    weekly: [],
+    monthly: [],
+    total: [],
 
 };
 
 export function StatisticsReducer(state: IStatisticsState = initialState, action: IStatisticsActionTypes) {
     switch (action.type) {
+        case StatisticsActionTypes.ADD_DAILY_STATISTICS:
+
+            let daily: IStatisticsItem[] = [...state.daily];
+
+            const dailyItem : IStatisticsItem = {
+                timestamp: action.timestamp,
+                value: action.value
+
+            }
+            daily.push(dailyItem)
+
+            return {
+                ...state,
+                daily: [...daily]
+            };
+
+        case StatisticsActionTypes.ADD_WEEKLY_STATISTICS:
+            let weekly: IStatisticsItem[] = [...state.weekly];
+
+            const weeklyItem : IStatisticsItem = {
+                timestamp: action.timestamp,
+                value: action.value
+
+            }
+            weekly.push(weeklyItem)
+
+            return {
+                ...state,
+                weekly: [...weekly]
+            };
+
+        case StatisticsActionTypes.ADD_MONTHLY_STATISTICS:
+            let monthly: IStatisticsItem[] = [...state.monthly];
+            const monthlyItem : IStatisticsItem = {
+                timestamp: action.timestamp,
+                value: action.value
+
+            }
+            monthly.push(monthlyItem)
+
+            return {
+                ...state,
+                monthly: [...monthly]
+            };
+  case StatisticsActionTypes.ADD_TOTAL_STATISTICS:
+            let total: IStatisticsItem[] = [...state.monthly];
+            const totalItem : IStatisticsItem = {
+                timestamp: action.timestamp,
+                value: action.value
+
+            }
+      total.push(totalItem)
+
+            return {
+                ...state,
+                total: [...total]
+            };
 
         default:
             return state;

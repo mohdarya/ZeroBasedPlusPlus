@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {ISetBalanceJobTime} from "../../../redux/appDetails/types/AppDetailTypes.tsx";
-import {setBalanceJobTime} from "../../../redux/appDetails/actions/AppDetailActions.tsx";
+import {setDailyBalanceJobTime} from "../../../redux/appDetails/actions/AppDetailActions.tsx";
 import {connect} from "react-redux";
 
 interface SpendingChartProps {
@@ -79,7 +79,7 @@ const mapStateToProps = (state : RootState, ownProp: SpendingChartProps) => {
 
     return {
         remaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ===ownProp.period.toLowerCase()))).reduce((accumulator, value) => {
-            return accumulator + value.available;
+            return accumulator + value.spent;
         }, 0),
 
     };
@@ -87,7 +87,7 @@ const mapStateToProps = (state : RootState, ownProp: SpendingChartProps) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
-        setBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setBalanceJobTime(data)),
+        setBalanceJobTime: (data: ISetBalanceJobTime) => dispatch(setDailyBalanceJobTime(data)),
     };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(SpendingChart);

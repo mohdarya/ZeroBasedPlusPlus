@@ -1,7 +1,11 @@
 export enum StatisticsActionTypes {
     ADD_DAILY_STATISTICS = 'ADD_DAILY_STATISTICS',
+    ADD_WEEKLY_STATISTICS = 'ADD_WEEKLY_STATISTICS',
+    ADD_MONTHLY_STATISTICS = 'ADD_MONTHLY_STATISTICS',
+    ADD_TOTAL_STATISTICS = 'ADD_TOTAL_STATISTICS',
 
 }
+
 
 
 export interface IStatisticsItem {
@@ -12,14 +16,17 @@ export interface IStatisticsItem {
 export interface IStatisticsState {
     daily: IStatisticsItem[],
     weekly:IStatisticsItem [],
-    monthly: IStatisticsItem[]
+    monthly: IStatisticsItem[],
+    total: IStatisticsItem[]
 }
 
 
-export interface IAddDailyStatistics {
-    type: StatisticsActionTypes;
+export interface IAddStatistics {
+    type: StatisticsActionTypes,
+    value: number,
+    timestamp: number
 
 }
 
 
-export type IStatisticsActionTypes = IAddDailyStatistics
+export type IStatisticsActionTypes = IAddStatistics

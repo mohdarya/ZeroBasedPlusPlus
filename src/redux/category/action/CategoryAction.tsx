@@ -2,7 +2,7 @@ import {
   CategoryActionTypes,
   IAddCategory, IAllocateMoney, IAllocateMoneyToCategory,
   ICategoryItemDetails,
-  ICategoryTransactionAction
+  ICategoryTransactionAction, IUpdateCategoryAction
 } from "../types/CategoryTypes.tsx";
 
 
@@ -30,3 +30,10 @@ export function allocateMoneyToCategoryAction(payload : IAllocateMoneyToCategory
 }
 
 
+export function updateCategoriesState(payload : IUpdateCategoryAction) {
+  return {
+
+    ...payload,
+    type: CategoryActionTypes.UPDATE_CATEGORIES,
+  };
+}

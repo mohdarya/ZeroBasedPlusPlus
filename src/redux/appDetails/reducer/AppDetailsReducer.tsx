@@ -1,4 +1,5 @@
 import {AppDetailActionTypes, IAppDetailActionTypes} from "../types/AppDetailTypes.tsx";
+import {act} from "react-test-renderer";
 
 interface IAppDetails {
 
@@ -28,10 +29,20 @@ const initialState = {
 
 export function AppDetailReducer(state: IAppDetails = initialState, action: IAppDetailActionTypes) {
     switch (action.type) {
-        case AppDetailActionTypes.SET_BALANCE_JOB_TIME:
+        case AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME:
             return {
                 ...state,
-                lastBalanceJob: action.time
+                lastDailyBalanceJob: action.time,
+            }
+        case AppDetailActionTypes.SET_WEEKLY_BALANCE_JOB_TIME:
+            return {
+                ...state,
+                lastWeeklyBalanceJob: action.time,
+            }
+        case AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME:
+            return {
+                ...state,
+                lastMonthlyJob: action.time,
             }
         default:
             return state;

@@ -1,31 +1,29 @@
-import {
-    CategoryActionTypes,
-    IAddCategory, IAllocateMoney, IAllocateMoneyToCategory,
-    ICategoryItemDetails,
-    ICategoryTransactionAction
-} from "../types/CategoryTypes.tsx";
+import {IAddStatistics, StatisticsActionTypes} from "../types/StatisticsTypes.tsx";
 
 
-export function addCategory(payload : IAddCategory) {
+export function addDailyStatistics(payload : IAddStatistics) {
     return {
-
         ...payload,
-        type: CategoryActionTypes.ADD_CATEGORY,
+        type: StatisticsActionTypes.ADD_DAILY_STATISTICS,
     };
 }
 
-export function categoryTransactionAction(payload : ICategoryTransactionAction) {
+export function addWeeklyStatistics(payload : IAddStatistics) {
     return {
-
         ...payload,
-        type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+        type: StatisticsActionTypes.ADD_WEEKLY_STATISTICS,
     };
 }
-export function allocateMoneyToCategoryAction(payload : IAllocateMoneyToCategory) {
+export function addMonthlyStatistics(payload : IAddStatistics) {
     return {
-
         ...payload,
-        type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY,
+        type: StatisticsActionTypes.ADD_MONTHLY_STATISTICS,
+    };
+}
+export function addTotalStatistics(payload : IAddStatistics) {
+    return {
+        ...payload,
+        type: StatisticsActionTypes.ADD_TOTAL_STATISTICS,
     };
 }
 
