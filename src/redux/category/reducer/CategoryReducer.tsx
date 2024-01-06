@@ -5,10 +5,10 @@ const initialState = {
         name: 'category test 1',
         dailySpent: 0.0,
         periodSpent: 0.0,
-        available: 300.00,
+        available: 150.00,
         allocated: 300.00,
         frequency: 'weekly',
-        budget: 0
+        budget: 100.00
     },
     '7f405121-adf5-4479-a3cb-f97b85a514e9': {
 
@@ -18,26 +18,26 @@ const initialState = {
         available: 300.00,
         allocated: 300.00,
         frequency: 'monthly',
-        budget: 0
+        budget: 300.00
     },
     'a15339ab-4d99-4d63-ad58-26e57379beb5': {
 
         name: 'category test 3',
         dailySpent: 0.0,
         periodSpent: 0.0,
-        available: 300.00,
+        available: 100.00,
         allocated: 300.00,
         frequency: 'daily',
-        budget: 0
+        budget: 5.00
     },
     'a15339ab-4d99-4d63-ad58-26e573792eb5': {
         name: 'category test 4',
         dailySpent: 0.0,
         periodSpent: 0.0,
-        available: 300.00,
+        available: 210.0,
         allocated: 300.00,
         frequency: 'daily',
-        budget: 0
+        budget: 10.00
     },
 };
 
