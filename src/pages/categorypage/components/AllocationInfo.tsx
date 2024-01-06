@@ -42,7 +42,7 @@ function BalanceInfo(props: balanceProps) {
             </View>
             <View style={styles.textDetail}>
                 <Text style={styles.spendingInfoTitleStyle}>Allocated</Text>
-                <Text style={styles.spendingInfoAmountStyle}>{props.spentAmount}</Text>
+                <Text style={styles.spendingInfoAmountStyle}>{props.periodSpentAmount}</Text>
             </View>
         </View>
     );

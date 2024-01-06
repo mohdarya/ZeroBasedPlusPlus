@@ -124,7 +124,7 @@ function Graph(props : any) {
               <TouchableOpacity onPress={() => { setDataToShow("total")}} style={[{
                   backgroundColor: '#B1BBAE',
 
-                  width: 70,
+                  width: 75,
                   height: 25,
                   borderRadius: 5,
                   display: 'flex',
@@ -132,13 +132,13 @@ function Graph(props : any) {
                   alignItems: 'center',
               },  dataToShow === "total" ? styles.activeAction : null]}>
                   <Text  style={[{color: '#282828', textAlign: 'center', fontSize: 15}, dataToShow === "total" ? styles.activeAction : null]}>
-                      Total
+                      Balance
                   </Text>
               </TouchableOpacity>
             <TouchableOpacity onPress={() => { setDataToShow("monthly")}} style={[{
                 backgroundColor: '#B1BBAE',
 
-                width: 70,
+                width: 75,
                 height: 25,
                 borderRadius: 5,
                 display: 'flex',
@@ -146,13 +146,13 @@ function Graph(props : any) {
                 alignItems: 'center',
             },  dataToShow === "monthly" ? styles.activeAction : null]}>
               <Text  style={[{color: '#282828', textAlign: 'center', fontSize: 15}, dataToShow === "monthly" ? styles.activeAction : null]}>
-                Month
+                Monthly
               </Text>
             </TouchableOpacity>
               <TouchableOpacity onPress={() => { setDataToShow("weekly")}}  style={[{
                   backgroundColor: '#B1BBAE',
 
-                  width: 70,
+                  width: 75,
                   height: 25,
                   borderRadius: 5,
                   display: 'flex',
@@ -166,7 +166,7 @@ function Graph(props : any) {
               <TouchableOpacity onPress={() => { setDataToShow("daily")}}  style={[{
                   backgroundColor: '#B1BBAE',
 
-                  width: 70,
+                  width: 75,
                   height: 25,
                   borderRadius: 5,
                   display: 'flex',

@@ -6,7 +6,8 @@ export enum CategoryActionTypes {
 }
 export interface ICategoryItemDetails {
     name: string,
-    spent: number,
+    dailySpent: number,
+    periodSpent: number,
     available: number,
     allocated: number,
     frequency: string,
@@ -30,7 +31,8 @@ export interface IUpdateCategoryAction {
 export interface IAddCategory {
     type: CategoryActionTypes;
     name: string,
-    spent: number,
+    dailySpent: number,
+    periodSpent: number,
     available: number,
     allocated: number,
     frequency: string,

@@ -62,7 +62,7 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
                 monthly: [...monthly]
             };
   case StatisticsActionTypes.ADD_TOTAL_STATISTICS:
-            let total: IStatisticsItem[] = [...state.monthly];
+            let total: IStatisticsItem[] = [...state.total];
             const totalItem : IStatisticsItem = {
                 timestamp: action.timestamp,
                 value: action.value

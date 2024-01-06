@@ -27,7 +27,7 @@ function CategoryItem(props: CategoryItemProps) {
         },
     });
 
-    let percentageSpent : number = ((props.available - props.spent)/ props.available) * 100
+    let percentageSpent : number = ((props.available - props.periodSpent)/ props.available) * 100
 
 
     if( isNaN(percentageSpent) )
@@ -97,7 +97,7 @@ function CategoryItem(props: CategoryItemProps) {
                       Remaining
                     </Text>
                       <Text style={{color: '#555B6E', fontSize: 12, margin: 0} }>
-                        {props.available - props.spent}
+                        {props.available - props.periodSpent}
                       </Text>
                   </View>
 

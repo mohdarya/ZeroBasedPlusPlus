@@ -29,7 +29,7 @@ function CategoryList(props: TransactionListProps) {
                     })
             }}>
                 <CategoryItem  name={value.name}
-                              available={value.available} spent={value.spent}/>
+                              available={value.available} spent={value.periodSpent}/>
             </TouchableOpacity>
         ));
     }

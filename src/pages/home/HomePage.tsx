@@ -17,9 +17,9 @@ import {
 import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/types/AppDetailTypes.tsx";
 import {CategoryActionTypes, ICategoryItem, IUpdateCategoryAction} from "../../redux/category/types/CategoryTypes.tsx";
 import {
-    addDailyStatistics,
-    addMonthlyStatistics,
-    addWeeklyStatistics
+  addDailyStatistics,
+  addMonthlyStatistics, addTotalStatistics,
+  addWeeklyStatistics
 } from "../../redux/statistics/action/StatisticsActions.tsx";
 import {IAddStatistics, StatisticsActionTypes} from "../../redux/statistics/types/StatisticsTypes.tsx";
 import {updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
@@ -29,6 +29,11 @@ interface IHomepageProp {
   dailyRemaining: number,
   weeklyRemaining: number,
   monthlyRemaining: number,
+
+
+  dailyCategoriesDailySpent: number,
+  weeklyCategoriesDailySpent: number,
+  monthlyCategoriesDailySpent: number,
 
   lastDailyBalanceJob: number,
   lastWeeklyBalanceJob: number,
@@ -41,6 +46,7 @@ interface IHomepageProp {
   addDailyStatistics: (data: IAddStatistics) => {},
   addWeeklyStatistics: (data: IAddStatistics) => {},
   addMonthlyStatistics: (data: IAddStatistics) => {},
+  addTotalStatistics: (data: IAddStatistics) => {},
   updateCategoriesState: (data: IUpdateCategoryAction) => {},
 
   categories: ICategoryItem,
@@ -111,7 +117,7 @@ function HomePage(props :IHomepageProp) {
       if((dateNow.getTime() - props.lastDailyBalanceJob  > 86400000 && props.lastDailyBalanceJob !== 0) || (dateNow.getTime() >= date12Am.getTime() && props.lastDailyBalanceJob === 0))
       {
 
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='daily'))).map((value, index) => {value.spent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='daily'))).map((value, index) => {value.periodSpent = 0});
 
         const balanceVariable : ISetBalanceJobTime = {
           time: date12Am.getTime(),
@@ -120,27 +126,36 @@ function HomePage(props :IHomepageProp) {
         }
         const dailyStatisticsVariable : IAddStatistics = {
           type: StatisticsActionTypes.ADD_DAILY_STATISTICS,
-          value: props.dailyRemaining,
+          value: props.dailyCategoriesDailySpent,
           timestamp: date12Am.getTime()
         }
 
         const weeklyStatisticsVariable : IAddStatistics = {
           type: StatisticsActionTypes.ADD_WEEKLY_STATISTICS,
-          value: props.weeklyRemaining,
-          timestamp:  dateMonday.getTime()
+          value: props.weeklyCategoriesDailySpent,
+          timestamp:  date12Am.getTime()
         }
+
+
+        const totalStatisticsVariable : IAddStatistics = {
+          type: StatisticsActionTypes.ADD_TOTAL_STATISTICS,
+          value: props.available,
+          timestamp:  date12Am.getTime()
+        }
+
 
 
         const monthlyStatisticsVariable : IAddStatistics = {
           type: StatisticsActionTypes.ADD_MONTHLY_STATISTICS,
-          value: props.monthlyRemaining,
-          timestamp: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime()
+          value: props.monthlyCategoriesDailySpent,
+          timestamp: date12Am.getTime()
         }
 
 
         props.addMonthlyStatistics(monthlyStatisticsVariable);
         props.addWeeklyStatistics(weeklyStatisticsVariable);
         props.addDailyStatistics(dailyStatisticsVariable);
+        props.addTotalStatistics(totalStatisticsVariable);
 
         props.setDailyBalanceJobTime(balanceVariable);
 
@@ -151,10 +166,10 @@ function HomePage(props :IHomepageProp) {
       {
 
 
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='weekly'))).map((value, index) => {value.spent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='weekly'))).map((value, index) => {value.periodSpent = 0});
 
         const balanceVariable : ISetBalanceJobTime = {
-          time:  dateNow.getDay() === 1 ? dateLastMonday.getTime(): dateNow.getTime(),
+          time:  dateNow.getDay() === 1 ? dateNow.getTime(): dateLastMonday.getTime(),
           type: AppDetailActionTypes.SET_WEEKLY_BALANCE_JOB_TIME,
 
         }
@@ -168,7 +183,7 @@ function HomePage(props :IHomepageProp) {
         updated = true;
       } if((dateNow.getTime() - props.lastMonthlyJob  > (new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getDate() * 86400000)   && props.lastMonthlyJob !== 0) || (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0))
       {
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='monthly'))).map((value, index) => {value.spent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='monthly'))).map((value, index) => {value.periodSpent = 0});
         const balanceVariable : ISetBalanceJobTime = {
           time: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime(),
           type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,
@@ -228,13 +243,22 @@ const mapStateToProps = (state : RootState) => {
 
   return {
     dailyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
-      return accumulator + value.spent;
+      return accumulator + value.periodSpent;
     }, 0),
     weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
-      return accumulator + value.spent;
+      return accumulator + value.periodSpent;
     }, 0),
     monthlyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='monthly'))).reduce((accumulator, value) => {
-      return accumulator + value.spent;
+      return accumulator + value.periodSpent;
+    }, 0),
+    dailyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
+      return accumulator + value.dailySpent;
+    }, 0),
+    weeklyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
+      return accumulator + value.dailySpent;
+    }, 0),
+    monthlyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='monthly'))).reduce((accumulator, value) => {
+      return accumulator + value.dailySpent;
     }, 0),
     transactions: state.transactions,
     amount: state.communication.numeric,
@@ -261,6 +285,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     addDailyStatistics: (data: IAddStatistics) => dispatch(addDailyStatistics(data)),
     addWeeklyStatistics: (data: IAddStatistics) => dispatch(addWeeklyStatistics(data)),
     addMonthlyStatistics: (data: IAddStatistics) => dispatch(addMonthlyStatistics(data)),
+    addTotalStatistics: (data: IAddStatistics) => dispatch(addTotalStatistics(data)),
 
     updateCategoriesState: (data: IUpdateCategoryAction) => dispatch(updateCategoriesState(data)),
   };

@@ -42,7 +42,7 @@ function Graph(props) {
                 </Text>
               </View>
               <Text style={{color: '#555B6E', fontSize: 30, fontWeight: 'bold'}}>
-                {props.spentAmount}
+                {props.periodSpentAmount}
               </Text>
             </View>
           </View>
