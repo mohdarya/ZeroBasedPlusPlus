@@ -97,7 +97,7 @@ function CategoryItem(props: CategoryItemProps) {
                       Remaining
                     </Text>
                       <Text style={{color: '#555B6E', fontSize: 12, margin: 0} }>
-                        {props.available - props.periodSpent}
+                        {props.available - props.periodSpent < 0 ? 0 : props.available - props.periodSpent}
                       </Text>
                   </View>
 
