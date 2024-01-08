@@ -10,7 +10,7 @@ import React from "react";
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
-import TransactionSection from "./components/TransactionSection";
+import TransactionSection from "./components/TransactionSection.tsx";
 import Graph from "./components/Graph.tsx";
 import {ICategoryStatistics} from "../../redux/statistics/types/StatisticsTypes.tsx";
 
