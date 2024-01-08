@@ -11,11 +11,13 @@ import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../redux/category/reducer/CategoryReducer.tsx";
 import TransactionSection from "./components/TransactionSection";
-import Graph from "./components/Graph";
+import Graph from "./components/Graph.tsx";
+import {ICategoryStatistics} from "../../redux/statistics/types/StatisticsTypes.tsx";
 
 
 interface CategoryPageProps {
     categories: ICategoryItem
+    statistics: ICategoryStatistics
 }
 
 function CategoryPage(props: CategoryPageProps) {
@@ -73,7 +75,7 @@ function CategoryPage(props: CategoryPageProps) {
 
             <View style={{height: "90%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.graphView}>
-                    <Graph graphName="Weekly Spending" spentAmount={props.categories[categoryID].available}/>
+                    <Graph graphName="Weekly Spending" categoryData={props.categories[categoryID]} categoryID={categoryID} statistics={props.statistics}/>
                 </View>
 
                 <View style={styles.transactionSectionView}>
@@ -90,6 +92,7 @@ function CategoryPage(props: CategoryPageProps) {
 const mapStateToProps = (state: RootState) => {
     return {
         categories: state.categories,
+        statistics: state.statistics.categories
     };
 };
 export default connect(mapStateToProps)(CategoryPage);

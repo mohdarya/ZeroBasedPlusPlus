@@ -3,6 +3,7 @@ export enum StatisticsActionTypes {
     ADD_WEEKLY_STATISTICS = 'ADD_WEEKLY_STATISTICS',
     ADD_MONTHLY_STATISTICS = 'ADD_MONTHLY_STATISTICS',
     ADD_TOTAL_STATISTICS = 'ADD_TOTAL_STATISTICS',
+    ADD_CATEGORY_STATISTICS = 'ADD_CATEGORY_STATISTICS',
 
 }
 
@@ -13,11 +14,22 @@ export interface IStatisticsItem {
     timestamp: number
 }
 
+
+export interface ICategoryStatisticsItem {
+    available: IStatisticsItem[],
+    allocated: IStatisticsItem[],
+    spent: IStatisticsItem[],
+}
+export interface ICategoryStatistics {
+    [key: string] : ICategoryStatisticsItem
+}
 export interface IStatisticsState {
     daily: IStatisticsItem[],
     weekly:IStatisticsItem [],
     monthly: IStatisticsItem[],
-    total: IStatisticsItem[]
+    total: IStatisticsItem[],
+    categories: ICategoryStatistics,
+
 }
 
 

@@ -12,16 +12,19 @@ const initialState: IStatisticsState = {
     weekly: [],
     monthly: [],
     total: [],
+    categories: {},
 
 };
 
-export function StatisticsReducer(state: IStatisticsState = initialState, action: IStatisticsActionTypes) {
-    switch (action.type) {
+export function StatisticsReducer(state: IStatisticsState = initialState, action: IStatisticsActionTypes)
+{
+    switch (action.type)
+    {
         case StatisticsActionTypes.ADD_DAILY_STATISTICS:
 
             let daily: IStatisticsItem[] = [...state.daily];
 
-            const dailyItem : IStatisticsItem = {
+            const dailyItem: IStatisticsItem = {
                 timestamp: action.timestamp,
                 value: action.value
 
@@ -36,7 +39,7 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
         case StatisticsActionTypes.ADD_WEEKLY_STATISTICS:
             let weekly: IStatisticsItem[] = [...state.weekly];
 
-            const weeklyItem : IStatisticsItem = {
+            const weeklyItem: IStatisticsItem = {
                 timestamp: action.timestamp,
                 value: action.value
 
@@ -50,7 +53,7 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
 
         case StatisticsActionTypes.ADD_MONTHLY_STATISTICS:
             let monthly: IStatisticsItem[] = [...state.monthly];
-            const monthlyItem : IStatisticsItem = {
+            const monthlyItem: IStatisticsItem = {
                 timestamp: action.timestamp,
                 value: action.value
 
@@ -61,14 +64,14 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
                 ...state,
                 monthly: [...monthly]
             };
-  case StatisticsActionTypes.ADD_TOTAL_STATISTICS:
+        case StatisticsActionTypes.ADD_TOTAL_STATISTICS:
             let total: IStatisticsItem[] = [...state.total];
-            const totalItem : IStatisticsItem = {
+            const totalItem: IStatisticsItem = {
                 timestamp: action.timestamp,
                 value: action.value
 
             }
-      total.push(totalItem)
+            total.push(totalItem)
 
             return {
                 ...state,
