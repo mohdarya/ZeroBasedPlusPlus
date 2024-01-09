@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TransactionItem from './TransactionItem';
 import {connect} from 'react-redux';
 
 function TransactionSection(props : any) {
 
+    props.transactions.map((value, key) => {
+        console.log(value.date)
+    });
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
+    const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
+        <TransactionItem key={key} name={value.payee} date={new Date(value.date).toLocaleDateString()}
+                         amount={value.amount}/>
+    )))
   let months: {
     [key: number]: string
   } = {
@@ -56,12 +63,12 @@ function TransactionSection(props : any) {
                                        },
   });
 
-  function loadData() {
-    return props.transactions.filter((value) => value.category === props.categoryId).map((value, key) => (
-        <TransactionItem key={key} name={value.payee} date={value.date}
-                         amount={value.amount}/>
-    ));
-  }
+
+  useEffect(()=>{setTransactionData(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
+      <TransactionItem key={key} name={value.payee}  date={new Date(value.date).toLocaleDateString()}
+                       amount={value.amount}/>
+  )))}, [monthSelected])
+
 
     function generateMonthElements()
     {
@@ -143,7 +150,7 @@ function TransactionSection(props : any) {
               alignItems: 'center',
               width: '100%',
             }}>
-          {loadData()}
+          {transactionData}
         </ScrollView>
       </View>
   );
