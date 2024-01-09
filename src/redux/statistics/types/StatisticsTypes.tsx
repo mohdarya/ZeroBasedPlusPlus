@@ -21,7 +21,7 @@ export interface ICategoryStatisticsItem {
     spent: IStatisticsItem[],
 }
 export interface ICategoryStatistics {
-    [key: string] : ICategoryStatisticsItem
+    [key: string] : ICategoryStatisticsItem[]
 }
 export interface IStatisticsState {
     daily: IStatisticsItem[],
@@ -40,5 +40,11 @@ export interface IAddStatistics {
 
 }
 
+export interface IAddCategoryStatistics {
+    type: StatisticsActionTypes,
+    categoryId: string,
+    data: ICategoryStatisticsItem,
+}
 
-export type IStatisticsActionTypes = IAddStatistics
+
+export type IStatisticsActionTypes = IAddStatistics & IAddCategoryStatistics

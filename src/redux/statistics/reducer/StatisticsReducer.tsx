@@ -1,4 +1,5 @@
 import {
+    ICategoryStatistics, ICategoryStatisticsItem,
     IStatisticsActionTypes,
     IStatisticsItem,
     IStatisticsState,
@@ -78,6 +79,24 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
                 total: [...total]
             };
 
+        case StatisticsActionTypes.ADD_CATEGORY_STATISTICS:
+            let categoryStatistics: ICategoryStatisticsItem = {
+                ...action.data
+            }
+            if (action.categoryId in state.categories)
+            {
+                categoryStatistics = {...state.categories[action.categoryId], ...categoryStatistics};
+            }
+            let categoryStatisticsArray: ICategoryStatisticsItem[] = [...state.categories[action.categoryId]];
+            categoryStatisticsArray.push(categoryStatistics)
+            return {
+                ...state,
+                categories:
+                    {
+                        ...state.categories,
+                        [action.categoryId] : categoryStatisticsArray
+                    }
+            };
         default:
             return state;
     }
