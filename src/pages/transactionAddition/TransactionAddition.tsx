@@ -266,7 +266,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                     transactionType:props.itemSelect === "available" ? TransactionTypes.CREDIT :TransactionTypes.DEBIT,
                                     amount: props.amount,
                                     category: props.itemKey,
-                                    date: dateValue.toLocaleDateString(),
+                                    date: dateValue.getTime(),
                                     payee: props.payee,
                                     type: TransactionActionTypes.ADD_TRANSACTION
 

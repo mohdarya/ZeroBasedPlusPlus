@@ -11,7 +11,7 @@ interface IAddTransaction {
     type: TransactionActionTypes.ADD_TRANSACTION;
     payee : string,
     amount: number,
-    date: string,
+    date: number,
     category: string,
     transactionType: TransactionTypes,
 }

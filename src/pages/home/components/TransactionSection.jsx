@@ -16,7 +16,7 @@ function TransactionSection(props) {
   });
   function loadData() {
     return props.transactions.map((value, key) => (
-        <TransactionItem key={key} name={value.payee}  date={value.date} amount={value.amount} type={value.type}/>
+        <TransactionItem key={key} name={value.payee}  date={ new Date(value.date).toLocaleDateString()} amount={value.amount} type={value.type}/>
     ));
   }
 
