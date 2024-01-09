@@ -20,8 +20,14 @@ export interface ICategoryStatisticsItem {
     allocated: IStatisticsItem[],
     spent: IStatisticsItem[],
 }
+
+export interface IAddCategoryStatisticsItem {
+    available: IStatisticsItem,
+    allocated: IStatisticsItem,
+    spent: IStatisticsItem,
+}
 export interface ICategoryStatistics {
-    [key: string] : ICategoryStatisticsItem[]
+    [key: string] : ICategoryStatisticsItem
 }
 export interface IStatisticsState {
     daily: IStatisticsItem[],
@@ -43,7 +49,7 @@ export interface IAddStatistics {
 export interface IAddCategoryStatistics {
     type: StatisticsActionTypes,
     categoryId: string,
-    data: ICategoryStatisticsItem,
+    data: IAddCategoryStatisticsItem,
 }
 
 

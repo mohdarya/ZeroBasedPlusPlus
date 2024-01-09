@@ -80,21 +80,47 @@ export function StatisticsReducer(state: IStatisticsState = initialState, action
             };
 
         case StatisticsActionTypes.ADD_CATEGORY_STATISTICS:
-            let categoryStatistics: ICategoryStatisticsItem = {
-                ...action.data
+
+            let  categoryStatistics : ICategoryStatisticsItem= {
+                allocated: [],
+                available: [],
+                spent: []
+
             }
+
             if (action.categoryId in state.categories)
             {
-                categoryStatistics = {...state.categories[action.categoryId], ...categoryStatistics};
+
+                categoryStatistics = state.categories[action.categoryId]
             }
-            let categoryStatisticsArray: ICategoryStatisticsItem[] = [...state.categories[action.categoryId]];
-            categoryStatisticsArray.push(categoryStatistics)
+
+            let allocated: IStatisticsItem[] = [...categoryStatistics.allocated];
+            allocated.push(action.data.allocated)
+
+            let available: IStatisticsItem[] = [...categoryStatistics.available];
+            available.push(action.data.available)
+
+            let spent: IStatisticsItem[] = [...categoryStatistics.spent];
+            spent.push(action.data.spent)
+
+
+            categoryStatistics  ={
+                ...categoryStatistics,
+                allocated: [ ...allocated],
+                available: [ ...available],
+                spent: [...spent],
+            }
+
+
+
             return {
                 ...state,
                 categories:
                     {
                         ...state.categories,
-                        [action.categoryId] : categoryStatisticsArray
+                        [action.categoryId] : {
+                            ...categoryStatistics
+                        }
                     }
             };
         default:

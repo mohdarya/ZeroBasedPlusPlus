@@ -81,14 +81,18 @@ function Buttons(props: buttonsProps) {
                             available: 0.00,
                             categoryID: uuid.v4().toString(),
                             frequency: props.itemSelect,
+                            dailySpent: 0.0,
+                            periodSpent: 0.0,
+                            monthlySpent: 0.0,
                             name: props.text,
-                            spent: 0.00,
                             type: CategoryActionTypes.ADD_CATEGORY,
                             budget: props.amount,
 
 
                         }
                     const clearDataParameters: IComponentCommunicationAction = {
+                        from: "",
+                        to: "",
                         date: "",
                         itemSelected: "",
                         payee: "",

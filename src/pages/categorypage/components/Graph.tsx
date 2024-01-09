@@ -21,55 +21,11 @@ function Graph(props: any)
         10:"NOV",
         11:"DEC"
     };
-    let barGraphData: any[] = [{
-        x: "Jan",
-        y: 40,
-
-    },
-        {
-            x: "FEB",
-            y: 20,
-
-        }
-        ,
-        {
-            x: "MCH",
-            y: 10,
-
-        },
-        ,
-        {
-            x: "MCH",
-            y: 10,
-
-        },
-        ,
-        {
-            x: "MCH",
-            y: 10,
-
-        },
-        ,
-        {
-            x: "MCH",
-            y: 10,
-
-        }
-    ];
-
-
-
 
     let graphPeriods: string [] = [
         "Available",
         "Allocated",
         "Spent"
-    ]
-
-    let datePeriods: number [] = [
-        7,
-        31,
-        186
     ]
     const [graphPeriodIndex, setGraphPeriodIndex] = useState(0)
     const [data, setData] = useState(()=> {
@@ -84,7 +40,6 @@ function Graph(props: any)
             return([])
         }
     })
-
     useEffect(() =>
               {
 
@@ -95,13 +50,12 @@ function Graph(props: any)
 
                          return({x: months[new Date(value.timestamp).getMonth()],
                           y: value.value})
-                      }).slice(props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length - 1 > 6?props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length - 1 - 6 : 0, props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length - 1 ))
+                      }).slice(props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length - 1 > 6?props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length - 1 - 6 : 0, props.statistics[props.categoryID][graphPeriods[graphPeriodIndex].toLowerCase()].length  ))
                   }else {
                       setData([])
                   }
 
               }, [graphPeriodIndex]);
-
 
     const width = Dimensions.get('window').width
     const height = 220

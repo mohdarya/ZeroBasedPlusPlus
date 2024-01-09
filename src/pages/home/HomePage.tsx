@@ -10,18 +10,24 @@ import {RootState} from "../../redux/rootReducer.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import {useAppState} from "@react-native-community/hooks";
 import {
-    setDailyBalanceJobTime,
-    setMonthlyBalanceJobTime,
-    setWeeklyBalanceJobTime
+  setDailyBalanceJobTime,
+  setMonthlyBalanceJobTime,
+  setWeeklyBalanceJobTime
 } from "../../redux/appDetails/actions/AppDetailActions.tsx";
 import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/types/AppDetailTypes.tsx";
 import {CategoryActionTypes, ICategoryItem, IUpdateCategoryAction} from "../../redux/category/types/CategoryTypes.tsx";
 import {
+  addCategoryStatistics,
   addDailyStatistics,
-  addMonthlyStatistics, addTotalStatistics,
+  addMonthlyStatistics,
+  addTotalStatistics,
   addWeeklyStatistics
 } from "../../redux/statistics/action/StatisticsActions.tsx";
-import {IAddStatistics, StatisticsActionTypes} from "../../redux/statistics/types/StatisticsTypes.tsx";
+import {
+  IAddCategoryStatistics, IAddCategoryStatisticsItem,
+  IAddStatistics,
+  StatisticsActionTypes
+} from "../../redux/statistics/types/StatisticsTypes.tsx";
 import {updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
 
 
@@ -48,6 +54,7 @@ interface IHomepageProp {
   addMonthlyStatistics: (data: IAddStatistics) => {},
   addTotalStatistics: (data: IAddStatistics) => {},
   updateCategoriesState: (data: IUpdateCategoryAction) => {},
+  addCategoryStatistics: (data: IAddCategoryStatistics) => {},
 
   categories: ICategoryItem,
   available: number,
@@ -185,17 +192,47 @@ function HomePage(props :IHomepageProp) {
       } if((dateNow.getTime() - props.lastMonthlyJob  > (new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getDate() * 86400000)   && props.lastMonthlyJob !== 0) || (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0))
       {
         Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='monthly'))).map((value, index) => {value.periodSpent = 0});
+
         const balanceVariable : ISetBalanceJobTime = {
           time: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime(),
           type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,
 
         }
+        Object.values(  Object.fromEntries(Object.entries(categories))).map((value, index) => {
+          const categoryStatistics :IAddCategoryStatisticsItem = {
+            allocated: {
+              value: value.allocated,
+              timestamp:new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime()
+            },
+            available: {
+              value: value.available,
+              timestamp:new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime()
+            },
+            spent:
+                {
+                  value: value.monthlySpent,
+                  timestamp:new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime()
+                }
 
 
 
+          }
+          const addCategoryStatistics : IAddCategoryStatistics = {
+            categoryId:  Object.keys(categories)[index],
+            data: categoryStatistics,
+            type: StatisticsActionTypes.ADD_CATEGORY_STATISTICS
+
+          }
+          props.addCategoryStatistics(addCategoryStatistics);
+
+        });
+
+
+
+
+        Object.values(  Object.fromEntries(Object.entries(categories))).map((value, index) => {value.allocated = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories))).map((value, index) => {value.monthlySpent = 0});
         props.setMonthlyBalanceJobTime(balanceVariable);
-
-
         updated = true;
       }
 
@@ -289,6 +326,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     addTotalStatistics: (data: IAddStatistics) => dispatch(addTotalStatistics(data)),
 
     updateCategoriesState: (data: IUpdateCategoryAction) => dispatch(updateCategoriesState(data)),
+    addCategoryStatistics: (data: IAddCategoryStatistics) => dispatch(addCategoryStatistics(data)),
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(HomePage);

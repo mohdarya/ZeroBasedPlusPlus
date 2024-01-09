@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 function TransactionSection(props : any) {
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
     const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-        <TransactionItem key={key} name={value.payee} date={new Date(value.date).toLocaleDateString()}
+        <TransactionItem key={value.payee + value.amount + value.date} name={value.payee} date={new Date(value.date).toLocaleDateString()}
                          amount={value.amount}/>
     )))
   let months: {
@@ -61,7 +61,7 @@ function TransactionSection(props : any) {
 
 
   useEffect(()=>{setTransactionData(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-      <TransactionItem key={key} name={value.payee}  date={new Date(value.date).toLocaleDateString()}
+      <TransactionItem key={value.payee + value.amount + value.date} name={value.payee}  date={new Date(value.date).toLocaleDateString()}
                        amount={value.amount}/>
   )))}, [monthSelected])
 
@@ -76,8 +76,8 @@ function TransactionSection(props : any) {
         {
             let date : Date = new Date;
             date.setMonth(date.getMonth() - i)
-            response.push(<TouchableOpacity onPress={() => {setMonthSelected(date.getMonth())}} style={[Styles.monthContainerBean,monthSelected === date.getMonth() ?Styles.activeMonthContainer : {}]}>
-                <Text  key={i} style={[{
+            response.push(<TouchableOpacity  key={i} onPress={() => {setMonthSelected(date.getMonth())}} style={[Styles.monthContainerBean,monthSelected === date.getMonth() ?Styles.activeMonthContainer : {}]}>
+                <Text  style={[{
                     color: '#282828',
                     textAlign: 'center'
                 }, monthSelected === date.getMonth() ?Styles.activeMonthText : {}]}>
