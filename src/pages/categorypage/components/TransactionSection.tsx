@@ -4,10 +4,6 @@ import TransactionItem from './TransactionItem';
 import {connect} from 'react-redux';
 
 function TransactionSection(props : any) {
-
-    props.transactions.map((value, key) => {
-        console.log(value.date)
-    });
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
     const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
         <TransactionItem key={key} name={value.payee} date={new Date(value.date).toLocaleDateString()}
