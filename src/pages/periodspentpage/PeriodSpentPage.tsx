@@ -50,7 +50,7 @@ function PeriodSpentPage(props: PeriodSpentPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '55%',
+                height: '50%',
                 width: '100%'
 
             }
@@ -60,7 +60,7 @@ function PeriodSpentPage(props: PeriodSpentPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: '48%',
+                height: '50%',
                 width: '100%',
 
             },
