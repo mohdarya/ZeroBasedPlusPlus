@@ -43,7 +43,7 @@ function CategoryItem(props: CategoryItemProps) {
        percentageSpent = 0
     }
     else {
-        percentageSpent = percentageSpent < 0 ? 100 : percentageSpent
+        percentageSpent = percentageSpent < 0 || percentageSpent > 100 ? 100 : percentageSpent
     }
 
 
