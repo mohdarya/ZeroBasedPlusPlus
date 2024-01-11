@@ -1,6 +1,10 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import uuid from 'react-native-uuid';
-import {ITransactionActionTypes, TransactionActionTypes} from "../../../redux/transactions/types/transactionTypes.tsx";
+import {
+    ITransactionActionTypes,
+    TransactionActionTypes,
+    TransactionTypes
+} from "../../../redux/transactions/types/transactionTypes.tsx";
 import {
     clearData,
     IComponentCommunicationAction
@@ -11,8 +15,10 @@ import {addTransaction} from "../../../redux/transactions/action/TransactionsAct
 import {connect} from "react-redux";
 import {useNavigation} from "@react-navigation/core";
 import {addCategory} from "../../../redux/category/action/CategoryAction.tsx";
-import {CategoryActionTypes, IAddCategory} from "../../../redux/category/types/CategoryTypes.tsx";
+import {CategoryActionTypes, IAddCategory, ICategoryActionTypes} from "../../../redux/category/types/CategoryTypes.tsx";
 import {BottomSheetRefProps} from "../../shared/components/bottomSheet.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import {BalanceActionTypes, IAddTransaction} from "../../../redux/balance/types/balanceTypes.tsx";
 
 interface buttonsProps {
     amount: number,
@@ -63,60 +69,58 @@ function Buttons(props: buttonsProps) {
     return (
         <View style={styles.container}>
             <View style={styles.amountDetailView}>
-                <TouchableOpacity onPress={() => {navigation.goBack()}} style={{ borderRadius: 5,
-                    width: '40%',
-                    height: '100%',
-                    backgroundColor: '#FAF9F9',
+
+                <View style={{
+                    width: '100%',
+
+                    flexDirection: 'row',
+                    height: 100,
                     display: 'flex',
-                    alignItems: "center",
-                    justifyContent: "center",}}>
-                    <Text style={{width: "auto",fontSize: 20}}>
-                        Cancel
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                    const categoryData : IAddCategory =
-                        {
-                            allocated: 0.00,
-                            available: 0.00,
-                            categoryID: uuid.v4().toString(),
-                            frequency: props.itemSelect,
-                            dailySpent: 0.0,
-                            periodSpent: 0.0,
-                            monthlySpent: 0.0,
-                            name: props.text,
-                            type: CategoryActionTypes.ADD_CATEGORY,
-                            budget: props.amount,
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    borderRadius: 5
+                }}>
+                    <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
+
+                        props.bottomSheetRef.current?.scrollTo(0);
+                    }}  size={50}/>
 
 
-                        }
-                    const clearDataParameters: IComponentCommunicationAction = {
-                        from: "",
-                        to: "",
-                        date: "",
-                        itemSelected: "",
-                        payee: "",
-                        text: "",
-                        type: "",
-                        number: 0.0,
-                        itemKey: ""
-                    };
+                    <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
+                        const categoryData : IAddCategory =
+                            {
+                                allocated: 0.00,
+                                available: 0.00,
+                                categoryID: uuid.v4().toString(),
+                                frequency: props.itemSelect,
+                                dailySpent: 0.0,
+                                periodSpent: 0.0,
+                                monthlySpent: 0.0,
+                                name: props.text,
+                                type: CategoryActionTypes.ADD_CATEGORY,
+                                budget: props.amount,
 
-                    props.addCategory(categoryData);
-                    props.clearData(clearDataParameters)
-                    props.bottomSheetRef.current?.scrollTo( 0);
-                }} style={{ borderRadius: 5,
-                    width: '40%',
-                    height: '100%',
-                    backgroundColor: '#FAF9F9',
-                    display: 'flex',
-                    alignItems: "center",
-                    justifyContent: "center",}}>
-                    <Text style={{width: "auto", fontSize: 20}}>
-                        Add
-                    </Text>
-                </TouchableOpacity>
 
+                            }
+                        const clearDataParameters: IComponentCommunicationAction = {
+                            from: "",
+                            to: "",
+                            date: "",
+                            itemSelected: "",
+                            payee: "",
+                            text: "",
+                            type: "",
+                            number: 0.0,
+                            itemKey: ""
+                        };
+
+                        props.addCategory(categoryData);
+                        props.clearData(clearDataParameters)
+                        props.bottomSheetRef.current?.scrollTo( 0);
+                    }}  size={50}/>
+
+
+                </View>
             </View>
         </View>
     );

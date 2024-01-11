@@ -139,7 +139,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
                 <CategoryCreationPage bottomSheetRef={props.bottomSheetRef}/>}
 
                 {viewTrigger.fundsTransfer &&
-                    <TransferPage/>}
+                    <TransferPage bottomSheetRef={props.bottomSheetRef}/>}
 
                 {viewTrigger.allocation &&
                     <AllocationPage/>}

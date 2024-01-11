@@ -1,6 +1,10 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {RootState} from "../../../redux/rootReducer.tsx";
-import {CategoryActionTypes, IAllocateMoneyToCategory} from "../../../redux/category/types/CategoryTypes.tsx";
+import {
+    CategoryActionTypes,
+    IAddCategory,
+    IAllocateMoneyToCategory
+} from "../../../redux/category/types/CategoryTypes.tsx";
 import {allocateMoneyToCategoryAction} from "../../../redux/category/action/CategoryAction.tsx";
 import {connect} from "react-redux";
 import {
@@ -8,6 +12,10 @@ import {
     IComponentCommunicationAction
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import {BalanceActionTypes, IAllocateMoney} from "../../../redux/balance/types/balanceTypes.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import uuid from "react-native-uuid";
+import React, {RefObject} from "react";
+import {BottomSheetRefProps} from "../../shared/components/bottomSheet.tsx";
 
 interface buttonsProps {
     from: string,
@@ -15,6 +23,7 @@ interface buttonsProps {
     to: string,
     clearData: (data: IComponentCommunicationAction) => {},
     allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {},
+    bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
 
 function Buttons(props: buttonsProps) {
@@ -34,7 +43,7 @@ function Buttons(props: buttonsProps) {
             width: '100%',
 
             flexDirection: 'row',
-            height: 45,
+            height: 100,
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
@@ -54,47 +63,47 @@ function Buttons(props: buttonsProps) {
     return (
         <View style={styles.container}>
             <View style={styles.amountDetailView}>
-                <View style={styles.amountView}>
-                    <Text style={{width: "auto",fontSize: 20}}>
-                        Cancel
-                    </Text>
-                </View>
-                <TouchableOpacity onPress={() => {
-                    const clearDataParameters: IComponentCommunicationAction = {
-                        from: "", to: "",
-                        date: "",
-                        itemSelected: "",
-                        payee: "",
-                        text: "",
-                        type: "",
-                        number: 0.0,
-                        itemKey: ""
-                    };
-                    let amount : number  = props.amount
+
+
+                    <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
+
+                        props.bottomSheetRef.current?.scrollTo(0);
+                    }}  size={50}/>
+
+
+                    <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}} nPress={() => {
+                        const clearDataParameters: IComponentCommunicationAction = {
+                            from: "", to: "",
+                            date: "",
+                            itemSelected: "",
+                            payee: "",
+                            text: "",
+                            type: "",
+                            number: 0.0,
+                            itemKey: ""
+                        };
+                        let amount : number  = props.amount
 
                         amount = 0 - amount;
 
-                    const deallocateMoneyFromCategoryParameters: IAllocateMoneyToCategory = {
-                        amount: amount, categoryID: props.from, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
+                        const deallocateMoneyFromCategoryParameters: IAllocateMoneyToCategory = {
+                            amount: amount, categoryID: props.from, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
 
-                    };
+                        };
 
-                    const allocateMoneyToCategoryParameters: IAllocateMoneyToCategory = {
-                        amount: props.amount, categoryID: props.to, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
+                        const allocateMoneyToCategoryParameters: IAllocateMoneyToCategory = {
+                            amount: props.amount, categoryID: props.to, type: CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY
 
-                    };
+                        };
 
 
-                    props.allocateMoneyToCategoryAction(deallocateMoneyFromCategoryParameters);
-                    props.allocateMoneyToCategoryAction(allocateMoneyToCategoryParameters);
-                    props.clearData(clearDataParameters);
-                }} style={styles.amountView}>
+                        props.allocateMoneyToCategoryAction(deallocateMoneyFromCategoryParameters);
+                        props.allocateMoneyToCategoryAction(allocateMoneyToCategoryParameters);
+                        props.clearData(clearDataParameters);
+                        props.bottomSheetRef.current?.scrollTo(0);
+                    }}   size={50}/>
 
-                    <Text style={{width: "auto", fontSize: 20}}>
-                        Transfer
-                    </Text>
 
-                </TouchableOpacity>
 
             </View>
         </View>

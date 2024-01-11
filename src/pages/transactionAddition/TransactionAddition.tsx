@@ -25,6 +25,7 @@ import {
     ICategoryTransactionAction
 } from "../../redux/category/types/CategoryTypes.tsx";
 import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 
 interface TransactionAdditionProps {
@@ -235,96 +236,73 @@ function TransactionAddition(props: TransactionAdditionProps) {
                         width: '100%',
 
                         flexDirection: 'row',
-                        height: 45,
+                        height: 100,
                         display: 'flex',
                         justifyContent: 'space-around',
                         alignItems: 'center',
                         borderRadius: 5
                     }}>
-                        <TouchableOpacity onPress={() => {
-                            navigation.goBack()
-                        }} style={{
-                            borderRadius: 5,
-                            width: '40%',
-                            height: '100%',
-                            backgroundColor: '#FAF9F9',
-                            display: 'flex',
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}>
-                            <Text style={{width: "auto", fontSize: 20}}>
-                                Cancel
-                            </Text>
-                        </TouchableOpacity>
+                        <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
 
-
-                        <TouchableOpacity onPress={() => {
-
-
-                            const transactionData: ITransactionActionTypes =
-                                {
-                                    transactionType:props.itemSelect === "available" ? TransactionTypes.CREDIT :TransactionTypes.DEBIT,
-                                    amount: props.amount,
-                                    category: props.itemKey,
-                                    date: dateValue.getTime(),
-                                    payee: props.payee,
-                                    type: TransactionActionTypes.ADD_TRANSACTION
-
-                                }
-
-
-                            const balanceData: IAddTransaction =
-                                {
-                                    type: BalanceActionTypes.REDUCE_BALANCE,
-                                    transactionAmount: props.amount
-
-                                }
-
-
-                            //@ts-ignore
-                            const categoryData: ICategoryActionTypes =
-                                {
-                                    type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                                    categoryID: props.itemKey,
-                                    amount: props.amount,
-
-                                }
-                            const clearDataParameters: IComponentCommunicationAction = {
-                                from: "", to: "",
-                                date: "",
-                                itemSelected: "",
-                                payee: "",
-                                text: "",
-                                type: "",
-                                number: 0.0,
-                                itemKey: ""
-                            };
-
-                            if(props.itemSelect === "available") {
-                                props.addBalance(balanceData);
-                            }
-                            else {
-                                props.reduceAvailable(balanceData);
-                                props.categoryTransactionAction(categoryData);
-                            }
-
-                            props.addTransaction(transactionData);
-
-                            props.clearData(clearDataParameters);
                             props.bottomSheetRef.current?.scrollTo(0);
-                        }} style={{
-                            borderRadius: 5,
-                            width: '40%',
-                            height: '100%',
-                            backgroundColor: '#FAF9F9',
-                            display: 'flex',
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}>
-                            <Text style={{width: "auto", fontSize: 20}}>
-                                Add
-                            </Text>
-                        </TouchableOpacity>
+                        }}  size={50}/>
+
+
+                            <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
+
+
+                                const transactionData: ITransactionActionTypes =
+                                    {
+                                        transactionType:props.itemSelect === "available" ? TransactionTypes.CREDIT :TransactionTypes.DEBIT,
+                                        amount: props.amount,
+                                        category: props.itemKey,
+                                        date: dateValue.getTime(),
+                                        payee: props.payee,
+                                        type: TransactionActionTypes.ADD_TRANSACTION
+
+                                    }
+
+
+                                const balanceData: IAddTransaction =
+                                    {
+                                        type: BalanceActionTypes.REDUCE_BALANCE,
+                                        transactionAmount: props.amount
+
+                                    }
+
+
+                                //@ts-ignore
+                                const categoryData: ICategoryActionTypes =
+                                    {
+                                        type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                        categoryID: props.itemKey,
+                                        amount: props.amount,
+
+                                    }
+                                const clearDataParameters: IComponentCommunicationAction = {
+                                    from: "", to: "",
+                                    date: "",
+                                    itemSelected: "",
+                                    payee: "",
+                                    text: "",
+                                    type: "",
+                                    number: 0.0,
+                                    itemKey: ""
+                                };
+
+                                if(props.itemSelect === "available") {
+                                    props.addBalance(balanceData);
+                                }
+                                else {
+                                    props.reduceAvailable(balanceData);
+                                    props.categoryTransactionAction(categoryData);
+                                }
+
+                                props.addTransaction(transactionData);
+
+                                props.clearData(clearDataParameters);
+                                props.bottomSheetRef.current?.scrollTo(0);
+                            }}  size={50}/>
 
 
                     </View>

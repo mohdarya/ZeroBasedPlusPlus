@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TopBar from './components/TopBar';
 import BottomBar from '../shared/components/BottomBar';
@@ -17,6 +17,7 @@ import {
 import {IAllocateMoney} from "../../redux/balance/types/balanceTypes.tsx";
 import {allocateMoney} from "../../redux/balance/actions/balanceActions.tsx";
 import {allocateMoneyToCategoryAction} from "../../redux/category/action/CategoryAction.tsx";
+import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 
 
 
@@ -28,6 +29,7 @@ interface TransferPageProp {
   from: string,
   to: string,
   allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {},
+  bottomSheetRef: RefObject<BottomSheetRefProps>,
 }
 function TransferPage(props : TransferPageProp) {
 
@@ -221,7 +223,7 @@ function TransferPage(props : TransferPageProp) {
             </View>
           </View>
           <View style={styles.transactionListView}>
-            <Buttons/>
+            <Buttons bottomSheetRef={props.bottomSheetRef}/>
           </View>
         </View>
       </View>
