@@ -5,25 +5,33 @@ import BottomBar from "../shared/components/BottomBar.tsx";
 import SpendingChart from "./components/SpendingChart.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
-import React, {useCallback, useRef} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 import CategoryCreationPage from "../categorycreation/CategoryCreationPage.tsx";
 import AllocationPage from "../allocation/AllocationPage.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
+import {ICategoryItem} from "../../redux/category/types/CategoryTypes.tsx";
 
 interface CategoryListPageProps {
     name: string,
     allocated: number,
     available: number,
-    periodSpent: number
+    periodSpent: number,
+    categories: ICategoryItem,
 }
 
 function CategoryListPage(props: CategoryListPageProps) {
     const navigation = useNavigation();
     const ref = useRef<BottomSheetRefProps>(null);
 
+    const [graphData, setGraphData] = useState( Object.values(  Object.fromEntries(Object.entries(props.categories))).map((value, index) => {
+        return {
+            value: value.monthlySpent,
+            name: value.name
+        }
+    }))
 
     const styles = StyleSheet.create({
         container: {
@@ -78,7 +86,7 @@ function CategoryListPage(props: CategoryListPageProps) {
     return (
         <View style={styles.container}>
             <View style={styles.spendingInfoView}>
-                <SpendingChart/>
+                <SpendingChart data={graphData}/>
             </View>
             <View style={styles.transactionListView}>
                 <CategoryList/>

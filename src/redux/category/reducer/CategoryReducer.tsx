@@ -62,6 +62,7 @@ export function categoryReducer(state: ICategoryItem = initialState, action: ICa
                 [action.categoryID]: {
                     ...state[action.categoryID],
                     dailySpent: state[action.categoryID].dailySpent + action.amount,
+                    monthlySpent: state[action.categoryID].monthlySpent + action.amount,
                     periodSpent: state[action.categoryID].periodSpent + action.amount,
                     available: state[action.categoryID].available - action.amount,
                 }
