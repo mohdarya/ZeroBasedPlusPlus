@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 
 
@@ -11,6 +11,7 @@ interface  CategoryItemProps{
     budget: number,
     frequency: string,
     name: string
+    categoryIcon: string
 
 }
 
@@ -73,7 +74,7 @@ function CategoryItem(props: CategoryItemProps) {
                     }}>
                     <View>
                         <Icon
-                            name="list"
+                            name={props.categoryIcon}
                             size={25}
                             style={{
                                 backgroundColor: 'black',
