@@ -225,7 +225,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                         <View style={{width: '90%'}}>
                             <CategoryItem name={props.itemKey != '' ? props.categories[props.itemKey].name : ""}
                                           frequency={props.itemKey != '' ? props.categories[props.itemKey].frequency : ""}
-                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : ""} periodSpent={props.itemKey != '' ? props.categories[props.itemKey].periodSpent : ""}/>
+                                          available={props.itemKey != '' ? props.categories[props.itemKey].available : ""} periodSpent={props.itemKey != '' ? props.categories[props.itemKey].periodSpent : ""}  categoryIcon={props.itemKey != '' ? props.categories[props.itemKey].icon : ""}/>
                         </View>
                     </TouchableOpacity>
 
