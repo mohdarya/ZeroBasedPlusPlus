@@ -22,6 +22,7 @@ interface InformationEntryProps {
     frequency: string[],
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
+    categoryIcons:string[],
 }
 
 function InformationEntry(props: InformationEntryProps) {
@@ -104,7 +105,16 @@ function InformationEntry(props: InformationEntryProps) {
             <View style={{display: 'flex', width: '100%', alignItems: 'flex-start'}}>
             <Icon
 
-                name="home"
+                onPress={() => {
+
+
+                    // @ts-ignore
+                    navigation.navigate('IconSelection',
+                                        {
+                                            list: props.categoryIcons
+                                        })}}
+
+                name={props.itemSelect === '' ? 'home' : props.itemSelect}
                 size={30}
                 style={{
                     backgroundColor: '#282828',
@@ -162,6 +172,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         itemKey: state.communication.itemKey,
         text: state.communication.text,
         frequency: state.appDetail.categoryFrequency,
+        categoryIcons: state.appDetail.categoryIconList,
     };
 };
 

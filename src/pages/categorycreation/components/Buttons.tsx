@@ -92,13 +92,14 @@ function Buttons(props: buttonsProps) {
                                 allocated: 0.00,
                                 available: 0.00,
                                 categoryID: uuid.v4().toString(),
-                                frequency: props.itemSelect,
+                                frequency: 'Daily',
                                 dailySpent: 0.0,
                                 periodSpent: 0.0,
                                 monthlySpent: 0.0,
                                 name: props.text,
                                 type: CategoryActionTypes.ADD_CATEGORY,
                                 budget: props.amount,
+                                icon: props.itemSelect
 
 
                             }

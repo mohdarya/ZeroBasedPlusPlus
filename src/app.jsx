@@ -21,8 +21,10 @@ import TransferPage from './pages/transferpage/TransferPage';
 import PeriodSpentPage from './pages/periodspentpage/PeriodSpentPage';
 import AllocationAmountEntry
   from './pages/allocation/components/AllocationAmountEntry';
+import IconSelection from './pages/categorycreation/components/IconSelection';
 
-function App(props) {
+function App(props)
+{
 
   const Stack = createStackNavigator();
   return (
@@ -53,6 +55,7 @@ function App(props) {
             <Stack.Screen name="TransferPage" component={TransferPage} />
             <Stack.Screen name="PeriodSpentPage" component={PeriodSpentPage} />
             <Stack.Screen name="AllocationAmountEntry" component={AllocationAmountEntry} />
+            <Stack.Screen name="IconSelection" component={IconSelection} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
