@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function TransactionItem(props) {
   const Styles = StyleSheet.create({
@@ -43,7 +43,7 @@ function TransactionItem(props) {
               }}>
             <View>
               <Icon
-                  name="list"
+                  name={props.categoryIcon}
                   size={25}
                   style={{
                     backgroundColor: '#FF7171',

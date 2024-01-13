@@ -8,6 +8,7 @@ const initialState = {
         monthlySpent: 0.0,
         available: 150.00,
         allocated: 300.00,
+        icon: 'cake',
         frequency: 'weekly',
         budget: 100.00
     },
@@ -19,6 +20,7 @@ const initialState = {
         monthlySpent: 0.0,
         available: 300.00,
         allocated: 300.00,
+        icon: 'mood',
         frequency: 'monthly',
         budget: 300.00
     },
@@ -30,6 +32,7 @@ const initialState = {
         monthlySpent: 0.0,
         available: 100.00,
         allocated: 300.00,
+        icon: 'yard',
         frequency: 'daily',
         budget: 5.00
     },
@@ -40,6 +43,7 @@ const initialState = {
         monthlySpent: 0.0,
         available: 210.0,
         allocated: 300.00,
+        icon: 'person',
         frequency: 'daily',
         budget: 10.00
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   TransactionTypes
 } from '../../../redux/transactions/types/transactionTypes';
@@ -46,7 +46,7 @@ function TransactionItem(props) {
           }}>
           <View>
             <Icon
-              name="list"
+              name={props.categoryIcon}
               size={25}
               style={props.type === TransactionTypes.DEBIT ? {
                 backgroundColor: '#FF7171',

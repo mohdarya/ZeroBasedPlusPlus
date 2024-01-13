@@ -13,6 +13,7 @@ export interface ICategoryItemDetails {
     allocated: number,
     frequency: string,
     budget: number,
+    icon: string,
 
 }
 
@@ -39,6 +40,7 @@ export interface IAddCategory {
     allocated: number,
     frequency: string,
     categoryID: string,
+    icon: string,
     budget: number,
 }
 

@@ -16,7 +16,7 @@ function TransactionSection(props) {
   });
   function loadData() {
     return props.transactions.map((value, key) => (
-        <TransactionItem key={key} name={value.payee}  date={ new Date(value.date).toLocaleDateString()} amount={value.amount} type={value.type}/>
+        <TransactionItem key={key} name={value.payee}  date={ new Date(value.date).toLocaleDateString()} amount={value.amount} type={value.type} categoryIcon={props.categories[value.category].icon}/>
     ));
   }
 
@@ -65,6 +65,7 @@ function TransactionSection(props) {
 const mapStateToProps = state => {
   return {
     transactions: state.transactions.transactions,
+    categories: state.categories,
   };
 };
 export default connect(mapStateToProps)(TransactionSection);

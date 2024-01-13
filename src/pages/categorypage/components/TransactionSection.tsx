@@ -7,7 +7,7 @@ function TransactionSection(props : any) {
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
     const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
         <TransactionItem key={value.payee + value.amount + value.date} name={value.payee} date={new Date(value.date).toLocaleDateString()}
-                         amount={value.amount}/>
+                         amount={value.amount} categoryIcon={props.categories[value.category].icon}/>
     )))
   let months: {
     [key: number]: string
@@ -62,7 +62,7 @@ function TransactionSection(props : any) {
 
   useEffect(()=>{setTransactionData(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
       <TransactionItem key={value.payee + value.amount + value.date} name={value.payee}  date={new Date(value.date).toLocaleDateString()}
-                       amount={value.amount}/>
+                       amount={value.amount} categoryIcon={props.categories[value.category].icon}/>
   )))}, [monthSelected])
 
 
@@ -155,6 +155,7 @@ function TransactionSection(props : any) {
 const mapStateToProps = state => {
   return {
     transactions: state.transactions.transactions,
+      categories: state.categories,
   };
 };
 export default connect(mapStateToProps)(TransactionSection);
