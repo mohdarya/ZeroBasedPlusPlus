@@ -8,6 +8,7 @@ import TransactionList from "./components/TransactionList.tsx";
 import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import React, {useRef} from "react";
+import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 
 interface TransactionListPageProps {
 }
@@ -15,6 +16,7 @@ interface TransactionListPageProps {
 function TransactionListPage(props: TransactionListPageProps) {
   const navigation = useNavigation();
     const ref = useRef<BottomSheetRefProps>(null);
+    const transactionEditingRef = useRef<BottomSheetRefProps>(null);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -59,7 +61,7 @@ function TransactionListPage(props: TransactionListPageProps) {
     <View style={styles.container}>
 
         <View  style={styles.transactionListView}>
-        <TransactionList/>
+        <TransactionList transactionEditingRef={transactionEditingRef}/>
         </View>
       <View style={styles.bottomBarView}>
         <BottomBar page="TransactionListPage"  bottomSheetRef={ref}/>
@@ -67,6 +69,9 @@ function TransactionListPage(props: TransactionListPageProps) {
 
         <BottomSheet ref={ref}>
             <BottomSheetSelection bottomSheetRef={ref}/>
+        </BottomSheet>
+        <BottomSheet ref={transactionEditingRef}>
+            <TransactionAddition bottomSheetRef={transactionEditingRef}/>
         </BottomSheet>
     </View>
   );
