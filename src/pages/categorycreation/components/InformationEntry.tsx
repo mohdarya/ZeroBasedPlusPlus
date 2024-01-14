@@ -1,11 +1,11 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from "react";
+import React, {useState} from "react";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {ITransactionActionTypes} from "../../../redux/transactions/types/transactionTypes.tsx";
 import {addTransaction} from "../../../redux/transactions/action/TransactionsActions.tsx";
 import {
-    clearData,
-    IComponentCommunicationAction
+    clearData, ComponentCommunicationActionTypes,
+    IComponentCommunicationAction, IReturnIndex, returnIndex
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import {connect} from "react-redux";
 import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx";
@@ -22,10 +22,16 @@ interface InformationEntryProps {
     frequency: string[],
     addTransaction: (data: ITransactionActionTypes) => {},
     clearData: (data: IComponentCommunicationAction) => {},
+    returnIndex: (data: IReturnIndex) => {},
     categoryIcons:string[],
+    categoryFrequency:string[],
 }
 
 function InformationEntry(props: InformationEntryProps) {
+
+
+
+    const [frequencyIndex, setFrequencyIndex] = useState(0);
 
     const navigation = useNavigation();
     const styles = StyleSheet.create({
@@ -88,7 +94,17 @@ function InformationEntry(props: InformationEntryProps) {
         <View style={styles.container}>
 
             <View style={{display: 'flex', width: '100%', alignItems: 'flex-end'}}>
-            <View style={    {
+            <TouchableOpacity onPress={() => {
+                setFrequencyIndex(frequencyIndex <  props.categoryFrequency.length  -1? frequencyIndex + 1: 0 )
+
+                let indexParameter : IReturnIndex = {
+                    index: frequencyIndex,
+                    type: ComponentCommunicationActionTypes.RETURN_INDEX
+
+
+                }
+                props.returnIndex(indexParameter);
+            }} style={    {
                 backgroundColor: '#282828',
                 width: 90,
                 height: 25,
@@ -98,9 +114,9 @@ function InformationEntry(props: InformationEntryProps) {
                 alignItems: 'center',
             }}>
                 <Text style={{color: '#E9EEEA', textAlign: 'center',fontSize: 15}}>
-                    Daily
+                    {props.categoryFrequency[frequencyIndex]}
                 </Text>
-            </View>
+            </TouchableOpacity>
             </View>
             <View style={{display: 'flex', width: '100%', alignItems: 'flex-start'}}>
             <Icon
@@ -173,6 +189,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         text: state.communication.text,
         frequency: state.appDetail.categoryFrequency,
         categoryIcons: state.appDetail.categoryIconList,
+        categoryFrequency: state.appDetail.categoryFrequency
+
     };
 };
 
@@ -181,6 +199,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     return {
         addTransaction: (data: ITransactionActionTypes) => dispatch(addTransaction(data)),
         clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+        returnIndex: (data: IReturnIndex) => dispatch(returnIndex(data)),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(InformationEntry);

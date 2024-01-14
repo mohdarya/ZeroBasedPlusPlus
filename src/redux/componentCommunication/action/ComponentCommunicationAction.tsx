@@ -8,6 +8,7 @@ export enum ComponentCommunicationActionTypes {
     CLEAR_DATA = 'CLEAR_DATA',
     RETURN_FROM= "RETURN_FROM",
     RETURN_TO = "RETURN_TO",
+    RETURN_INDEX = "RETURN_INDEX",
 }
 
 interface IReturnItemSelected {
@@ -49,10 +50,13 @@ export interface IReturnFrom {
 export interface IReturnTo {
     type: string,
     to: string
+}export interface IReturnIndex {
+    type: string,
+    index: number
 }
 
 
-export interface IComponentCommunicationAction extends IReturnNumeric, IReturnItemSelected, IReturnText, IReturnPayee, IReturnDate, IReturnItemKey, IReturnFrom, IReturnTo{
+export interface IComponentCommunicationAction extends IReturnNumeric, IReturnItemSelected, IReturnText, IReturnPayee, IReturnDate, IReturnItemKey, IReturnFrom, IReturnTo, IReturnIndex{
 
 }
 
@@ -112,6 +116,13 @@ export function returnTo(props: IReturnTo) {
     };
 }
 
+
+export function returnIndex(props: IReturnIndex) {
+    return {
+        type: ComponentCommunicationActionTypes.RETURN_INDEX,
+        index: props.index
+    };
+}
 export function clearData(props: IComponentCommunicationAction) {
     return {
         type: ComponentCommunicationActionTypes.CLEAR_DATA,

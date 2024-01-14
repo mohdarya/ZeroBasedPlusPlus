@@ -12,6 +12,7 @@ interface IComponentCommunication{
   itemKey: string,
   from: string,
   to: string,
+  index: number,
 
 }
 
@@ -24,6 +25,7 @@ const initialState = {
   itemKey: '',
   from: '',
   to: '',
+  index: 0
 };
 
 export function ComponentCommunicationReducer(state : IComponentCommunication = initialState, action : IComponentCommunicationAction) {
@@ -71,6 +73,11 @@ export function ComponentCommunicationReducer(state : IComponentCommunication = 
       return {
         ...state,
         to: action.to,
+      };
+    case ComponentCommunicationActionTypes.RETURN_INDEX:
+      return {
+        ...state,
+        index: action.index,
       };
     case ComponentCommunicationActionTypes.CLEAR_DATA:
       return initialState;

@@ -30,6 +30,8 @@ interface buttonsProps {
     clearData: (data: IComponentCommunicationAction) => {},
     modalVisible: boolean,
     setModalVisible: any,
+    categoryFrequency: string[],
+    index: number
 }
 
 function Buttons(props: buttonsProps) {
@@ -99,7 +101,7 @@ function Buttons(props: buttonsProps) {
                                     available: 0.00,
                                     categoryID: uuid.v4()
                                                     .toString(),
-                                    frequency: 'Daily',
+                                    frequency: props.categoryFrequency[props.index],
                                     dailySpent: 0.0,
                                     periodSpent: 0.0,
                                     monthlySpent: 0.0,
@@ -111,6 +113,7 @@ function Buttons(props: buttonsProps) {
 
                                 }
                             const clearDataParameters: IComponentCommunicationAction = {
+                                index: 0,
                                 from: "",
                                 to: "",
                                 date: "",
@@ -144,7 +147,9 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         amount: state.communication.numeric,
         itemSelect: state.communication.itemSelected,
         itemKey: state.communication.itemKey,
+        categoryFrequency: state.appDetail.categoryFrequency,
         text: state.communication.text,
+        index: state.communication.index,
     };
 };
 
