@@ -19,15 +19,18 @@ function TransactionListPage(props: TransactionListPageProps) {
       height: '100%',
       width: '100%',
       flexDirection: "column",
-      backgroundColor: "#555B6E",
-      justifyContent: "space-between"
+        backgroundColor: '#E9EEEA',
+      justifyContent: "center"
     },
     bottomBarView: {
-      height: 60,
-      marginBottom: "5%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
+        height: 65,
+        marginBottom: '2%',
+        width: '100%',
+        bottom: 0,
+        display: 'flex',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     spendingInfoView:
       {
@@ -42,7 +45,7 @@ function TransactionListPage(props: TransactionListPageProps) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: '65%',
+              height: '90%',
               width: '100%',
 
           }
@@ -51,11 +54,7 @@ function TransactionListPage(props: TransactionListPageProps) {
 
   return (
     <View style={styles.container}>
-      <TopBar />
 
-      <View style={styles.spendingInfoView}>
-        <SpendingInfo balanceText={"test"} balanceAmount={10} />
-      </View >
         <View  style={styles.transactionListView}>
         <TransactionList/>
         </View>

@@ -1,9 +1,19 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import TransactionItem from './TransactionItem';
 import {connect} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
 
 function TransactionSection(props) {
+
+
+  const navigation = useNavigation();
   const Styles = StyleSheet.create({
     container: {
       height: 60,
@@ -41,11 +51,14 @@ function TransactionSection(props) {
         }}>
         Transactions
       </Text>
-        <View style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity onPress={()=> {
+          navigation.navigate('TransactionList')
+        }} style={{backgroundColor: '#282828', width: 80, height: 25,borderRadius: 5,  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
           <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
             View All
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={{height: 170}}>
       <ScrollView
