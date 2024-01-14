@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import TransactionItem from './TransactionItem';
+import TransactionItem from './TransactionItem.tsx';
 import {connect} from 'react-redux';
 
 function TransactionSection(props : any) {
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
     const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-        <TransactionItem key={value.payee + value.amount + value.date} name={value.payee} date={new Date(value.date).toLocaleDateString()}
-                         amount={value.amount} categoryIcon={props.categories[value.category].icon}/>
+        <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={props.categories[value.category].icon}/>
     )))
   let months: {
     [key: number]: string
@@ -61,8 +60,7 @@ function TransactionSection(props : any) {
 
 
   useEffect(()=>{setTransactionData(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-      <TransactionItem key={value.payee + value.amount + value.date} name={value.payee}  date={new Date(value.date).toLocaleDateString()}
-                       amount={value.amount} categoryIcon={props.categories[value.category].icon}/>
+      <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={props.categories[value.category].icon}/>
   )))}, [monthSelected])
 
 

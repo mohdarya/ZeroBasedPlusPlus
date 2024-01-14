@@ -46,7 +46,6 @@ function TransactionItem(props: any) {
     <TouchableOpacity onPress={()=> {
 
       const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
-
       const transactionData: IComponentCommunicationAction = {
         index: 0,
         from: "",

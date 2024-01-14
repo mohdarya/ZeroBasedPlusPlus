@@ -40,7 +40,7 @@ interface IReturnPayee {
 
 interface IReturnDate {
     type: string,
-    date: string
+    date: number
 }
 
 export interface IReturnFrom {

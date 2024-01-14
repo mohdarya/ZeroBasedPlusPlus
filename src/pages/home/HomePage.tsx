@@ -316,6 +316,7 @@ const mapStateToProps = (state : RootState) => {
     lastMonthlyJob: state.appDetail.lastMonthlyJob,
     from: state.communication.from,
     to: state.communication.to,
+    date: state.communication.date,
     statistics:state.statistics
   };
 };

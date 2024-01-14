@@ -1,4 +1,4 @@
-import React, {RefObject, useState} from 'react';
+import React, {RefObject, useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CategoryItem from './components/CategoryLIstItem.tsx';
 import {useNavigation} from "@react-navigation/core";
@@ -51,9 +51,12 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
     const navigation = useNavigation();
     const [datePicker, setDatePicker] = useState(false);
-
     const [dateValue, setDateValue] = useState((props.date !== 0 ? new Date(props.date) : new Date()));
 
+    useEffect(() =>
+              {
+                  setDateValue((props.date !== 0 ? new Date(props.date) : new Date()))
+              }, [props.date]);
     const onChange = (event: any, selectedValue: any) => {
         setDatePicker(false);
         const currentDate = selectedValue || new Date();
@@ -294,7 +297,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                         index: 0,
                                         from: "",
                                         to: "",
-                                        date: "",
+                                        date: 0,
                                         itemSelected: "",
                                         payee: "",
                                         text: "",

@@ -15,6 +15,7 @@ import Graph from "./components/Graph.tsx";
 import {ICategoryStatistics} from "../../redux/statistics/types/StatisticsTypes.tsx";
 import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
+import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 
 
 interface CategoryPageProps {
@@ -26,6 +27,7 @@ function CategoryPage(props: CategoryPageProps) {
 
     const route = useRoute();
     const ref = useRef<BottomSheetRefProps>(null);
+    const transactionEditingRef = useRef<BottomSheetRefProps>(null);
     // @ts-ignore
     const categoryID = route.params.categoryID;
     const styles = StyleSheet.create({
@@ -81,7 +83,7 @@ function CategoryPage(props: CategoryPageProps) {
                 </View>
 
                 <View style={styles.transactionSectionView}>
-                    <TransactionSection categoryId={categoryID}/>
+                    <TransactionSection transactionEditingRef={transactionEditingRef} categoryId={categoryID}/>
                 </View>
 
             </View>
@@ -92,13 +94,18 @@ function CategoryPage(props: CategoryPageProps) {
             <BottomSheet ref={ref}>
                 <BottomSheetSelection bottomSheetRef={ref}/>
             </BottomSheet>
+            <BottomSheet ref={transactionEditingRef}>
+                <TransactionAddition bottomSheetRef={transactionEditingRef}/>
+            </BottomSheet>
         </View>
     );
 }
 const mapStateToProps = (state: RootState) => {
     return {
         categories: state.categories,
-        statistics: state.statistics.categories
+        date: state.communication.date,
+        statistics: state.statistics.categories,
+        transactions: state.transactions,
     };
 };
 export default connect(mapStateToProps)(CategoryPage);

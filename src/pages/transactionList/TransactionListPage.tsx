@@ -9,6 +9,8 @@ import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import React, {useRef} from "react";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
+import {RootState} from "../../redux/rootReducer.tsx";
+import {connect} from "react-redux";
 
 interface TransactionListPageProps {
 }
@@ -77,4 +79,12 @@ function TransactionListPage(props: TransactionListPageProps) {
   );
 }
 
-export default TransactionListPage;
+const mapStateToProps = (state: RootState) => {
+    return {
+        categories: state.categories,
+        statistics: state.statistics.categories,
+        date: state.communication.date,
+        transactions: state.transactions,
+    };
+};
+export default connect(mapStateToProps)(TransactionListPage);
