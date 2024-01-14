@@ -11,6 +11,8 @@ import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 
 interface CategoryCreationPageProps {
     bottomSheetRef: RefObject<BottomSheetRefProps>,
+    modalVisible: boolean,
+    setModalVisible: any,
 }
 
 function CategoryCreationPage(props: CategoryCreationPageProps) {
@@ -68,7 +70,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 <InformationEntry/>
             </View>
             <View style={styles.transactionListView}>
-                    <Buttons bottomSheetRef={props.bottomSheetRef}/>
+                    <Buttons  modalVisible={props.modalVisible} setModalVisible={props.setModalVisible} bottomSheetRef={props.bottomSheetRef}/>
             </View>
         </View>
     );

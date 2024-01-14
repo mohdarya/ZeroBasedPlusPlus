@@ -40,6 +40,8 @@ interface TransactionAdditionProps {
     addBalance: (data: IAddTransaction) => {},
     categoryTransactionAction: (data: ICategoryTransactionAction) => {},
     bottomSheetRef: RefObject<BottomSheetRefProps>,
+    modalVisible: boolean,
+    setModalVisible: any,
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
@@ -251,58 +253,64 @@ function TransactionAddition(props: TransactionAdditionProps) {
                             <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
 
 
-                                const transactionData: ITransactionActionTypes =
-                                    {
-                                        transactionType:props.itemSelect === "available" ? TransactionTypes.CREDIT :TransactionTypes.DEBIT,
-                                        amount: props.amount,
-                                        category: props.itemKey,
-                                        date: dateValue.getTime(),
-                                        payee: props.payee,
-                                        type: TransactionActionTypes.ADD_TRANSACTION
+                                if(props.amount !== 0 && props.itemKey !== '' && props.payee !== '' )
+                                {
+                                    const transactionData: ITransactionActionTypes =
+                                        {
+                                            transactionType: props.itemSelect === "available" ? TransactionTypes.CREDIT : TransactionTypes.DEBIT,
+                                            amount: props.amount,
+                                            category: props.itemKey,
+                                            date: dateValue.getTime(),
+                                            payee: props.payee,
+                                            type: TransactionActionTypes.ADD_TRANSACTION
 
+                                        }
+
+
+                                    const balanceData: IAddTransaction =
+                                        {
+                                            type: BalanceActionTypes.REDUCE_BALANCE,
+                                            transactionAmount: props.amount
+
+                                        }
+
+
+                                    //@ts-ignore
+                                    const categoryData: ICategoryActionTypes =
+                                        {
+                                            type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                            categoryID: props.itemKey,
+                                            amount: props.amount,
+
+                                        }
+                                    const clearDataParameters: IComponentCommunicationAction = {
+                                        from: "",
+                                        to: "",
+                                        date: "",
+                                        itemSelected: "",
+                                        payee: "",
+                                        text: "",
+                                        type: "",
+                                        number: 0.0,
+                                        itemKey: ""
+                                    };
+
+                                    if (props.itemSelect === "available")
+                                    {
+                                        props.addBalance(balanceData);
+                                    } else
+                                    {
+                                        props.reduceAvailable(balanceData);
+                                        props.categoryTransactionAction(categoryData);
                                     }
 
+                                    props.addTransaction(transactionData);
 
-                                const balanceData: IAddTransaction =
-                                    {
-                                        type: BalanceActionTypes.REDUCE_BALANCE,
-                                        transactionAmount: props.amount
-
-                                    }
-
-
-                                //@ts-ignore
-                                const categoryData: ICategoryActionTypes =
-                                    {
-                                        type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                                        categoryID: props.itemKey,
-                                        amount: props.amount,
-
-                                    }
-                                const clearDataParameters: IComponentCommunicationAction = {
-                                    from: "", to: "",
-                                    date: "",
-                                    itemSelected: "",
-                                    payee: "",
-                                    text: "",
-                                    type: "",
-                                    number: 0.0,
-                                    itemKey: ""
-                                };
-
-                                if(props.itemSelect === "available") {
-                                    props.addBalance(balanceData);
-                                }
-                                else {
-                                    props.reduceAvailable(balanceData);
-                                    props.categoryTransactionAction(categoryData);
-                                }
-
-                                props.addTransaction(transactionData);
-
-                                props.clearData(clearDataParameters);
-                                props.bottomSheetRef.current?.scrollTo(0);
-                            }}  size={50}/>
+                                    props.clearData(clearDataParameters);
+                                    props.bottomSheetRef.current?.scrollTo(0);
+                                }else {
+                                    props.setModalVisible(!props.modalVisible)
+                            }}}  size={50}/>
 
 
                     </View>

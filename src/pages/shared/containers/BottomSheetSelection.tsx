@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import React, {RefObject, useState} from "react";
 import {BottomSheetRefProps} from "../components/bottomSheet.tsx";
@@ -11,6 +11,7 @@ import CategoryCreationPage from "../../categorycreation/CategoryCreationPage.ts
 import TransferPage from "../../transferpage/TransferPage.tsx";
 import TransactionAddition from "../../transactionAddition/TransactionAddition.tsx";
 import AllocationPage from "../../allocation/AllocationPage.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 interface BottomSheetSelectionProp {
     bottomSheetRef: RefObject<BottomSheetRefProps>,
@@ -19,7 +20,7 @@ interface BottomSheetSelectionProp {
 function BottomSheetSelection(props: BottomSheetSelectionProp) {
     const navigation = useNavigation();
     const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-
+    const [modalVisible, setModalVisible] = useState(false);
     const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
 
     const [viewTrigger, setViewTrigger] = useState< {
@@ -136,7 +137,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             <View style={styles.actionView}>
 
                 {viewTrigger.categoryCreation &&
-                <CategoryCreationPage bottomSheetRef={props.bottomSheetRef}/>}
+                <CategoryCreationPage modalVisible={modalVisible} setModalVisible={setModalVisible} bottomSheetRef={props.bottomSheetRef}/>}
 
                 {viewTrigger.fundsTransfer &&
                     <TransferPage bottomSheetRef={props.bottomSheetRef}/>}
@@ -144,8 +145,41 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
                 {viewTrigger.allocation &&
                     <AllocationPage/>}
                 {viewTrigger.transactionCreation &&
-                    <TransactionAddition bottomSheetRef={props.bottomSheetRef}/>}
+                    <TransactionAddition  modalVisible={modalVisible} setModalVisible={setModalVisible} bottomSheetRef={props.bottomSheetRef}/>}
             </View>
+
+            <Modal
+                animationType="slide"
+                visible={modalVisible}
+                transparent={true}
+                style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+            >
+                <View   style={{backgroundColor: 'white', width: "90%", height: "30%", position: 'absolute', top: '30%',left: '5%', borderRadius: 15}}>
+
+
+                    <View style={{height: "60%"}}>
+                        <Text style={{      fontSize:40,
+                            color: '#282828',
+                        textAlign: 'center'}}>
+                            Please Fill All the Fields
+                        </Text>
+                    </View>
+                    <View style={{
+                        width: '100%',
+
+                        flexDirection: 'row',
+                        height: 50,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 5
+                    }}>
+                    <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100,        width: 50,}}  onPress={() => {
+                        setModalVisible(!modalVisible)
+                    }}  size={50}/>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }

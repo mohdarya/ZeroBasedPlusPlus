@@ -28,6 +28,8 @@ interface buttonsProps {
     bottomSheetRef: RefObject<BottomSheetRefProps>,
     addCategory: (data: IAddCategory) => {},
     clearData: (data: IComponentCommunicationAction) => {},
+    modalVisible: boolean,
+    setModalVisible: any,
 }
 
 function Buttons(props: buttonsProps) {
@@ -87,37 +89,46 @@ function Buttons(props: buttonsProps) {
 
 
                     <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
-                        const categoryData : IAddCategory =
-                            {
-                                allocated: 0.00,
-                                available: 0.00,
-                                categoryID: uuid.v4().toString(),
-                                frequency: 'Daily',
-                                dailySpent: 0.0,
-                                periodSpent: 0.0,
-                                monthlySpent: 0.0,
-                                name: props.text,
-                                type: CategoryActionTypes.ADD_CATEGORY,
-                                budget: props.amount,
-                                icon: props.itemSelect
 
 
-                            }
-                        const clearDataParameters: IComponentCommunicationAction = {
-                            from: "",
-                            to: "",
-                            date: "",
-                            itemSelected: "",
-                            payee: "",
-                            text: "",
-                            type: "",
-                            number: 0.0,
-                            itemKey: ""
-                        };
+                        if(props.amount !== 0 && props.itemSelect !== ''  && props.text !== '')
+                        {
+                            const categoryData: IAddCategory =
+                                {
+                                    allocated: 0.00,
+                                    available: 0.00,
+                                    categoryID: uuid.v4()
+                                                    .toString(),
+                                    frequency: 'Daily',
+                                    dailySpent: 0.0,
+                                    periodSpent: 0.0,
+                                    monthlySpent: 0.0,
+                                    name: props.text,
+                                    type: CategoryActionTypes.ADD_CATEGORY,
+                                    budget: props.amount,
+                                    icon: props.itemSelect
 
-                        props.addCategory(categoryData);
-                        props.clearData(clearDataParameters)
-                        props.bottomSheetRef.current?.scrollTo( 0);
+
+                                }
+                            const clearDataParameters: IComponentCommunicationAction = {
+                                from: "",
+                                to: "",
+                                date: "",
+                                itemSelected: "",
+                                payee: "",
+                                text: "",
+                                type: "",
+                                number: 0.0,
+                                itemKey: ""
+                            };
+
+                            props.addCategory(categoryData);
+                            props.clearData(clearDataParameters)
+                            props.bottomSheetRef.current?.scrollTo(0);
+                        }else
+                        {
+                            props.setModalVisible(!props.modalVisible)
+                        }
                     }}  size={50}/>
 
 
