@@ -27,12 +27,14 @@ import {
 import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import uuid from "react-native-uuid";
+import {ITransactionStateType} from "../../redux/transactions/reducer/transactionReducer.tsx";
 
 
 interface TransactionAdditionProps {
     amount: number,
     date: number,
     categories: ICategoryItem,
+    transactions: ITransactionStateType,
     itemSelect: string,
     itemKey: string,
     payee: string,
@@ -276,22 +278,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                         }
 
 
-                                    const balanceData: IAddTransaction =
-                                        {
-                                            type: BalanceActionTypes.REDUCE_BALANCE,
-                                            transactionAmount: props.amount
 
-                                        }
-
-
-                                    //@ts-ignore
-                                    const categoryData: ICategoryActionTypes =
-                                        {
-                                            type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                                            categoryID: props.itemKey,
-                                            amount: props.amount,
-
-                                        }
                                     const clearDataParameters: IComponentCommunicationAction = {
                                         id: "",
                                         index: 0,
@@ -306,13 +293,58 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                         itemKey: ""
                                     };
 
-                                    if (props.itemSelect === "available")
+                                    if(props.id === '')
                                     {
-                                        props.addBalance(balanceData);
-                                    } else
+                                        const balanceData: IAddTransaction =
+                                            {
+                                                type: BalanceActionTypes.REDUCE_BALANCE,
+                                                transactionAmount: props.amount
+
+                                            }
+
+
+                                        //@ts-ignore
+                                        const categoryData: ICategoryActionTypes =
+                                            {
+                                                type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                                categoryID: props.itemKey,
+                                                amount: props.amount,
+
+                                            }
+                                        if (props.itemSelect === "available")
+                                        {
+                                            props.addBalance(balanceData);
+                                        } else
+                                        {
+                                            props.reduceAvailable(balanceData);
+                                            props.categoryTransactionAction(categoryData);
+                                        }
+                                    }else
                                     {
-                                        props.reduceAvailable(balanceData);
-                                        props.categoryTransactionAction(categoryData);
+                                        const balanceData: IAddTransaction =
+                                            {
+                                                type: BalanceActionTypes.REDUCE_BALANCE,
+                                                transactionAmount: props.amount - props.transactions.transactions[ props.transactions.transactions.findIndex(x => x.id ==props.id)].amount
+
+                                            }
+
+
+                                        //@ts-ignore
+                                        const categoryData: ICategoryActionTypes =
+                                            {
+                                                type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                                                categoryID: props.itemKey,
+                                                amount: props.amount - props.transactions.transactions[ props.transactions.transactions.findIndex(x => x.id ==props.id)].amount,
+
+                                            }
+                                        if (props.itemSelect === "available")
+                                        {
+                                            props.addBalance(balanceData);
+                                        } else
+                                        {
+                                            props.reduceAvailable(balanceData);
+                                            props.categoryTransactionAction(categoryData);
+                                        }
                                     }
 
                                     props.addTransaction(transactionData);
@@ -340,6 +372,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         payee: state.communication.text,
         id: state.communication.id,
         date: state.communication.date,
+        transactions: state.transactions
     };
 };
 
