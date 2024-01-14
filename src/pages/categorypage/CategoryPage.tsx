@@ -95,7 +95,13 @@ function CategoryPage(props: CategoryPageProps) {
                 <BottomSheetSelection bottomSheetRef={ref}/>
             </BottomSheet>
             <BottomSheet ref={transactionEditingRef}>
-                <TransactionAddition bottomSheetRef={transactionEditingRef}/>
+                        <View style={{
+        display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
+          <View style={{ height: '90%',
+            width: '95%',}}>
+        <TransactionAddition bottomSheetRef={transactionEditingRef}/>
+          </View>
+        </View>
             </BottomSheet>
         </View>
     );

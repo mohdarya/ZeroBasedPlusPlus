@@ -276,7 +276,15 @@ function HomePage(props :IHomepageProp) {
         <BottomSheetSelection bottomSheetRef={ref}/>
       </BottomSheet>
       <BottomSheet ref={transactionEditingRef}>
+        <View style={{
+        display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
+          <View style={{ height: '90%',
+            width: '95%',}}>
+
         <TransactionAddition bottomSheetRef={transactionEditingRef}/>
+
+        </View>
+          </View>
       </BottomSheet>
     </View>
   );
