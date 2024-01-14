@@ -8,7 +8,8 @@ export function addTransaction(payload : ITransactionActionTypes) {
     amount : payload.amount,
     date : payload.date,
     category : payload.category,
-    transactionType : payload.transactionType
+    transactionType : payload.transactionType,
+    id: payload.id
   };
 }
 

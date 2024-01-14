@@ -3,7 +3,7 @@ import {useNavigation} from "@react-navigation/core";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
 import React from "react";
-import TransactionItem from "../../home/components/TransactionItem";
+import TransactionItem from "../../home/components/TransactionItem.tsx";
 import Icon from 'react-native-vector-icons/Fontisto';
 import CategoryItem from "../../shared/components/CategoryLIstItem.tsx";
 interface TransactionListProps {

@@ -7,7 +7,8 @@ interface IComponentCommunication{
   numeric: number,
   text: string,
   payee: string,
-  date: string,
+  date: number,
+  id: string,
   itemSelected: string,
   itemKey: string,
   from: string,
@@ -20,7 +21,8 @@ const initialState = {
   numeric: 0.0,
   text: '',
   payee: '',
-  date: '',
+  date: 0,
+    id: '',
   itemSelected: '',
   itemKey: '',
   from: '',
@@ -78,6 +80,12 @@ export function ComponentCommunicationReducer(state : IComponentCommunication = 
       return {
         ...state,
         index: action.index,
+      };
+
+    case ComponentCommunicationActionTypes.RETURN_ID:
+      return {
+        ...state,
+        id: action.id,
       };
     case ComponentCommunicationActionTypes.CLEAR_DATA:
       return initialState;

@@ -13,6 +13,7 @@ interface IAddTransaction {
     amount: number,
     date: number,
     category: string,
+    id: string,
     transactionType: TransactionTypes,
 }
 

@@ -26,10 +26,12 @@ import {
 } from "../../redux/category/types/CategoryTypes.tsx";
 import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import uuid from "react-native-uuid";
 
 
 interface TransactionAdditionProps {
     amount: number,
+    date: number,
     categories: ICategoryItem,
     itemSelect: string,
     itemKey: string,
@@ -42,13 +44,15 @@ interface TransactionAdditionProps {
     bottomSheetRef: RefObject<BottomSheetRefProps>,
     modalVisible: boolean,
     setModalVisible: any,
+    id: string,
 }
 
 function TransactionAddition(props: TransactionAdditionProps) {
 
     const navigation = useNavigation();
     const [datePicker, setDatePicker] = useState(false);
-    const [dateValue, setDateValue] = useState(new Date());
+
+    const [dateValue, setDateValue] = useState((props.date !== 0 ? new Date(props.date) : new Date()));
 
     const onChange = (event: any, selectedValue: any) => {
         setDatePicker(false);
@@ -257,6 +261,8 @@ function TransactionAddition(props: TransactionAdditionProps) {
                                 {
                                     const transactionData: ITransactionActionTypes =
                                         {
+                                            id: props.id === '' ? uuid.v4()
+                                                   .toString() : props.id,
                                             transactionType: props.itemSelect === "available" ? TransactionTypes.CREDIT : TransactionTypes.DEBIT,
                                             amount: props.amount,
                                             category: props.itemKey,
@@ -284,6 +290,8 @@ function TransactionAddition(props: TransactionAdditionProps) {
 
                                         }
                                     const clearDataParameters: IComponentCommunicationAction = {
+                                        id: "",
+                                        index: 0,
                                         from: "",
                                         to: "",
                                         date: "",
@@ -327,6 +335,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         itemSelect: state.communication.itemSelected,
         itemKey: state.communication.itemKey,
         payee: state.communication.text,
+        id: state.communication.id,
+        date: state.communication.date,
     };
 };
 

@@ -29,6 +29,8 @@ import {
   StatisticsActionTypes
 } from "../../redux/statistics/types/StatisticsTypes.tsx";
 import {updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
+import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
+import TransactionEditing from "../TransactionEditing/TransactionEditing.tsx";
 
 
 interface IHomepageProp {
@@ -61,6 +63,7 @@ interface IHomepageProp {
 }
 function HomePage(props :IHomepageProp) {
   const ref = useRef<BottomSheetRefProps>(null);
+  const transactionEditingRef = useRef<BottomSheetRefProps>(null);
   const appState = useAppState();
   const styles = StyleSheet.create({
     container: {
@@ -264,13 +267,16 @@ function HomePage(props :IHomepageProp) {
         <BalanceInfo balanceAmount={props.weeklyRemaining} balanceText={'Weekly Spent'} />
       </View>
       <View style={styles.transactionSectionView}>
-        <TransactionSection />
+        <TransactionSection transactionEditingRef={transactionEditingRef} />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar  page={"HomePage"} bottomSheetRef={ref}/>
       </View>
       <BottomSheet ref={ref}>
         <BottomSheetSelection bottomSheetRef={ref}/>
+      </BottomSheet>
+      <BottomSheet ref={transactionEditingRef}>
+        <TransactionAddition bottomSheetRef={transactionEditingRef}/>
       </BottomSheet>
     </View>
   );
