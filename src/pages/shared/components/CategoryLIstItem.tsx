@@ -10,6 +10,8 @@ interface  CategoryItemProps{
     periodSpent: number;
     name: string
     categoryIcon: string
+    frequency: string
+    budget: number
 
 }
 
@@ -28,7 +30,16 @@ function CategoryItem(props: CategoryItemProps) {
         },
     });
 
-    let percentageSpent : number = ((props.available - props.periodSpent)/ props.available) * 100
+    let remaining = 0;
+    let percentageSpent : number = 0
+    if(props.available >= props.budget)
+    {
+        remaining = props.budget - props.periodSpent;
+        percentageSpent = (( props.budget  -  props.periodSpent)/ props.budget) * 100
+    }else {
+        remaining = props.available
+        percentageSpent = (( props.budget  -  props.available)/ props.budget) * 100
+    }
 
 
     if( isNaN(percentageSpent) )
@@ -98,7 +109,7 @@ function CategoryItem(props: CategoryItemProps) {
                       Remaining
                     </Text>
                       <Text style={{color: '#555B6E', fontSize: 12, margin: 0} }>
-                        {props.available - props.periodSpent < 0 ? 0 : props.available - props.periodSpent}
+                        {remaining  < 0 ? 0 :remaining  }
                       </Text>
                   </View>
 

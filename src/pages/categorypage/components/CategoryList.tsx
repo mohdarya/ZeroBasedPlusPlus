@@ -18,7 +18,7 @@ function CategoryList(props: TransactionListProps) {
     function loadData() {
         let categoryArray = makeCategoryArray();
         return categoryArray.map((value, key) => (
-            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={300} available={200}/>
+            <CategoryItem key={key} name={value.name} amount={value.amount} allocated={300} available={200} frequency={value.frequency} budget={value.budget}/>
         ));
     }
     function makeCategoryArray() {

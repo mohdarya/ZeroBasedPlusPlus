@@ -54,7 +54,6 @@ export function transactionReducer(state: ITransactionStateType = initialState,
             let foundIndex = transactions.findIndex(x => x.id == action.id);
             if(foundIndex === -1 )
             {
-                console.log('here')
                 transactions.push({
                                       id: action.id,
                                       payee: action.payee,

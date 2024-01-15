@@ -66,15 +66,29 @@ function Buttons(props: buttonsProps) {
 
 
                     <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
-
+                        const clearDataParameters: IComponentCommunicationAction = {
+                            id: "",
+                            index: 0,
+                            from: "", to: "",
+                            date: 0,
+                            itemSelected: "",
+                            payee: "",
+                            text: "",
+                            type: "",
+                            number: 0.0,
+                            itemKey: ""
+                        };
+                        props.clearData(clearDataParameters);
                         props.bottomSheetRef.current?.scrollTo(0);
                     }}  size={50}/>
 
 
                     <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}} nPress={() => {
                         const clearDataParameters: IComponentCommunicationAction = {
+                            id: "",
+                            index: 0,
                             from: "", to: "",
-                            date: "",
+                            date: 0,
                             itemSelected: "",
                             payee: "",
                             text: "",

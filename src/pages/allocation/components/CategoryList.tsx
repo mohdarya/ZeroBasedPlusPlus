@@ -70,12 +70,6 @@ function CategoryList(props: TransactionListProps) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.searchBox}>
-                <Icon name="search"  style={{color: '#E9EEEA', backgroundColor: '#282828', padding: 10, borderRadius: 100, marginBottom: 10,}} onPress={() =>
-                    //@ts-ignore
-                    navigation.navigate('CategoryListPage')} size={18}/>
-
-            </View>
             <ScrollView
                 contentContainerStyle={{
                     display: 'flex',

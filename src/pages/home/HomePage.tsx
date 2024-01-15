@@ -289,7 +289,7 @@ function HomePage(props :IHomepageProp) {
 
 
   }, [appState]);
-
+  
   return (
     <View style={styles.container}>
 
@@ -353,6 +353,7 @@ const mapStateToProps = (state : RootState) => {
     to: state.communication.to,
     date: state.communication.date,
     id: state.communication.id,
+    communication: state.communication,
     statistics:state.statistics
   };
 };

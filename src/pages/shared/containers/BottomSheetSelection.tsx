@@ -2,9 +2,14 @@ import {Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View} from "react
 import {useNavigation} from "@react-navigation/core";
 import React, {RefObject, useState} from "react";
 import {BottomSheetRefProps} from "../components/bottomSheet.tsx";
-import {CategoryActionTypes, IAddCategory} from "../../../redux/category/types/CategoryTypes.tsx";
+import {
+    CategoryActionTypes,
+    IAddCategory, ICategoryTransactionAction,
+    IUpdateCategoryAction
+} from "../../../redux/category/types/CategoryTypes.tsx";
 import uuid from "react-native-uuid";
 import {
+    clearData,
     IComponentCommunicationAction
 } from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
 import CategoryCreationPage from "../../categorycreation/CategoryCreationPage.tsx";
@@ -12,9 +17,29 @@ import TransferPage from "../../transferpage/TransferPage.tsx";
 import TransactionAddition from "../../transactionAddition/TransactionAddition.tsx";
 import AllocationPage from "../../allocation/AllocationPage.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import {ISetBalanceJobTime} from "../../../redux/appDetails/types/AppDetailTypes.tsx";
+import {
+    setDailyBalanceJobTime,
+    setMonthlyBalanceJobTime,
+    setWeeklyBalanceJobTime
+} from "../../../redux/appDetails/actions/AppDetailActions.tsx";
+import {IAddCategoryStatistics, IAddStatistics} from "../../../redux/statistics/types/StatisticsTypes.tsx";
+import {
+    addCategoryStatistics,
+    addDailyStatistics,
+    addMonthlyStatistics, addTotalStatistics,
+    addWeeklyStatistics
+} from "../../../redux/statistics/action/StatisticsActions.tsx";
+import {categoryTransactionAction, updateCategoriesState} from "../../../redux/category/action/CategoryAction.tsx";
+import {IDeleteTransaction} from "../../../redux/transactions/types/transactionTypes.tsx";
+import {deleteTransaction} from "../../../redux/transactions/action/TransactionsActions.tsx";
+import {IAddTransaction} from "../../../redux/balance/types/balanceTypes.tsx";
+import {addBalance, addTransactionBalanceChange} from "../../../redux/balance/actions/balanceActions.tsx";
+import {connect} from "react-redux";
 
 interface BottomSheetSelectionProp {
     bottomSheetRef: RefObject<BottomSheetRefProps>,
+    clearData: (data: IComponentCommunicationAction) => {},
 }
 
 function BottomSheetSelection(props: BottomSheetSelectionProp) {
@@ -143,7 +168,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
                     <TransferPage bottomSheetRef={props.bottomSheetRef}/>}
 
                 {viewTrigger.allocation &&
-                    <AllocationPage/>}
+                    <AllocationPage bottomSheetRef={props.bottomSheetRef}/>}
                 {viewTrigger.transactionCreation &&
                     <TransactionAddition  modalVisible={modalVisible} setModalVisible={setModalVisible} bottomSheetRef={props.bottomSheetRef}/>}
             </View>
@@ -183,5 +208,12 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
         </View>
     );
 }
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
 
-export default BottomSheetSelection;
+
+        clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+
+    };
+};
+export default connect(null,mapDispatchToProps)(BottomSheetSelection);

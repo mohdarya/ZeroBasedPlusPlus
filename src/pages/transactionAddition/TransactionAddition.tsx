@@ -255,6 +255,20 @@ function TransactionAddition(props: TransactionAdditionProps) {
                     }}>
                         <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
 
+                            const clearDataParameters: IComponentCommunicationAction = {
+                                id: "",
+                                index: 0,
+                                from: "",
+                                to: "",
+                                date: 0,
+                                itemSelected: "",
+                                payee: "",
+                                text: "",
+                                type: "",
+                                number: 0.0,
+                                itemKey: ""
+                            };
+                            props.clearData(clearDataParameters);
                             props.bottomSheetRef.current?.scrollTo(0);
                         }}  size={50}/>
 
