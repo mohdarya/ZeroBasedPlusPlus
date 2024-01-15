@@ -26,12 +26,12 @@ function CategoryListPage(props: CategoryListPageProps) {
     const navigation = useNavigation();
     const ref = useRef<BottomSheetRefProps>(null);
 
-    const [graphData, setGraphData] = useState( Object.values(  Object.fromEntries(Object.entries(props.categories).filter(value => {value[0] !== "0"}))).map((value, index) => {
+    const [graphData, setGraphData] = useState( Object.values(  Object.fromEntries(Object.entries(props.categories))).map((value, index) => {
         return {
             value: value.monthlySpent,
             name: value.name
         }
-    }))
+    }).filter((value)=> (value.name.toLowerCase() !== "available")))
 
     const styles = StyleSheet.create({
         container: {
