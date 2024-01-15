@@ -1,6 +1,17 @@
 import {CategoryActionTypes, ICategoryActionTypes, ICategoryItem} from "../types/CategoryTypes.tsx";
 
 const initialState = {
+    '0': {
+        name: 'Available',
+        dailySpent: 0.0,
+        periodSpent: 0.0,
+        monthlySpent: 0.0,
+        available: 150.00,
+        allocated: 300.00,
+        icon: 'attach-money',
+        frequency: 'available',
+        budget: 100.00
+    },
     '261d9e85-4a69-446e-aef6-3ce9df240190': {
         name: 'category test 1',
         dailySpent: 0.0,

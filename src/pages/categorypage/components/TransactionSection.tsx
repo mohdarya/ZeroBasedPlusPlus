@@ -6,7 +6,8 @@ import {connect} from 'react-redux';
 function TransactionSection(props : any) {
     const [monthSelected, setMonthSelected] = useState(new Date().getMonth())
     const [transactionData, setTransactionData] = useState(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-        <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={props.categories[value.category].icon}/>
+        <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={value.category !== "Available" ?  props.categories[value.category].icon: "attach-money"}/>
+
     )))
   let months: {
     [key: number]: string
@@ -60,7 +61,7 @@ function TransactionSection(props : any) {
 
 
   useEffect(()=>{setTransactionData(props.transactions.filter((value) => value.category === props.categoryId && new Date(value.date).getMonth() === monthSelected).map((value, key) => (
-      <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={props.categories[value.category].icon}/>
+      <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={value.category !== "Available" ?  props.categories[value.category].icon: "attach-money"}/>
   )))}, [monthSelected,props.transactions])
 
 

@@ -46,7 +46,10 @@ function CategoryList(props: TransactionListProps) {
                 ...tempItem,
                 categoryID: key,
             };
-            temp.push(tempItem);
+            if(key !== "0")
+            {
+                temp.push(tempItem);
+            }
         }
 
         return temp;
