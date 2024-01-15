@@ -321,22 +321,22 @@ const mapStateToProps = (state : RootState) => {
 
 
   return {
-    dailyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
+    dailyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='daily'))).reduce((accumulator, value) => {
       return accumulator + value.periodSpent;
     }, 0),
-    weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
+    weeklyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='weekly'))).reduce((accumulator, value) => {
       return accumulator + value.periodSpent;
     }, 0),
-    monthlyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='monthly'))).reduce((accumulator, value) => {
+    monthlyRemaining: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='monthly'))).reduce((accumulator, value) => {
       return accumulator + value.periodSpent;
     }, 0),
-    dailyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='daily'))).reduce((accumulator, value) => {
+    dailyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='daily'))).reduce((accumulator, value) => {
       return accumulator + value.dailySpent;
     }, 0),
-    weeklyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='weekly'))).reduce((accumulator, value) => {
+    weeklyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='weekly'))).reduce((accumulator, value) => {
       return accumulator + value.dailySpent;
     }, 0),
-    monthlyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency ==='monthly'))).reduce((accumulator, value) => {
+    monthlyCategoriesDailySpent: Object.values(  Object.fromEntries(Object.entries(state.categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='monthly'))).reduce((accumulator, value) => {
       return accumulator + value.dailySpent;
     }, 0),
     transactions: state.transactions,
