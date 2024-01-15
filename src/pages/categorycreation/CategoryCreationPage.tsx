@@ -7,6 +7,14 @@ import InformationEntry from "./components/InformationEntry.tsx";
 import Buttons from "./components/Buttons.tsx";
 import {RefObject} from "react";
 import {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
+import {RootState} from "../../redux/rootReducer.tsx";
+import {IAddCategory} from "../../redux/category/types/CategoryTypes.tsx";
+import {addCategory} from "../../redux/category/action/CategoryAction.tsx";
+import {
+    clearData,
+    IComponentCommunicationAction
+} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import {connect} from "react-redux";
 
 
 interface CategoryCreationPageProps {
@@ -54,7 +62,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: 100,
+                height: 50,
                 width: '100%',
                 marginBottom: '30%',
 
@@ -75,5 +83,25 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
         </View>
     );
 }
+const mapStateToProps = (state: RootState, ownProps: any) => {
+    return {
+        amount: state.communication.numeric,
+        categories: state.categories,
+        itemSelect: state.communication.itemSelected,
+        itemKey: state.communication.itemKey,
+        text: state.communication.text,
+        frequency: state.appDetail.categoryFrequency,
+        categoryIcons: state.appDetail.categoryIconList,
+        categoryFrequency: state.appDetail.categoryFrequency,
+        index: state.communication.index
+    };
+};
 
-export default CategoryCreationPage;
+
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+    return {
+        addCategory: (data: IAddCategory) => dispatch(addCategory(data)),
+        clearData: (data : IComponentCommunicationAction) => dispatch(clearData(data)),
+    };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(CategoryCreationPage);

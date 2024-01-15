@@ -31,7 +31,8 @@ interface buttonsProps {
     modalVisible: boolean,
     setModalVisible: any,
     categoryFrequency: string[],
-    index: number
+    index: number,
+    id: string
 }
 
 function Buttons(props: buttonsProps) {
@@ -85,13 +86,25 @@ function Buttons(props: buttonsProps) {
                     borderRadius: 5
                 }}>
                     <Icon name="close"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
-
+                        const clearDataParameters: IComponentCommunicationAction = {
+                            id: "",
+                            index: 0,
+                            from: "",
+                            to: "",
+                            date: 0,
+                            itemSelected: "",
+                            payee: "",
+                            text: "",
+                            type: "",
+                            number: 0.0,
+                            itemKey: ""
+                        };
+                        props.clearData(clearDataParameters)
                         props.bottomSheetRef.current?.scrollTo(0);
                     }}  size={50}/>
 
 
                     <Icon name="done"   style={{color: '#E9EEEA', backgroundColor: '#282828', borderRadius: 100}}  onPress={() => {
-
 
                         if(props.amount !== 0 && props.itemSelect !== ''  && props.text !== '')
                         {
@@ -99,8 +112,8 @@ function Buttons(props: buttonsProps) {
                                 {
                                     allocated: 0.00,
                                     available: 0.00,
-                                    categoryID: uuid.v4()
-                                                    .toString(),
+                                    categoryID: props.id === '' ? uuid.v4()
+                                                                      .toString() : props.id,
                                     frequency: props.categoryFrequency[props.index],
                                     dailySpent: 0.0,
                                     periodSpent: 0.0,
@@ -113,10 +126,11 @@ function Buttons(props: buttonsProps) {
 
                                 }
                             const clearDataParameters: IComponentCommunicationAction = {
+                                id: "",
                                 index: 0,
                                 from: "",
                                 to: "",
-                                date: "",
+                                date: 0,
                                 itemSelected: "",
                                 payee: "",
                                 text: "",
@@ -150,6 +164,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         categoryFrequency: state.appDetail.categoryFrequency,
         text: state.communication.text,
         index: state.communication.index,
+        id: state.communication.id,
     };
 };
 

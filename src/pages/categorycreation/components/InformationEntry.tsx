@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RootState} from "../../../redux/rootReducer.tsx";
 import {ITransactionActionTypes} from "../../../redux/transactions/types/transactionTypes.tsx";
 import {addTransaction} from "../../../redux/transactions/action/TransactionsActions.tsx";
@@ -12,12 +12,14 @@ import {ICategoryItem} from "../../../redux/category/reducer/CategoryReducer.tsx
 import {useNavigation} from "@react-navigation/core";
 import CategoryItem from "../../transactionAddition/components/CategoryLIstItem.tsx";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import {useFont} from "@shopify/react-native-skia";
 
 interface InformationEntryProps {
     amount: number,
     categories: ICategoryItem,
     itemSelect: string,
     itemKey: string,
+    index: number,
     text: string,
     frequency: string[],
     addTransaction: (data: ITransactionActionTypes) => {},
@@ -29,10 +31,11 @@ interface InformationEntryProps {
 
 function InformationEntry(props: InformationEntryProps) {
 
-
-
-    const [frequencyIndex, setFrequencyIndex] = useState(0);
-
+    const [frequencyIndex, setFrequencyIndex] = useState(props.index !== undefined && props.index < props.categoryFrequency.length - 1 ? props.index : 0);
+    useEffect(() =>
+              {
+                  setFrequencyIndex(props.index !== undefined && props.index < props.categoryFrequency.length - 1 ? props.index : 0)
+              }, [props.index]);
     const navigation = useNavigation();
     const styles = StyleSheet.create({
         container: {
@@ -189,7 +192,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
         text: state.communication.text,
         frequency: state.appDetail.categoryFrequency,
         categoryIcons: state.appDetail.categoryIconList,
-        categoryFrequency: state.appDetail.categoryFrequency
+        categoryFrequency: state.appDetail.categoryFrequency,
+        index: state.communication.index
 
     };
 };

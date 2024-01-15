@@ -2,7 +2,7 @@ import {StyleSheet, View} from "react-native";
 import {useNavigation, useRoute} from "@react-navigation/core";
 
 import BottomBar from "../shared/components/BottomBar.tsx";
-import TopBar from "./components/TopBar";
+import TopBar from "./components/TopBar.tsx";
 import AllocationInfo from "./components/AllocationInfo.tsx";
 import CategoryList from "./components/CategoryList.tsx";
 import BalanceInfo from "../home/components/BalanceInfo.tsx";
@@ -17,6 +17,7 @@ import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 import TransactionEdit from "../shared/components/TransactionEdit.tsx";
+import CategoryEdit from "../shared/components/categoryEdit.tsx";
 
 
 interface CategoryPageProps {
@@ -29,6 +30,7 @@ function CategoryPage(props: CategoryPageProps) {
     const route = useRoute();
     const ref = useRef<BottomSheetRefProps>(null);
     const transactionEditingRef = useRef<BottomSheetRefProps>(null);
+    const categoryEditingRef = useRef<BottomSheetRefProps>(null);
     // @ts-ignore
     const categoryID = route.params.categoryID;
     const styles = StyleSheet.create({
@@ -76,7 +78,7 @@ function CategoryPage(props: CategoryPageProps) {
     return (
         <View style={styles.container}>
 
-            <TopBar categoryName={props.categories[categoryID].name} categoryFrequency={props.categories[categoryID].frequency}/>
+            <TopBar categoryEditingRef={categoryEditingRef} categoryId={categoryID} categoryName={props.categories[categoryID].name} categoryFrequency={props.categories[categoryID].frequency}/>
 
             <View style={{height: "90%", display: 'flex', justifyContent: 'space-around'}}>
                 <View style={styles.graphView}>
@@ -98,6 +100,10 @@ function CategoryPage(props: CategoryPageProps) {
             <BottomSheet ref={transactionEditingRef}>
                 <TransactionEdit transactionEditingRef={transactionEditingRef}/>
             </BottomSheet>
+
+            <BottomSheet ref={categoryEditingRef}>
+                <CategoryEdit categoryEditingRef={categoryEditingRef}/>
+            </BottomSheet>
         </View>
     );
 }
@@ -107,6 +113,14 @@ const mapStateToProps = (state: RootState) => {
         date: state.communication.date,
         statistics: state.statistics.categories,
         transactions: state.transactions,
+        amount: state.communication.numeric,
+        itemSelect: state.communication.itemSelected,
+        itemKey: state.communication.itemKey,
+        text: state.communication.text,
+        frequency: state.appDetail.categoryFrequency,
+        categoryIcons: state.appDetail.categoryIconList,
+        categoryFrequency: state.appDetail.categoryFrequency,
+        index: state.communication.index
     };
 };
 export default connect(mapStateToProps)(CategoryPage);
