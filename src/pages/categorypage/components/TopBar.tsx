@@ -53,7 +53,7 @@ function TopBar(props :any) {
         <Icon name="edit"  style={{color: '#E9EEEA', backgroundColor: '#282828', padding: 5, borderRadius: 100,}} onPress={() =>
         {
           const transactionData: IComponentCommunicationAction = {
-            index: props.frequencyList.findIndex(x => x.toLowerCase() === props.categories[props.categoryId].frequency),
+            index: props.frequencyList.findIndex(x => x.toLowerCase() === props.categories[props.categoryId].frequency.toLowerCase()),
             from: "",
             to: "",
             date: 0,

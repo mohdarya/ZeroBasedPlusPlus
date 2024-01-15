@@ -36,6 +36,8 @@ function InformationEntry(props: InformationEntryProps) {
               {
                   setFrequencyIndex(props.index !== undefined && props.index < props.categoryFrequency.length - 1 ? props.index : 0)
               }, [props.index]);
+
+    console.log(props.index)
     const navigation = useNavigation();
     const styles = StyleSheet.create({
         container: {
