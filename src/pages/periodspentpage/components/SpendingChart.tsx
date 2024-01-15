@@ -174,20 +174,20 @@ const mapStateToProps = (state: RootState, ownProp: SpendingChartProps) =>
 
     return {
         remaining: Object.values(Object.fromEntries(Object.entries(state.categories)
-                                                          .filter(([key, value]) => value.frequency === ownProp.period.toLowerCase())))
+                                                          .filter(([key, value]) => value.frequency.toLowerCase() === ownProp.period.toLowerCase())))
                          .reduce((accumulator, value) =>
                                  {
                                      return accumulator + value.periodSpent;
                                  }, 0),
 
         available: Object.values(Object.fromEntries(Object.entries(state.categories)
-                                                          .filter(([key, value]) => value.frequency === ownProp.period.toLowerCase())))
+                                                          .filter(([key, value]) => value.frequency.toLowerCase() === ownProp.period.toLowerCase())))
                          .reduce((accumulator, value) =>
                                  {
                                      return accumulator + value.available;
                                  }, 0),
         periodAvailable: Object.values(Object.fromEntries(Object.entries(state.categories)
-                                                       .filter(([key, value]) => value.frequency === ownProp.period.toLowerCase())))
+                                                       .filter(([key, value]) => value.frequency.toLowerCase() === ownProp.period.toLowerCase())))
                       .reduce((accumulator, value) =>
                               {
                                   return accumulator + value.periodAvailable;

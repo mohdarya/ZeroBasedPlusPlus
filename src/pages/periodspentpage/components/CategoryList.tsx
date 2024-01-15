@@ -43,7 +43,7 @@ function CategoryList(props: TransactionListProps) {
     function makeCategoryArray() {
         let temp = [];
         for (let key in props.categories) {
-            if(props.categories[key].frequency === props.period.toLowerCase()) {
+            if(props.categories[key].frequency.toLowerCase() === props.period.toLowerCase()) {
                 let tempItem = props.categories[key];
                 tempItem = {
                     ...tempItem,
