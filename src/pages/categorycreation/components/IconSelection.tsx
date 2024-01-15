@@ -27,7 +27,7 @@ function IconSelection(props : ListSelectionProps) {
                                              flex: 1,
                                              display: 'flex',
 
-                                             backgroundColor: '#555B6E',
+                                             backgroundColor: '#B1BBAE',
                                          },
                                          bottomBarView: {
                                              height: 100,

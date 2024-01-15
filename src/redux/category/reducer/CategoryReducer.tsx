@@ -12,57 +12,7 @@ const initialState = {
         icon: 'attach-money',
         frequency: 'available',
         budget: 100.00
-    },
-    '261d9e85-4a69-446e-aef6-3ce9df240190': {
-        name: 'category test 1',
-        dailySpent: 0.0,
-        periodSpent: 0.0,
-        monthlySpent: 0.0,
-        available: 150.00,
-        periodAvailable: 100.00,
-        allocated: 300.00,
-        icon: 'cake',
-        frequency: 'weekly',
-        budget: 100.00
-    },
-    '7f405121-adf5-4479-a3cb-f97b85a514e9': {
-
-        name: 'category test 2',
-        dailySpent: 0.0,
-        periodSpent: 0.0,
-        monthlySpent: 0.0,
-        available: 300.00,
-        periodAvailable: 300.00,
-        allocated: 300.00,
-        icon: 'mood',
-        frequency: 'monthly',
-        budget: 300.00
-    },
-    'a15339ab-4d99-4d63-ad58-26e57379beb5': {
-
-        name: 'category test 3',
-        dailySpent: 0.0,
-        periodSpent: 0.0,
-        monthlySpent: 0.0,
-        available: 100.00,
-        periodAvailable: 5.00,
-        allocated: 300.00,
-        icon: 'yard',
-        frequency: 'daily',
-        budget: 5.00
-    },
-    'a15339ab-4d99-4d63-ad58-26e573792eb5': {
-        name: 'category test 4',
-        dailySpent: 0.0,
-        periodSpent: 0.0,
-        monthlySpent: 0.0,
-        available: 210.0,
-        periodAvailable: 10.00,
-        allocated: 300.00,
-        icon: 'person',
-        frequency: 'daily',
-        budget: 10.00
-    },
+    }
 };
 
 export function categoryReducer(state: ICategoryItem = initialState, action: ICategoryActionTypes)

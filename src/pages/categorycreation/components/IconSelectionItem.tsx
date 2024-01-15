@@ -37,7 +37,7 @@ function IconSelectionItem(props : ListSelectionItemProp) {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: '#555B6E',
+      backgroundColor: '#B1BBAE',
       justifyContent: 'flex-start',
     },
     bottomBarView: {

@@ -37,7 +37,6 @@ function ListSelectionItem(props : ListSelectionItemProp) {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      backgroundColor: '#555B6E',
       justifyContent: 'flex-start',
     },
     bottomBarView: {
@@ -84,7 +83,7 @@ function ListSelectionItem(props : ListSelectionItemProp) {
               flex: 1,
               display: 'flex',
               alignItems: 'center',
-              backgroundColor: '#FFD6BA',
+              backgroundColor: '#B1BBAE',
               width: '90%',
               borderRadius: 15,
             }}>

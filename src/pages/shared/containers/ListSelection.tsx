@@ -31,7 +31,7 @@ function ListSelection(props : ListSelectionProps) {
       flex: 1,
       display: 'flex',
 
-      backgroundColor: '#555B6E',
+      backgroundColor: '#CFE1CB',
     },
     bottomBarView: {
       height: 100,
