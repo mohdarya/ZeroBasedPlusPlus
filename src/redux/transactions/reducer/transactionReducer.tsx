@@ -1,5 +1,4 @@
 import {ITransactionActionTypes, TransactionActionTypes, TransactionTypes} from "../types/transactionTypes.tsx";
-import {act} from "react-test-renderer";
 
 const initialState: ITransactionStateType = {
     transactions: [
@@ -74,8 +73,17 @@ export function transactionReducer(state: ITransactionStateType = initialState,
             }
             return {
                 ...state,
-                transactions,
+                transactions:    transactions,
             };
+        case TransactionActionTypes.DELETE_TRANSACTION:
+            let transactionDeleteList = [...state.transactions];
+
+            transactionDeleteList = transactionDeleteList.filter((value) => (value.id !== action.id))
+            return {
+                ...state,
+                transactions: transactionDeleteList,
+            }
+
         default:
             return state;
     }

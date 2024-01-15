@@ -11,6 +11,7 @@ import React, {useRef} from "react";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
 import {RootState} from "../../redux/rootReducer.tsx";
 import {connect} from "react-redux";
+import TransactionEdit from "../shared/components/TransactionEdit.tsx";
 
 interface TransactionListPageProps {
 }
@@ -73,13 +74,7 @@ function TransactionListPage(props: TransactionListPageProps) {
             <BottomSheetSelection bottomSheetRef={ref}/>
         </BottomSheet>
         <BottomSheet ref={transactionEditingRef}>
-                    <View style={{
-        display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
-          <View style={{ height: '90%',
-            width: '95%',}}>
-        <TransactionAddition bottomSheetRef={transactionEditingRef}/>
-          </View>
-        </View>
+            <TransactionEdit transactionEditingRef={transactionEditingRef}/>
         </BottomSheet>
     </View>
   );

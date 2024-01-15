@@ -1,7 +1,12 @@
-import {ITransactionActionTypes, TransactionActionTypes} from "../types/transactionTypes.tsx";
+import {
+  IAddTransaction,
+  IDeleteTransaction,
+  ITransactionActionTypes,
+  TransactionActionTypes
+} from "../types/transactionTypes.tsx";
 
 
-export function addTransaction(payload : ITransactionActionTypes) {
+export function addTransaction(payload : IAddTransaction) {
   return {
     type: TransactionActionTypes.ADD_TRANSACTION,
     payee : payload.payee,
@@ -12,5 +17,16 @@ export function addTransaction(payload : ITransactionActionTypes) {
     id: payload.id
   };
 }
+
+
+export function deleteTransaction(payload : IDeleteTransaction) {
+  return {
+    type: TransactionActionTypes.DELETE_TRANSACTION,
+    id: payload.id
+  };
+}
+
+
+
 
 

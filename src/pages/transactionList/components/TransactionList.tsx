@@ -61,7 +61,7 @@ function TransactionList(props : any) {
 
     useEffect(()=>{setTransactionData(props.transactions.filter((value) =>  new Date(value.date).getMonth() === monthSelected).map((value, key) => (
         <TransactionItem key={key} name={value.payee}  transactionEditingRef={props.transactionEditingRef} categoryId={value.category} dateTime={value.date} date={ new Date(value.date).toLocaleDateString()} amount={value.amount} id={value.id} type={value.type} categoryIcon={props.categories[value.category].icon}/>
-    )))}, [monthSelected])
+    )))}, [monthSelected,props.transactions])
 
 
     function generateMonthElements()

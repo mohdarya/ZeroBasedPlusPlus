@@ -16,6 +16,7 @@ import {ICategoryStatistics} from "../../redux/statistics/types/StatisticsTypes.
 import BottomSheet, {BottomSheetRefProps} from "../shared/components/bottomSheet.tsx";
 import BottomSheetSelection from "../shared/containers/BottomSheetSelection.tsx";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
+import TransactionEdit from "../shared/components/TransactionEdit.tsx";
 
 
 interface CategoryPageProps {
@@ -95,13 +96,7 @@ function CategoryPage(props: CategoryPageProps) {
                 <BottomSheetSelection bottomSheetRef={ref}/>
             </BottomSheet>
             <BottomSheet ref={transactionEditingRef}>
-                        <View style={{
-        display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
-          <View style={{ height: '90%',
-            width: '95%',}}>
-        <TransactionAddition bottomSheetRef={transactionEditingRef}/>
-          </View>
-        </View>
+                <TransactionEdit transactionEditingRef={transactionEditingRef}/>
             </BottomSheet>
         </View>
     );

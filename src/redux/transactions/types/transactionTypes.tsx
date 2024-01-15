@@ -1,5 +1,6 @@
 export enum TransactionActionTypes {
     ADD_TRANSACTION = 'ADD_TRANSACTION',
+    DELETE_TRANSACTION= 'DELETE_TRANSACTION',
 }
 
 export enum TransactionTypes {
@@ -7,8 +8,8 @@ export enum TransactionTypes {
     CREDIT= 'CREDIT',
 }
 
-interface IAddTransaction {
-    type: TransactionActionTypes.ADD_TRANSACTION;
+export interface IAddTransaction {
+    type: TransactionActionTypes;
     payee : string,
     amount: number,
     date: number,
@@ -18,4 +19,10 @@ interface IAddTransaction {
 }
 
 
-export type ITransactionActionTypes = IAddTransaction
+export interface IDeleteTransaction {
+    type: TransactionActionTypes;
+    id: string,
+}
+
+
+export type ITransactionActionTypes = IDeleteTransaction & IAddTransaction

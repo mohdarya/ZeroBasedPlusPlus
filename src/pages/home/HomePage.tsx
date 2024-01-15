@@ -15,7 +15,12 @@ import {
   setWeeklyBalanceJobTime
 } from "../../redux/appDetails/actions/AppDetailActions.tsx";
 import {AppDetailActionTypes, ISetBalanceJobTime} from "../../redux/appDetails/types/AppDetailTypes.tsx";
-import {CategoryActionTypes, ICategoryItem, IUpdateCategoryAction} from "../../redux/category/types/CategoryTypes.tsx";
+import {
+  CategoryActionTypes,
+  ICategoryActionTypes,
+  ICategoryItem, ICategoryTransactionAction,
+  IUpdateCategoryAction
+} from "../../redux/category/types/CategoryTypes.tsx";
 import {
   addCategoryStatistics,
   addDailyStatistics,
@@ -24,13 +29,28 @@ import {
   addWeeklyStatistics
 } from "../../redux/statistics/action/StatisticsActions.tsx";
 import {
-  IAddCategoryStatistics, IAddCategoryStatisticsItem,
+  IAddCategoryStatistics,
+  IAddCategoryStatisticsItem,
   IAddStatistics,
   StatisticsActionTypes
 } from "../../redux/statistics/types/StatisticsTypes.tsx";
-import {updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
+import {categoryTransactionAction, updateCategoriesState} from "../../redux/category/action/CategoryAction.tsx";
 import TransactionAddition from "../transactionAddition/TransactionAddition.tsx";
-import TransactionEditing from "../TransactionEditing/TransactionEditing.tsx";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import {
+  IDeleteTransaction,
+  TransactionActionTypes,
+  TransactionTypes
+} from "../../redux/transactions/types/transactionTypes.tsx";
+import {deleteTransaction} from "../../redux/transactions/action/TransactionsActions.tsx";
+import {BalanceActionTypes, IAddTransaction} from "../../redux/balance/types/balanceTypes.tsx";
+import {ITransactionStateType} from "../../redux/transactions/reducer/transactionReducer.tsx";
+import {addBalance, addTransactionBalanceChange} from "../../redux/balance/actions/balanceActions.tsx";
+import {
+  clearData,
+  IComponentCommunicationAction
+} from "../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+import TransactionEdit from "../shared/components/TransactionEdit.tsx";
 
 
 interface IHomepageProp {
@@ -58,8 +78,23 @@ interface IHomepageProp {
   updateCategoriesState: (data: IUpdateCategoryAction) => {},
   addCategoryStatistics: (data: IAddCategoryStatistics) => {},
 
+  deleteTransaction: (data: IDeleteTransaction) => {},
+
   categories: ICategoryItem,
   available: number,
+
+
+  transactions: ITransactionStateType,
+
+  clearData: (data: IComponentCommunicationAction) => {},
+  reduceAvailable: (data: IAddTransaction) => {},
+  addBalance: (data: IAddTransaction) => {},
+  categoryTransactionAction: (data: ICategoryTransactionAction) => {},
+
+
+  id: string
+  itemKey: string
+  amount: number
 }
 function HomePage(props :IHomepageProp) {
   const ref = useRef<BottomSheetRefProps>(null);
@@ -276,15 +311,7 @@ function HomePage(props :IHomepageProp) {
         <BottomSheetSelection bottomSheetRef={ref}/>
       </BottomSheet>
       <BottomSheet ref={transactionEditingRef}>
-        <View style={{
-        display: 'flex', justifyContent: 'center',  alignItems: 'center'}}>
-          <View style={{ height: '90%',
-            width: '95%',}}>
-
-        <TransactionAddition bottomSheetRef={transactionEditingRef}/>
-
-        </View>
-          </View>
+     <TransactionEdit transactionEditingRef={transactionEditingRef}/>
       </BottomSheet>
     </View>
   );
@@ -325,6 +352,7 @@ const mapStateToProps = (state : RootState) => {
     from: state.communication.from,
     to: state.communication.to,
     date: state.communication.date,
+    id: state.communication.id,
     statistics:state.statistics
   };
 };
@@ -342,6 +370,14 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 
     updateCategoriesState: (data: IUpdateCategoryAction) => dispatch(updateCategoriesState(data)),
     addCategoryStatistics: (data: IAddCategoryStatistics) => dispatch(addCategoryStatistics(data)),
+
+
+    deleteTransaction: (data: IDeleteTransaction) => dispatch(deleteTransaction(data)),
+
+    clearData: (data: IComponentCommunicationAction) => dispatch(clearData(data)),
+    reduceAvailable: (data: IAddTransaction) => dispatch(addTransactionBalanceChange(data)),
+    addBalance: (data: IAddTransaction) => dispatch(addBalance(data)),
+    categoryTransactionAction: (data: ICategoryTransactionAction) => dispatch(categoryTransactionAction(data)),
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(HomePage);
