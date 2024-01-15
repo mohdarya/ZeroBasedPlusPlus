@@ -30,9 +30,10 @@ function CategoryList(props: TransactionListProps) {
 
                                       })
                               }}>
-                <CategoryItem name={value.name} allocated={value.allocated}
+                <CategoryItem name={value.name}
                               frequency={value.frequency}
                               budget={value.budget}
+                              periodAvailable={value.periodAvailable}
                               available={value.available} periodSpent={value.periodSpent} categoryIcon={value.icon}/>
             </TouchableOpacity>
         ));

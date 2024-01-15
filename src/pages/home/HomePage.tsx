@@ -162,9 +162,8 @@ function HomePage(props :IHomepageProp) {
       if((dateNow.getTime() - props.lastDailyBalanceJob  > 86400000 && props.lastDailyBalanceJob !== 0) || (dateNow.getTime() >= date12Am.getTime() && props.lastDailyBalanceJob === 0))
       {
 
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='daily'))).map((value, index) => {value.periodSpent = 0});
-
-
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='daily'))).map((value, index) => {value.periodSpent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='daily'))).map((value, index) => {value.budget <= value.available ?value.periodAvailable = value.budget: value.periodAvailable = value.available});
         const balanceVariable : ISetBalanceJobTime = {
           time: date12Am.getTime(),
           type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
@@ -212,7 +211,8 @@ function HomePage(props :IHomepageProp) {
       {
 
 
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='weekly'))).map((value, index) => {value.periodSpent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='weekly'))).map((value, index) => {value.periodSpent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='weekly'))).map((value, index) => {value.budget <= value.available ?value.periodAvailable = value.budget: value.periodAvailable = value.available});
 
         const balanceVariable : ISetBalanceJobTime = {
           time:  dateNow.getDay() === 1 ? dateNow.getTime(): dateLastMonday.getTime(),
@@ -229,8 +229,8 @@ function HomePage(props :IHomepageProp) {
         updated = true;
       } if((dateNow.getTime() - props.lastMonthlyJob  > (new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getDate() * 86400000)   && props.lastMonthlyJob !== 0) || (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0))
       {
-        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency ==='monthly'))).map((value, index) => {value.periodSpent = 0});
-
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='monthly'))).map((value, index) => {value.periodSpent = 0});
+        Object.values(  Object.fromEntries(Object.entries(categories).filter( ([key, value]) => value.frequency.toLowerCase() ==='monthly'))).map((value, index) => {value.budget <= value.available ?value.periodAvailable = value.budget: value.periodAvailable = value.available});
         const balanceVariable : ISetBalanceJobTime = {
           time: new Date(dateNow.getFullYear(), dateNow.getMonth() , 0).getTime(),
           type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,

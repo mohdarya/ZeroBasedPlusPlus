@@ -110,6 +110,7 @@ function Buttons(props: buttonsProps) {
                         {
                             const categoryData: IAddCategory =
                                 {
+                                    periodAvailable: 0,
                                     allocated: 0.00,
                                     available: 0.00,
                                     categoryID: props.id === '' ? uuid.v4()

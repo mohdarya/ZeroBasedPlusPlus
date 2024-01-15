@@ -7,6 +7,7 @@ const initialState = {
         periodSpent: 0.0,
         monthlySpent: 0.0,
         available: 150.00,
+        periodAvailable: 100.00,
         allocated: 300.00,
         icon: 'attach-money',
         frequency: 'available',
@@ -18,6 +19,7 @@ const initialState = {
         periodSpent: 0.0,
         monthlySpent: 0.0,
         available: 150.00,
+        periodAvailable: 100.00,
         allocated: 300.00,
         icon: 'cake',
         frequency: 'weekly',
@@ -30,6 +32,7 @@ const initialState = {
         periodSpent: 0.0,
         monthlySpent: 0.0,
         available: 300.00,
+        periodAvailable: 300.00,
         allocated: 300.00,
         icon: 'mood',
         frequency: 'monthly',
@@ -42,6 +45,7 @@ const initialState = {
         periodSpent: 0.0,
         monthlySpent: 0.0,
         available: 100.00,
+        periodAvailable: 5.00,
         allocated: 300.00,
         icon: 'yard',
         frequency: 'daily',
@@ -53,6 +57,7 @@ const initialState = {
         periodSpent: 0.0,
         monthlySpent: 0.0,
         available: 210.0,
+        periodAvailable: 10.00,
         allocated: 300.00,
         icon: 'person',
         frequency: 'daily',
@@ -88,6 +93,7 @@ export function categoryReducer(state: ICategoryItem = initialState, action: ICa
                 [action.categoryID]: {
                     ...state[action.categoryID],
                     available: state[action.categoryID].available + action.amount,
+                    periodAvailable: action.amount >=  state[action.categoryID].budget ? state[action.categoryID].budget : action.amount,
                     allocated: state[action.categoryID].allocated + action.amount,
                 }
             }

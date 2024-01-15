@@ -29,7 +29,7 @@ function CategoryList(props: TransactionListProps) {
                     })
             }}>
                 <CategoryItem  name={value.name}
-                              available={value.available} allocated={value.allocated} budget={value.budget} frequency={value.frequency.toLowerCase()}  categoryIcon={value.icon}/>
+                              available={value.available} allocated={value.allocated} budget={value.budget}  frequency={value.frequency.toLowerCase()}  categoryIcon={value.icon}/>
             </TouchableOpacity>
         ));
     }
@@ -42,7 +42,10 @@ function CategoryList(props: TransactionListProps) {
                 ...tempItem,
                 categoryID: key,
             };
-            temp.push(tempItem);
+            if(key!== "0")
+            {
+                temp.push(tempItem);
+            }
         }
 
         return temp;
