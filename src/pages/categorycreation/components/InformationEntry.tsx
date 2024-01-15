@@ -32,11 +32,18 @@ interface InformationEntryProps {
 function InformationEntry(props: InformationEntryProps) {
 
     const [frequencyIndex, setFrequencyIndex] = useState(props.index !== undefined && props.index < props.categoryFrequency.length - 1 ? props.index : 0);
+
+
     useEffect(() =>
               {
-                  setFrequencyIndex(props.index !== undefined && props.index < props.categoryFrequency.length - 1 ? props.index : 0)
-              }, [props.index]);
+                  let indexParameter : IReturnIndex = {
+                      index: frequencyIndex,
+                      type: ComponentCommunicationActionTypes.RETURN_INDEX
 
+
+                  }
+                  props.returnIndex(indexParameter);
+              }, [frequencyIndex]);
     const navigation = useNavigation();
     const styles = StyleSheet.create({
         container: {
@@ -101,13 +108,7 @@ function InformationEntry(props: InformationEntryProps) {
             <TouchableOpacity onPress={() => {
                 setFrequencyIndex(frequencyIndex <  props.categoryFrequency.length  -1? frequencyIndex + 1: 0 )
 
-                let indexParameter : IReturnIndex = {
-                    index: frequencyIndex,
-                    type: ComponentCommunicationActionTypes.RETURN_INDEX
 
-
-                }
-                props.returnIndex(indexParameter);
             }} style={    {
                 backgroundColor: '#282828',
                 width: 90,
