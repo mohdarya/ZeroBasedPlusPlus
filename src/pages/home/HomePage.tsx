@@ -113,7 +113,7 @@ function HomePage(props: IHomepageProp) {
       width: '100%',
       height: '35%',
     },
-    spendingLimitBarView: {
+    periodSpentView: {
       width: '100%',
       height: 176,
       display: 'flex',
@@ -366,7 +366,7 @@ function HomePage(props: IHomepageProp) {
       <View style={styles.graphView}>
         <Graph graphName="Weekly Spending" />
       </View>
-      <View style={styles.spendingLimitBarView}>
+      <View style={styles.periodSpentView}>
         <PeriodSpentInfo
           periodSpentAmount={props.dailyRemaining}
           periodSpentText={'Daily Spent'}
