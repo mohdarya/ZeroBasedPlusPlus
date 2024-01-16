@@ -41,49 +41,51 @@ function AllocationPage(props: AllocationPageProps) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    spendingInfoView: {
+    AllocationView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       height: 120,
       width: '100%',
     },
-    transactionListView: {
+    categoryListView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       height: '60%',
       width: '100%',
     },
+    closeButtonWrapperView: {
+      height: 70,
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    closeButtonView: {height: 50, width: 50},
+    closeButton: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      borderRadius: 100,
+    },
   });
 
   return (
     <View style={styles.container}>
-      <View style={styles.spendingInfoView}>
+      <View style={styles.AllocationView}>
         <AllocationInfo
           availableAmount={props.available}
           unallocatedAmount={props.unallocated}
         />
       </View>
-      <View style={styles.transactionListView}>
+      <View style={styles.categoryListView}>
         <CategoryList />
       </View>
-      <View
-        style={{
-          height: 70,
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <View style={{height: 50, width: 50}}>
+      <View style={styles.closeButtonWrapperView}>
+        <View style={styles.closeButtonView}>
           <Icon
             name="close"
-            style={{
-              color: '#E9EEEA',
-              backgroundColor: '#282828',
-              borderRadius: 100,
-            }}
+            style={styles.closeButton}
             onPress={() => {
               const clearDataParameters: IComponentCommunicationAction = {
                 id: '',
@@ -115,7 +117,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     addCategory: (data: IAddCategory) => dispatch(addCategory(data)),
     clearData: (data: IComponentCommunicationAction) =>

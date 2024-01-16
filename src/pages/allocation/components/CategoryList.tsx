@@ -61,23 +61,17 @@ function CategoryList(props: TransactionListProps) {
       height: '100%',
       borderRadius: 15,
     },
-    searchBox: {
+    scrollViewStyle: {
       display: 'flex',
       justifyContent: 'flex-start',
+      alignItems: 'center',
       width: '100%',
-      alignItems: 'flex-start',
     },
   });
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          width: '100%',
-        }}>
+      <ScrollView contentContainerStyle={styles.scrollViewStyle}>
         {loadData()}
       </ScrollView>
     </View>

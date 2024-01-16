@@ -27,7 +27,7 @@ function Graph(props: any) {
     if (props.categoryID in props.statistics) {
       return props.statistics[props.categoryID][
         graphPeriods[graphPeriodIndex].toLowerCase()
-      ].map((value: IStatisticsItem, key: string) => {
+      ].map((value: IStatisticsItem) => {
         return {
           x: months[new Date(value.timestamp).getMonth()],
           y: value.value,
@@ -43,7 +43,7 @@ function Graph(props: any) {
         props.statistics[props.categoryID][
           graphPeriods[graphPeriodIndex].toLowerCase()
         ]
-          .map((value: IStatisticsItem, key: string) => {
+          .map((value: IStatisticsItem) => {
             return {
               x: months[new Date(value.timestamp).getMonth()],
               y: value.value,
@@ -71,8 +71,6 @@ function Graph(props: any) {
     }
   }, [graphPeriodIndex]);
 
-  const width = Dimensions.get('window').width;
-  const height = 220;
   return (
     <View style={{margin: 10}}>
       <View

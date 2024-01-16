@@ -55,37 +55,12 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
       backgroundColor: '#E9EEEA',
       justifyContent: 'space-between',
     },
-    bottomBarView: {
-      height: 60,
-
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    spendingInfoView: {
+    textEntryView: {
       display: 'flex',
       justifyContent: 'space-around',
       alignItems: 'center',
       height: 150,
       width: '100%',
-    },
-    transactionListView: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '20%',
-      width: '100%',
-      marginBottom: '30%',
-    },
-    amountDetailView: {
-      width: '90%',
-
-      flexDirection: 'row',
-      height: 60,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderRadius: 5,
     },
     allocationActionView: {
       marginTop: 40,
@@ -97,14 +72,31 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
       flexDirection: 'row',
       height: '10%',
     },
-    frequencyView: {
-      borderRadius: 20,
-      width: '100%',
-      height: 60,
-    },
-    activeAction: {
+
+    allocationActionActive: {
       backgroundColor: '#282828',
       color: '#B1BBAE',
+    },
+    allocationActionInActive: {
+      backgroundColor: '#CFE1CB',
+      width: 90,
+      height: 25,
+      margin: 10,
+      borderRadius: 5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    allocationElementText: {
+      color: '#282828',
+      textAlign: 'center',
+      fontSize: 15,
+    },
+    textEntry: {
+      color: '#282828',
+      fontSize: 96,
+      width: '100%',
+      textAlign: 'left',
     },
   });
 
@@ -122,26 +114,17 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
             }}>
             <View
               style={[
-                {
-                  backgroundColor: '#CFE1CB',
-                  width: 90,
-                  height: 25,
-                  margin: 10,
-                  borderRadius: 5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-                allocationAction === 'deduct' ? styles.activeAction : null,
+                styles.allocationActionInActive,
+                allocationAction === 'deduct'
+                  ? styles.allocationActionActive
+                  : null,
               ]}>
               <Text
                 style={[
-                  {
-                    color: '#282828',
-                    textAlign: 'center',
-                    fontSize: 15,
-                  },
-                  allocationAction === 'deduct' ? styles.activeAction : null,
+                  styles.allocationElementText,
+                  allocationAction === 'deduct'
+                    ? styles.allocationActionActive
+                    : null,
                 ]}>
                 Deduct
               </Text>
@@ -153,40 +136,30 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
             }}>
             <View
               style={[
-                {
-                  backgroundColor: '#CFE1CB',
-                  margin: 10,
-                  width: 90,
-                  height: 25,
-                  borderRadius: 5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-                allocationAction === 'add' ? styles.activeAction : null,
+                styles.allocationActionInActive,
+                allocationAction === 'add'
+                  ? styles.allocationActionActive
+                  : null,
               ]}>
               <Text
                 style={[
-                  {
-                    color: '#282828',
-                    textAlign: 'center',
-                    fontSize: 15,
-                  },
-                  allocationAction === 'add' ? styles.activeAction : null,
+                  styles.allocationElementText,
+                  allocationAction === 'add'
+                    ? styles.allocationActionActive
+                    : null,
                 ]}>
                 Add
               </Text>
             </View>
           </TouchableOpacity>
         </View>
-        <View style={styles.spendingInfoView}>
+        <View style={styles.textEntryView}>
           <TextInput
             defaultValue={String(props.amount === 0.0 ? '' : props.amount)}
             pointerEvents={'none'}
             placeholder={'0.00'}
             selectTextOnFocus={true}
             autoFocus={true}
-            onSubmitEditing={event => {}}
             onEndEditing={event => {
               const clearDataParameters: IComponentCommunicationAction = {
                 date: '',
@@ -234,12 +207,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
               props.returnNumeric(returnNumericParameter);
             }}
             keyboardType={'numeric'}
-            style={{
-              color: '#282828',
-              fontSize: 96,
-              width: '100%',
-              textAlign: 'left',
-            }}
+            style={styles.textEntry}
           />
         </View>
       </View>
