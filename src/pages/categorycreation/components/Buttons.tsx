@@ -33,7 +33,7 @@ interface buttonsProps {
 
 function Buttons(props: buttonsProps) {
   const styles = StyleSheet.create({
-    container: {
+    containerWrapper: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
@@ -44,7 +44,7 @@ function Buttons(props: buttonsProps) {
       marginRight: '3%',
       borderRadius: 15,
     },
-    amountDetailView: {
+    container: {
       width: '100%',
 
       flexDirection: 'row',
@@ -54,38 +54,29 @@ function Buttons(props: buttonsProps) {
       alignItems: 'center',
       borderRadius: 5,
     },
-    amountView: {
-      borderRadius: 5,
-      width: '40%',
-      height: '100%',
-      backgroundColor: '#FAF9F9',
+    buttonView: {
+      width: '100%',
+      flexDirection: 'row',
+      height: 100,
       display: 'flex',
+      justifyContent: 'space-around',
       alignItems: 'center',
-      justifyContent: 'center',
+      borderRadius: 5,
+    },
+    icon: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      borderRadius: 100,
     },
   });
 
   return (
-    <View style={styles.container}>
-      <View style={styles.amountDetailView}>
-        <View
-          style={{
-            width: '100%',
-
-            flexDirection: 'row',
-            height: 100,
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            borderRadius: 5,
-          }}>
+    <View style={styles.containerWrapper}>
+      <View style={styles.container}>
+        <View style={styles.buttonView}>
           <Icon
             name="close"
-            style={{
-              color: '#E9EEEA',
-              backgroundColor: '#282828',
-              borderRadius: 100,
-            }}
+            style={styles.icon}
             onPress={() => {
               const clearDataParameters: IComponentCommunicationAction = {
                 id: '',
@@ -108,11 +99,7 @@ function Buttons(props: buttonsProps) {
 
           <Icon
             name="done"
-            style={{
-              color: '#E9EEEA',
-              backgroundColor: '#282828',
-              borderRadius: 100,
-            }}
+            style={styles.icon}
             onPress={() => {
               if (
                 props.amount !== 0 &&

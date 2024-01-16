@@ -32,14 +32,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
       backgroundColor: '#E9EEEA',
       justifyContent: 'space-between',
     },
-    bottomBarView: {
-      height: 60,
-      marginBottom: '5%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    spendingInfoView: {
+    informationEntryView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -48,7 +41,7 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
       marginTop: '20%',
       marginBottom: '20%',
     },
-    transactionListView: {
+    buttonView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -60,10 +53,10 @@ function CategoryCreationPage(props: CategoryCreationPageProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.spendingInfoView}>
+      <View style={styles.informationEntryView}>
         <InformationEntry />
       </View>
-      <View style={styles.transactionListView}>
+      <View style={styles.buttonView}>
         <Buttons
           modalVisible={props.modalVisible}
           setModalVisible={props.setModalVisible}

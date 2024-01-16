@@ -31,60 +31,52 @@ function IconSelectionItem(props: ListSelectionItemProp) {
   const navigation = useNavigation();
 
   const styles = StyleSheet.create({
-    container: {
+    containerWrapper: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: '#B1BBAE',
       justifyContent: 'flex-start',
     },
-    bottomBarView: {
-      height: 100,
+    container: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignContent: 'space-between',
+      margin: 10,
     },
-    amountStyle: {
+    iconViewWrapper: {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    otherPartsStyle: {
-      width: '100%',
+    iconView: {
+      flex: 1,
       display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'column',
-      flex: 5,
+      alignItems: 'center',
+      width: '90%',
+      borderRadius: 15,
     },
-    otherPartsSectionStyle: {
-      marginTop: 20,
-
-      width: '50%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'row',
+    icon: {
+      backgroundColor: '#282828',
+      borderRadius: 100,
+      padding: 5,
+      color: '#E9EEEA',
+    },
+    iconWrapper: {
+      color: '#BEE3DB',
+      alignSelf: 'center',
     },
   });
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'space-between',
-          margin: 10,
-        }}>
-        <View style={styles.amountStyle}>
-          <View
-            style={{
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              width: '90%',
-              borderRadius: 15,
-            }}>
+    <View style={styles.containerWrapper}>
+      <View style={styles.container}>
+        <View style={styles.iconViewWrapper}>
+          <View style={styles.iconView}>
             <TouchableOpacity
               onPress={() => {
                 const returnParameter: IComponentCommunicationAction = {
@@ -105,17 +97,8 @@ function IconSelectionItem(props: ListSelectionItemProp) {
                 navigation.goBack();
               }}
               // @ts-ignore
-              style={{color: '#BEE3DB', alignSelf: 'center'}}>
-              <Icon
-                name={props.value}
-                size={30}
-                style={{
-                  backgroundColor: '#282828',
-                  borderRadius: 100,
-                  padding: 5,
-                  color: '#E9EEEA',
-                }}
-              />
+              style={styles.iconWrapper}>
+              <Icon name={props.value} size={30} style={styles.icon} />
             </TouchableOpacity>
           </View>
         </View>
@@ -124,7 +107,7 @@ function IconSelectionItem(props: ListSelectionItemProp) {
   );
 }
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     returnItemSelected: (item: IComponentCommunicationAction) =>
       dispatch(returnItemSelected(item)),

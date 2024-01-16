@@ -13,47 +13,21 @@ function IconSelection() {
     container: {
       flex: 1,
       display: 'flex',
-
       backgroundColor: '#B1BBAE',
     },
-    bottomBarView: {
-      height: 100,
-    },
-    amountStyle: {
-      display: 'flex',
-      flexDirection: 'column',
+    iconSelectionView: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    otherPartsStyle: {
-      width: '100%',
       display: 'flex',
-      alignItems: 'flex-start',
       flexDirection: 'column',
-      flex: 5,
-    },
-    otherPartsSectionStyle: {
-      marginTop: 20,
-
-      width: '50%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignContent: 'space-between',
+      margin: 20,
     },
   });
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'space-between',
-          margin: 20,
-        }}>
+      <View style={styles.iconSelectionView}>
         <SafeAreaView style={styles.container}>
           <FlatList
             numColumns={5}

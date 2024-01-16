@@ -71,7 +71,7 @@ function InformationEntry(props: InformationEntryProps) {
       alignItems: 'center',
       borderRadius: 5,
     },
-    amountDetailView: {
+    budgetView: {
       width: '90%',
 
       flexDirection: 'row',
@@ -82,23 +82,37 @@ function InformationEntry(props: InformationEntryProps) {
       alignItems: 'center',
       borderRadius: 5,
     },
-    amountView: {
+    budgetItem: {
       borderRadius: 5,
       width: '50%',
       height: '100%',
     },
-    frequencyView: {
+    frequencyView: {display: 'flex', width: '100%', alignItems: 'flex-end'},
+    frequencyItem: {
+      backgroundColor: '#282828',
+      width: 90,
+      height: 25,
       borderRadius: 5,
-      width: '40%',
-      height: '100%',
-
-      backgroundColor: '#FAF9F9',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    frequencyText: {color: '#E9EEEA', textAlign: 'center', fontSize: 15},
+    categoryText: {width: '100%', textAlign: 'left', fontSize: 64},
+    budgetText: {width: '100%', textAlign: 'right', fontSize: 48},
+    iconView: {display: 'flex', width: '100%', alignItems: 'flex-start'},
+    categoryItem: {width: '100%', display: 'flex'},
+    icon: {
+      backgroundColor: '#282828',
+      borderRadius: 100,
+      padding: 5,
+      color: '#E9EEEA',
     },
   });
 
   return (
     <View style={styles.container}>
-      <View style={{display: 'flex', width: '100%', alignItems: 'flex-end'}}>
+      <View style={styles.frequencyView}>
         <TouchableOpacity
           onPress={() => {
             setFrequencyIndex(
@@ -107,21 +121,13 @@ function InformationEntry(props: InformationEntryProps) {
                 : 0,
             );
           }}
-          style={{
-            backgroundColor: '#282828',
-            width: 90,
-            height: 25,
-            borderRadius: 5,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#E9EEEA', textAlign: 'center', fontSize: 15}}>
+          style={styles.frequencyItem}>
+          <Text style={styles.frequencyText}>
             {props.categoryFrequency[frequencyIndex]}
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{display: 'flex', width: '100%', alignItems: 'flex-start'}}>
+      <View style={styles.iconView}>
         <Icon
           onPress={() => {
             // @ts-ignore
@@ -131,12 +137,7 @@ function InformationEntry(props: InformationEntryProps) {
           }}
           name={props.itemSelect === '' ? 'home' : props.itemSelect}
           size={30}
-          style={{
-            backgroundColor: '#282828',
-            borderRadius: 100,
-            padding: 5,
-            color: '#E9EEEA',
-          }}
+          style={styles.icon}
         />
       </View>
       <View style={styles.textEntryView}>
@@ -148,20 +149,20 @@ function InformationEntry(props: InformationEntryProps) {
               textInputName: 'Category',
             });
           }}
-          style={{width: '100%', display: 'flex'}}>
-          <Text style={{width: '100%', textAlign: 'left', fontSize: 64}}>
+          style={styles.categoryItem}>
+          <Text style={styles.categoryText}>
             {props.text ? props.text : 'Category'}
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.amountDetailView}>
+      <View style={styles.budgetView}>
         <TouchableOpacity
           onPress={() => {
             // @ts-ignore
             navigation.navigate('NumberEntry');
           }}
-          style={styles.amountView}>
-          <Text style={{width: '100%', textAlign: 'right', fontSize: 48}}>
+          style={styles.budgetItem}>
+          <Text style={styles.budgetText}>
             {props.amount == 0 ? 'Budget' : props.amount}
           </Text>
         </TouchableOpacity>
