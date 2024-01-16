@@ -13,6 +13,7 @@ function TransactionList(props: any) {
   const [monthSelected, setMonthSelected] = useState(new Date().getMonth());
   const [transactionData, setTransactionData] = useState(
     props.transactions
+      .sort((a, b) => b.date - a.date)
       .filter(value => new Date(value.date).getMonth() === monthSelected)
       .map((value, key) => (
         <TransactionItem

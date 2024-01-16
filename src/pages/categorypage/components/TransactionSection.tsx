@@ -122,11 +122,13 @@ function TransactionSection(props: any) {
   useEffect(() => {
     setTransactionData(
       props.transactions
+        .sort((a, b) => b.date - a.date)
         .filter(
           value =>
             value.category === props.categoryId &&
             new Date(value.date).getMonth() === monthSelected,
         )
+        .sort((a, b) => b.date - a.date)
         .map((value, key) => (
           <TransactionItem
             key={key}

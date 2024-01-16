@@ -23,24 +23,26 @@ function TransactionSection(props) {
     },
   });
   function loadData() {
-    return props.transactions.map((value, key) => (
-      <TransactionItem
-        key={key}
-        name={value.payee}
-        transactionEditingRef={props.transactionEditingRef}
-        categoryId={value.category}
-        dateTime={value.date}
-        date={new Date(value.date).toLocaleDateString()}
-        amount={value.amount}
-        id={value.id}
-        type={value.type}
-        categoryIcon={
-          value.category !== 'Available'
-            ? props.categories[value.category].icon
-            : 'attach-money'
-        }
-      />
-    ));
+    return props.transactions
+      .sort((a, b) => b.date - a.date)
+      .map((value, key) => (
+        <TransactionItem
+          key={key}
+          name={value.payee}
+          transactionEditingRef={props.transactionEditingRef}
+          categoryId={value.category}
+          dateTime={value.date}
+          date={new Date(value.date).toLocaleDateString()}
+          amount={value.amount}
+          id={value.id}
+          type={value.type}
+          categoryIcon={
+            value.category !== 'Available'
+              ? props.categories[value.category].icon
+              : 'attach-money'
+          }
+        />
+      ));
   }
 
   return (
