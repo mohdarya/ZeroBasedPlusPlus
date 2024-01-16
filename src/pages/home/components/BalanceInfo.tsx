@@ -68,4 +68,3 @@ function BalanceInfo(props: balanceProps) {
 }
 
 export default BalanceInfo;
-5;
