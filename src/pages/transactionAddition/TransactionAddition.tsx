@@ -1,6 +1,5 @@
 import React, {RefObject, useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import CategoryItem from './components/CategoryLIstItem.tsx';
 import {useNavigation} from '@react-navigation/core';
 import {
   clearData,
@@ -34,6 +33,7 @@ import {BottomSheetRefProps} from '../shared/components/bottomSheet.tsx';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import uuid from 'react-native-uuid';
 import {ITransactionStateType} from '../../redux/transactions/reducer/transactionReducer.tsx';
+import CategoryItem from '../shared/components/CategoryItem.tsx';
 
 interface TransactionAdditionProps {
   amount: number;
@@ -220,6 +220,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
             <View style={{width: '90%'}}>
               {props.itemKey !== '0' && (
                 <CategoryItem
+                  calculateAllocation={false}
                   name={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].name
@@ -228,6 +229,16 @@ function TransactionAddition(props: TransactionAdditionProps) {
                   frequency={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].frequency
+                      : ''
+                  }
+                  budget={
+                    props.itemKey != ''
+                      ? props.categories[props.itemKey].budget
+                      : ''
+                  }
+                  periodAvailable={
+                    props.itemKey != ''
+                      ? props.categories[props.itemKey].periodAvailable
                       : ''
                   }
                   available={
