@@ -44,7 +44,7 @@ function PeriodSpentPage() {
       height: '50%',
       width: '100%',
     },
-    transactionListView: {
+    categoryListView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -66,7 +66,7 @@ function PeriodSpentPage() {
       <View style={styles.spendingInfoView}>
         <SpendingChart period={sourcePage} />
       </View>
-      <View style={styles.transactionListView}>
+      <View style={styles.categoryListView}>
         <CategoryList renderPeriod={true} period={sourcePage} />
       </View>
       <View style={styles.bottomBarView}>
