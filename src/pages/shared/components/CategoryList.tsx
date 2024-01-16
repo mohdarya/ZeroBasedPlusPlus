@@ -3,11 +3,14 @@ import {useNavigation} from '@react-navigation/core';
 import {RootState} from '../../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
 import React from 'react';
+import CategoryItem from './CategoryItem.tsx';
 import {ICategoryItem} from '../../../redux/category/reducer/CategoryReducer.tsx';
-import CategoryItem from './CategoryListItem.tsx';
 
 interface TransactionListProps {
   categories: ICategoryItem;
+  calculateAllocation: boolean;
+  period: string;
+  renderPeriod: boolean;
 }
 
 function CategoryList(props: TransactionListProps) {
@@ -19,17 +22,24 @@ function CategoryList(props: TransactionListProps) {
       <TouchableOpacity
         key={key}
         onPress={() => {
-          // @ts-ignore
-          navigation.navigate('AllocationAmountEntry', {
-            categoryID: value.categoryID,
-          });
+          props.calculateAllocation
+            ? // @ts-ignore
+              navigation.navigate('AllocationAmountEntry', {
+                categoryID: value.categoryID,
+              })
+            : // @ts-ignore
+              navigation.navigate('CategoryPage', {
+                categoryID: value.categoryID,
+              });
         }}>
         <CategoryItem
+          calculateAllocation={props.calculateAllocation}
           name={value.name}
-          available={value.available}
-          allocated={value.allocated}
+          frequency={value.frequency}
           budget={value.budget}
-          frequency={value.frequency.toLowerCase()}
+          periodAvailable={value.periodAvailable}
+          available={value.available}
+          periodSpent={value.periodSpent}
           categoryIcon={value.icon}
         />
       </TouchableOpacity>
@@ -44,7 +54,13 @@ function CategoryList(props: TransactionListProps) {
         ...tempItem,
         categoryID: key,
       };
-      if (key !== '0') {
+      if (key !== '0' && !props.renderPeriod) {
+        temp.push(tempItem);
+      } else if (
+        props.renderPeriod &&
+        props.categories[key].frequency.toLowerCase() ===
+          props.period.toLowerCase()
+      ) {
         temp.push(tempItem);
       }
     }
@@ -61,7 +77,7 @@ function CategoryList(props: TransactionListProps) {
       height: '100%',
       borderRadius: 15,
     },
-    scrollViewStyle: {
+    CategoryListScrollView: {
       display: 'flex',
       justifyContent: 'flex-start',
       alignItems: 'center',
@@ -71,7 +87,7 @@ function CategoryList(props: TransactionListProps) {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+      <ScrollView contentContainerStyle={styles.CategoryListScrollView}>
         {loadData()}
       </ScrollView>
     </View>

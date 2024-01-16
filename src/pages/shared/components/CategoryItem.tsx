@@ -10,6 +10,7 @@ interface CategoryItemProps {
   frequency: string;
   budget: number;
   periodAvailable: number;
+  calculateAllocation: boolean;
 }
 
 function CategoryItem(props: CategoryItemProps) {
@@ -23,6 +24,13 @@ function CategoryItem(props: CategoryItemProps) {
       justifyContent: 'center',
     },
   });
+  let dateNow = new Date();
+  let frequencyToDays: {[frequency: string]: number} = {
+    daily: new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getDate(),
+    weekly: 4,
+    monthly: 1,
+    'no-limit': 0,
+  };
 
   let remaining = 0;
   let percentageSpent: number = 0;
@@ -30,6 +38,22 @@ function CategoryItem(props: CategoryItemProps) {
   remaining = props.periodAvailable - props.periodSpent;
   percentageSpent =
     ((props.periodAvailable - props.periodSpent) / props.periodAvailable) * 100;
+
+  if (props.calculateAllocation) {
+    percentageSpent =
+      (1 -
+        (props.budget * frequencyToDays[props.frequency.toLowerCase()] -
+          props.available) /
+          (props.budget * frequencyToDays[props.frequency.toLowerCase()])) *
+      100;
+
+    remaining =
+      props.budget * frequencyToDays[props.frequency.toLowerCase()] >
+      props.available
+        ? props.budget * frequencyToDays[props.frequency.toLowerCase()] -
+          props.available
+        : 0;
+  }
 
   if (isNaN(percentageSpent)) {
     percentageSpent = 0;
@@ -40,7 +64,6 @@ function CategoryItem(props: CategoryItemProps) {
       percentageSpent = 0;
     }
   }
-
   return (
     <View style={Styles.container}>
       <View

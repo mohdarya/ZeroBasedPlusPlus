@@ -1,7 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import AllocationInfo from './components/AllocationInfo.tsx';
-import CategoryList from './components/CategoryList.tsx';
 import {RootState} from '../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -13,6 +12,7 @@ import React, {RefObject} from 'react';
 import {BottomSheetRefProps} from '../shared/components/bottomSheet.tsx';
 import {IAddCategory} from '../../redux/category/types/CategoryTypes.tsx';
 import {addCategory} from '../../redux/category/action/CategoryAction.tsx';
+import CategoryList from '../shared/components/CategoryList.tsx';
 
 interface AllocationPageProps {
   available: number;
@@ -79,7 +79,7 @@ function AllocationPage(props: AllocationPageProps) {
         />
       </View>
       <View style={styles.categoryListView}>
-        <CategoryList />
+        <CategoryList calculateAllocation={true} />
       </View>
       <View style={styles.closeButtonWrapperView}>
         <View style={styles.closeButtonView}>

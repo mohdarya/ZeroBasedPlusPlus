@@ -2,7 +2,6 @@ import {StyleSheet, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import BottomBar from '../shared/components/BottomBar.tsx';
 import SpendingChart from './components/SpendingChart.tsx';
-import CategoryList from './components/CategoryList.tsx';
 import BottomSheet, {
   BottomSheetRefProps,
 } from '../shared/components/bottomSheet.tsx';
@@ -11,6 +10,7 @@ import BottomSheetSelection from '../shared/containers/BottomSheetSelection.tsx'
 import {RootState} from '../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
 import {ICategoryItem} from '../../redux/category/types/CategoryTypes.tsx';
+import CategoryList from '../shared/components/CategoryList.tsx';
 
 interface CategoryListPageProps {
   name: string;
@@ -85,7 +85,7 @@ function CategoryListPage(props: CategoryListPageProps) {
         <SpendingChart data={graphData} />
       </View>
       <View style={styles.categoryListView}>
-        <CategoryList />
+        <CategoryList enderPeriod={false} calculateAllocation={false} />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar bottomSheetRef={ref} page="CategoryListPage" />

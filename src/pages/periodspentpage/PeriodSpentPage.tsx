@@ -2,7 +2,7 @@ import {StyleSheet, View} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import BottomBar from '../shared/components/BottomBar.tsx';
 import SpendingChart from './components/SpendingChart.tsx';
-import CategoryList from './components/CategoryList.tsx';
+import CategoryList from '../shared/components/CategoryList.tsx';
 import BottomSheet, {
   BottomSheetRefProps,
 } from '../shared/components/bottomSheet.tsx';
@@ -67,7 +67,7 @@ function PeriodSpentPage() {
         <SpendingChart period={sourcePage} />
       </View>
       <View style={styles.transactionListView}>
-        <CategoryList period={sourcePage} />
+        <CategoryList renderPeriod={true} period={sourcePage} />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar bottomSheetRef={ref} page="CategoryListPage" />
