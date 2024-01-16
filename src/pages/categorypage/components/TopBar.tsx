@@ -26,7 +26,8 @@ function TopBar(props: any) {
       alignItems: 'center',
       justifyContent: 'center',
     },
-
+    categoryNameText: {color: '#282828', fontSize: 25},
+    categoryFrequencyText: {color: '#282828', fontSize: 25},
     pageNameContainer: {
       flex: 3,
       display: 'flex',
@@ -35,29 +36,30 @@ function TopBar(props: any) {
       flexDirection: 'column',
       paddingLeft: 10,
     },
+    editButtonViewWrapper: {width: 50, height: '100%'},
+    editButtonView: {width: 35, height: 35},
+    editIconStyle: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      padding: 5,
+      borderRadius: 100,
+    },
   });
 
   return (
     <View style={Styles.container}>
       <View style={Styles.pageNameContainer}>
-        <Text style={{color: '#282828', fontSize: 25}}>
-          {props.categoryName}
-        </Text>
-        <Text style={{color: '#282828', fontSize: 15}}>
+        <Text style={Styles.categoryNameText}>{props.categoryName}</Text>
+        <Text style={Styles.categoryFrequencyText}>
           {props.categoryFrequency}
         </Text>
       </View>
 
-      <View style={{width: 50, height: '100%'}}>
-        <View style={{width: 35, height: 35}}>
+      <View style={Styles.editButtonViewWrapper}>
+        <View style={Styles.editButtonView}>
           <Icon
             name="edit"
-            style={{
-              color: '#E9EEEA',
-              backgroundColor: '#282828',
-              padding: 5,
-              borderRadius: 100,
-            }}
+            style={Styles.editIconStyle}
             onPress={() => {
               const transactionData: IComponentCommunicationAction = {
                 index: props.frequencyList.findIndex(

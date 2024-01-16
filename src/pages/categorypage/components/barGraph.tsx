@@ -39,23 +39,6 @@ function BarGraph(props: any) {
       alignSelf: 'center',
       borderRadius: 5,
     },
-    containerTag: {
-      marginTop: '5%',
-      backgroundColor: '#1D2D44',
-      height: '15%',
-      width: '100%',
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10,
-
-      marginLeft: '3%',
-    },
-    tagText: {
-      color: 'white',
-      top: '15%',
-      fontSize: 19,
-      textAlign: 'center',
-      textAlignVertical: 'center',
-    },
   });
   let graphYAxis: any[] = [];
   let graphXitems: any[] = [];

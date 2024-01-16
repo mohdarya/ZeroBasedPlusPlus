@@ -58,12 +58,10 @@ function CategoryPage(props: CategoryPageProps) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    spendingInfoView: {
+    pageDetailView: {
+      height: '90%',
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 60,
-      width: '100%',
+      justifyContent: 'space-around',
     },
   });
 
@@ -76,12 +74,7 @@ function CategoryPage(props: CategoryPageProps) {
         categoryFrequency={props.categories[categoryID].frequency}
       />
 
-      <View
-        style={{
-          height: '90%',
-          display: 'flex',
-          justifyContent: 'space-around',
-        }}>
+      <View style={styles.pageDetailView}>
         <View style={styles.graphView}>
           <Graph
             graphName="Weekly Spending"

@@ -24,15 +24,40 @@ const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 function TransactionItem(props: any) {
   const Styles = StyleSheet.create({
-    container: {
+    containerWrapper: {
       height: 60,
       width: '100%',
       display: 'flex',
-
       flexDirection: 'row',
-
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    itemText: {color: '#555B6E', fontSize: 20, margin: 0},
+    debitStyle: {
+      backgroundColor: '#FF7171',
+      borderRadius: 100,
+      padding: 6,
+      color: '#282828',
+    },
+    creditStyle: {
+      backgroundColor: '#71FFAA',
+      borderRadius: 100,
+      padding: 6,
+      color: '#282828',
+    },
+    itemView: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
+      width: '90%',
+    },
+    transactionDetailView: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      flexDirection: 'row',
+      width: '70%',
     },
   });
 
@@ -63,75 +88,38 @@ function TransactionItem(props: any) {
         props.returnId(transactionData);
         props.transactionEditingRef.current?.scrollTo(MAX_TRANSLATE_Y);
       }}
-      style={Styles.container}>
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
-        }}
-      />
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'row',
-          width: '90%',
-        }}>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '70%',
-          }}>
+      style={Styles.containerWrapper}>
+      <View style={Styles.itemView}>
+        <View style={Styles.transactionDetailView}>
           <View>
             <Icon
               name={props.categoryIcon}
               size={25}
               style={
                 props.type === TransactionTypes.DEBIT
-                  ? {
-                      backgroundColor: '#FF7171',
-                      borderRadius: 100,
-                      padding: 6,
-                      color: '#282828',
-                    }
-                  : {
-                      backgroundColor: '#71FFAA',
-                      borderRadius: 100,
-                      padding: 6,
-                      color: '#282828',
-                    }
+                  ? Styles.debitStyle
+                  : Styles.creditStyle
               }
             />
           </View>
           <View style={{marginLeft: 10}}>
-            <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
-              {props.name}
-            </Text>
-            <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
-              {props.date}
-            </Text>
+            <Text style={Styles.itemText}>{props.name}</Text>
+            <Text style={Styles.itemText}>{props.date}</Text>
           </View>
         </View>
 
         <View>
-          <Text style={{color: '#555B6E', fontSize: 20, margin: 0}}>
-            {props.amount}
-          </Text>
+          <Text style={Styles.itemText}>{props.amount}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
-const mapStateToProps = (state: RootState, ownProps: any) => {
+const mapStateToProps = () => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     returnItemSelected: (item: IComponentCommunicationAction) =>
       dispatch(returnItemSelected(item)),

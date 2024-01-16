@@ -56,13 +56,24 @@ function TransactionSection(props: any) {
 
   const Styles = StyleSheet.create({
     container: {
-      height: 60,
-      width: '100%',
+      borderRadius: 25,
+      width: '95%',
+      height: '100%',
       display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
       justifyContent: 'center',
+      alignItems: 'center',
     },
+    monthsContainerView: {
+      backgroundColor: '#B1BBAE',
+      width: '100%',
+      height: 35,
+      borderRadius: 10,
+      flexDirection: 'row',
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+    },
+
     monthContainerBean: {
       backgroundColor: '#CFE1CB',
       width: 50,
@@ -83,6 +94,28 @@ function TransactionSection(props: any) {
     },
     activeMonthText: {
       color: '#CFE1CB',
+    },
+    transactionView: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    },
+    transactionSectionTextView: {
+      color: '#555B6E',
+      width: 110,
+      fontSize: 18,
+      marginTop: 10,
+      marginLeft: 15,
+      marginBottom: 15,
+      fontWeight: 'bold',
+    },
+    transactionScrollView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
     },
   });
 
@@ -151,56 +184,12 @@ function TransactionSection(props: any) {
   }
 
   return (
-    <View
-      style={{
-        borderRadius: 25,
-        width: '95%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <View
-        style={{
-          backgroundColor: '#B1BBAE',
-          width: '100%',
-          height: 35,
-          borderRadius: 10,
-          flexDirection: 'row',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}>
-        {generateMonthElements()}
+    <View style={Styles.container}>
+      <View style={Styles.monthsContainerView}>{generateMonthElements()}</View>
+      <View style={Styles.transactionView}>
+        <Text style={Styles.transactionSectionTextView}>Transactions</Text>
       </View>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}>
-        <Text
-          style={{
-            color: '#555B6E',
-            width: 110,
-            fontSize: 18,
-            marginTop: 10,
-            marginLeft: 15,
-            marginBottom: 15,
-            fontWeight: 'bold',
-          }}>
-          Transactions
-        </Text>
-      </View>
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-        }}>
+      <ScrollView contentContainerStyle={Styles.transactionScrollView}>
         {transactionData}
       </ScrollView>
     </View>
