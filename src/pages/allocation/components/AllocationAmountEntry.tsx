@@ -87,7 +87,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
       alignItems: 'center',
       borderRadius: 5,
     },
-    amountView: {
+    allocationActionView: {
       marginTop: 40,
       display: 'flex',
       justifyContent: 'flex-end',
@@ -115,7 +115,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
           width: '100%',
           height: '100%',
         }}>
-        <View style={styles.amountView}>
+        <View style={styles.allocationActionView}>
           <TouchableOpacity
             onPress={() => {
               setAllocationAction('deduct');
@@ -247,7 +247,7 @@ function AllocationAmountEntry(props: TransactionAdditionProps) {
   );
 }
 
-const mapStateToProps = (state: RootState, ownProps: any) => {
+const mapStateToProps = (state: RootState) => {
   return {
     amount: state.communication.numeric,
     categories: state.categories,
@@ -257,7 +257,7 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     returnNumeric: (numeric: IComponentCommunicationAction) =>
       dispatch(returnNumeric(numeric)),
