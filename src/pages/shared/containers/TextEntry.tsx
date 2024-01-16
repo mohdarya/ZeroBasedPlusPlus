@@ -1,24 +1,30 @@
 import React from 'react';
-import {KeyboardTypeOptions, StyleSheet, Text, TextInput, TextInputProps, View} from 'react-native';
+import {
+  KeyboardTypeOptions,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {
   IComponentCommunicationAction,
-  returnText
+  returnText,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
-import {RootState} from "../../../redux/rootReducer.tsx";
+import {RootState} from '../../../redux/rootReducer.tsx';
 
-
-interface  TextEntryProps{
-
-  text: string,
-  returnText: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+interface TextEntryProps {
+  text: string;
+  returnText: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
 }
 
 function TextEntry(props: TextEntryProps) {
   const navigation = useNavigation();
   const route = useRoute();
-// @ts-ignore
+  // @ts-ignore
   const placeHolderText = route.params.placeHolderText;
   // @ts-ignore
   const textInputName = route.params.textInputName;
@@ -57,9 +63,7 @@ function TextEntry(props: TextEntryProps) {
     },
   });
 
-
-const textInputProps : KeyboardTypeOptions = "default"
-
+  const textInputProps: KeyboardTypeOptions = 'default';
 
   return (
     <View style={styles.container}>
@@ -90,19 +94,18 @@ const textInputProps : KeyboardTypeOptions = "default"
                   navigation.goBack();
                 }}
                 onChangeText={(text: string) => {
-
                   const returnTextParameter: IComponentCommunicationAction = {
-                    date: "",
-                    itemSelected: "",
-                    payee: "",
+                    date: '',
+                    itemSelected: '',
+                    payee: '',
                     text: text,
-                    type: "",
-                    number:0.0,
-                    itemKey: ""
+                    type: '',
+                    number: 0.0,
+                    itemKey: '',
                   };
                   props.returnText(returnTextParameter);
                 }}
-              keyboardType={textInputProps}
+                keyboardType={textInputProps}
                 style={{
                   // @ts-ignore
                   color: '#BEE3DB',
@@ -118,7 +121,6 @@ const textInputProps : KeyboardTypeOptions = "default"
   );
 }
 
-
 const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
     text: state.communication.text,
@@ -126,7 +128,8 @@ const mapStateToProps = (state: RootState, ownProps: any) => {
 };
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    returnText: (numeric: IComponentCommunicationAction) => dispatch(returnText(numeric)),
+    returnText: (numeric: IComponentCommunicationAction) =>
+      dispatch(returnText(numeric)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TextEntry);

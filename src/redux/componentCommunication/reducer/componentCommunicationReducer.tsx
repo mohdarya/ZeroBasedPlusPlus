@@ -1,20 +1,19 @@
 import {
   ComponentCommunicationActionTypes,
-  IComponentCommunicationAction
-} from "../action/ComponentCommunicationAction.tsx";
+  IComponentCommunicationAction,
+} from '../action/ComponentCommunicationAction.tsx';
 
-interface IComponentCommunication{
-  numeric: number,
-  text: string,
-  payee: string,
-  date: number,
-  id: string,
-  itemSelected: string,
-  itemKey: string,
-  from: string,
-  to: string,
-  index: number,
-
+interface IComponentCommunication {
+  numeric: number;
+  text: string;
+  payee: string;
+  date: number;
+  id: string;
+  itemSelected: string;
+  itemKey: string;
+  from: string;
+  to: string;
+  index: number;
 }
 
 const initialState = {
@@ -22,15 +21,18 @@ const initialState = {
   text: '',
   payee: '',
   date: 0,
-    id: '',
+  id: '',
   itemSelected: '',
   itemKey: '',
   from: '',
   to: '',
-  index: 0
+  index: 0,
 };
 
-export function ComponentCommunicationReducer(state : IComponentCommunication = initialState, action : IComponentCommunicationAction) {
+export function ComponentCommunicationReducer(
+  state: IComponentCommunication = initialState,
+  action: IComponentCommunicationAction,
+) {
   switch (action.type) {
     case ComponentCommunicationActionTypes.RETURN_NUMERIC:
       return {

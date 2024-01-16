@@ -1,35 +1,33 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/core';
+import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {
-    IComponentCommunicationAction, IReturnFrom, IReturnTo, returnFrom,
-    returnItemKey,
-    returnItemSelected,
-    returnText, returnTo,
+  IComponentCommunicationAction,
+  IReturnFrom,
+  IReturnTo,
+  returnFrom,
+  returnItemKey,
+  returnItemSelected,
+  returnTo,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
-import {RootState} from "../../../redux/rootReducer.tsx";
 
-
-interface ListSelectionItemProp{
-
-    key: string,
-    value: string,
-    id: string,
-    returnItemSelected: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
-    returnItemKey: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
-    returnFrom: (IComponentCommunicationAction: IReturnFrom) => {},
-    returnTo: (IComponentCommunicationAction: IReturnTo) => {},
-    stateVariable: string,
+interface ListSelectionItemProp {
+  key: string;
+  value: string;
+  id: string;
+  returnItemSelected: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
+  returnItemKey: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
+  returnFrom: (IComponentCommunicationAction: IReturnFrom) => {};
+  returnTo: (IComponentCommunicationAction: IReturnTo) => {};
+  stateVariable: string;
 }
 
-function ListSelectionItem(props : ListSelectionItemProp) {
+function ListSelectionItem(props: ListSelectionItemProp) {
   const navigation = useNavigation();
 
   const styles = StyleSheet.create({
@@ -89,41 +87,39 @@ function ListSelectionItem(props : ListSelectionItemProp) {
             }}>
             <TouchableOpacity
               onPress={() => {
+                if (props.stateVariable === 'from') {
+                  const returnFrom: IReturnFrom = {
+                    from: props.id,
+                    type: '',
+                  };
+                  props.returnFrom(returnFrom);
+                } else if (props.stateVariable === 'to') {
+                  const returnTo: IReturnTo = {
+                    to: props.id,
+                    type: '',
+                  };
+                  props.returnTo(returnTo);
+                } else {
+                  const returnParameter: IComponentCommunicationAction = {
+                    from: '',
+                    to: '',
+                    date: '',
+                    itemSelected: props.value,
+                    payee: '',
+                    text: '',
+                    type: '',
+                    number: 0.0,
+                    itemKey: props.id,
+                  };
 
-
-                  if(props.stateVariable === "from") {
-                      const returnFrom : IReturnFrom  = {
-                          from: props.id, type: ""
-                      }
-                      props.returnFrom(returnFrom);
-                  }
-                  else if(props.stateVariable === "to") {
-                      const returnTo: IReturnTo = {
-                          to: props.id, type: ""
-
-                      };
-                      props.returnTo(returnTo);
-                  }else {
-                      const returnParameter: IComponentCommunicationAction = {
-                          from: "", to: "",
-                          date: "",
-                          itemSelected:props.value,
-                          payee: "",
-                          text: "",
-                          type: "",
-                          number: 0.0,
-                          itemKey: props.id
-                      };
-
-                      props.returnItemKey(returnParameter);
-                      props.returnItemSelected(returnParameter);
-                  }
-                
+                  props.returnItemKey(returnParameter);
+                  props.returnItemSelected(returnParameter);
+                }
 
                 navigation.goBack();
               }}
-                // @ts-ignore
-              style={{color: "#BEE3DB", alignSelf: 'center'}}>
+              // @ts-ignore
+              style={{color: '#BEE3DB', alignSelf: 'center'}}>
               <Text
                 style={{
                   color: '#555B6E',
@@ -141,13 +137,14 @@ function ListSelectionItem(props : ListSelectionItemProp) {
   );
 }
 
-
-const mapDispatchToProps = (dispatch : any, ownProps : any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    returnItemSelected: (item: IComponentCommunicationAction) => dispatch(returnItemSelected(item)),
-  returnItemKey: (item: IComponentCommunicationAction) => dispatch(returnItemKey(item)),
-  returnFrom: (item: IReturnFrom) => dispatch(returnFrom(item)),
-  returnTo: (item: IReturnTo) => dispatch(returnTo(item)),
+    returnItemSelected: (item: IComponentCommunicationAction) =>
+      dispatch(returnItemSelected(item)),
+    returnItemKey: (item: IComponentCommunicationAction) =>
+      dispatch(returnItemKey(item)),
+    returnFrom: (item: IReturnFrom) => dispatch(returnFrom(item)),
+    returnTo: (item: IReturnTo) => dispatch(returnTo(item)),
   };
 };
 export default connect(null, mapDispatchToProps)(ListSelectionItem);

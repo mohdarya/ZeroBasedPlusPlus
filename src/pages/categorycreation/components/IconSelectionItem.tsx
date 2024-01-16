@@ -1,35 +1,33 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/core';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {
-    IComponentCommunicationAction, IReturnFrom, IReturnTo, returnFrom,
-    returnItemKey,
-    returnItemSelected,
-    returnText, returnTo,
+  IComponentCommunicationAction,
+  IReturnFrom,
+  IReturnTo,
+  returnFrom,
+  returnItemKey,
+  returnItemSelected,
+  returnTo,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
-import {RootState} from "../../../redux/rootReducer.tsx";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
-interface ListSelectionItemProp{
-
-    key: string,
-    value: string,
-    id: string,
-    returnItemSelected: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
-    returnItemKey: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
-    returnFrom: (IComponentCommunicationAction: IReturnFrom) => {},
-    returnTo: (IComponentCommunicationAction: IReturnTo) => {},
+interface ListSelectionItemProp {
+  key: string;
+  value: string;
+  id: string;
+  returnItemSelected: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
+  returnItemKey: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
+  returnFrom: (IComponentCommunicationAction: IReturnFrom) => {};
+  returnTo: (IComponentCommunicationAction: IReturnTo) => {};
 }
 
-function IconSelectionItem(props : ListSelectionItemProp) {
+function IconSelectionItem(props: ListSelectionItemProp) {
   const navigation = useNavigation();
 
   const styles = StyleSheet.create({
@@ -89,40 +87,35 @@ function IconSelectionItem(props : ListSelectionItemProp) {
             }}>
             <TouchableOpacity
               onPress={() => {
+                const returnParameter: IComponentCommunicationAction = {
+                  from: '',
+                  to: '',
+                  date: '',
+                  itemSelected: props.value,
+                  payee: '',
+                  text: '',
+                  type: '',
+                  number: 0.0,
+                  itemKey: '',
+                };
 
-
-
-                      const returnParameter: IComponentCommunicationAction = {
-                          from: "", to: "",
-                          date: "",
-                          itemSelected:props.value,
-                          payee: "",
-                          text: "",
-                          type: "",
-                          number: 0.0,
-                          itemKey: ''
-                      };
-
-                      props.returnItemKey(returnParameter);
-                      props.returnItemSelected(returnParameter);
-
-                
+                props.returnItemKey(returnParameter);
+                props.returnItemSelected(returnParameter);
 
                 navigation.goBack();
               }}
-                // @ts-ignore
-              style={{color: "#BEE3DB", alignSelf: 'center'}}>
-                <Icon
-
-                    name={props.value}
-                    size={30}
-                    style={{
-                        backgroundColor: '#282828',
-                        borderRadius: 100,
-                        padding: 5,
-                        color: '#E9EEEA',
-                    }}
-                />
+              // @ts-ignore
+              style={{color: '#BEE3DB', alignSelf: 'center'}}>
+              <Icon
+                name={props.value}
+                size={30}
+                style={{
+                  backgroundColor: '#282828',
+                  borderRadius: 100,
+                  padding: 5,
+                  color: '#E9EEEA',
+                }}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -131,13 +124,14 @@ function IconSelectionItem(props : ListSelectionItemProp) {
   );
 }
 
-
-const mapDispatchToProps = (dispatch : any, ownProps : any) => {
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    returnItemSelected: (item: IComponentCommunicationAction) => dispatch(returnItemSelected(item)),
-  returnItemKey: (item: IComponentCommunicationAction) => dispatch(returnItemKey(item)),
-  returnFrom: (item: IReturnFrom) => dispatch(returnFrom(item)),
-  returnTo: (item: IReturnTo) => dispatch(returnTo(item)),
+    returnItemSelected: (item: IComponentCommunicationAction) =>
+      dispatch(returnItemSelected(item)),
+    returnItemKey: (item: IComponentCommunicationAction) =>
+      dispatch(returnItemKey(item)),
+    returnFrom: (item: IReturnFrom) => dispatch(returnFrom(item)),
+    returnTo: (item: IReturnTo) => dispatch(returnTo(item)),
   };
 };
 export default connect(null, mapDispatchToProps)(IconSelectionItem);

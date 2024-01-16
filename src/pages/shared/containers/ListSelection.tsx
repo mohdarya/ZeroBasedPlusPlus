@@ -1,24 +1,9 @@
-import React, {useState} from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/core';
-import {connect} from 'react-redux';
-import {returnNumeric} from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
+import React from 'react';
+import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
+import {useRoute} from '@react-navigation/core';
 import ListSelectionItem from '../components/ListSelectionItem.tsx';
-import {RootState} from "../../../redux/rootReducer.tsx";
 
-
-interface ListSelectionProps {
-
-}
-function ListSelection(props : ListSelectionProps) {
-  const navigation = useNavigation();
+function ListSelection() {
   const route = useRoute();
 
   // @ts-ignore
@@ -75,7 +60,12 @@ function ListSelection(props : ListSelectionProps) {
           <FlatList
             data={listToRender}
             renderItem={({item}) => (
-              <ListSelectionItem key={item.id} id={item.id} value={item.name} stateVariable={stateVariable === undefined ? "" : stateVariable } />
+              <ListSelectionItem
+                key={item.id}
+                id={item.id}
+                value={item.name}
+                stateVariable={stateVariable === undefined ? '' : stateVariable}
+              />
             )}
             keyExtractor={item => item.id}
           />
@@ -84,6 +74,5 @@ function ListSelection(props : ListSelectionProps) {
     </View>
   );
 }
-
 
 export default ListSelection;

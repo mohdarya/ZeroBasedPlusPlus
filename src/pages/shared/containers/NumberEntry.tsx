@@ -2,143 +2,145 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {connect} from 'react-redux';
-import {RootState} from "../../../redux/rootReducer.tsx";
+import {RootState} from '../../../redux/rootReducer.tsx';
 import {
-    IComponentCommunicationAction,
-    returnNumeric
-} from "../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx";
+  IComponentCommunicationAction,
+  returnNumeric,
+} from '../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
 
 function money_round(num: string) {
-    if (!isNaN(parseInt(num))) {
-        return Math.floor(Number(num)* 100) / 100;
-    }else {
-        return 0.0
-    }
+  if (!isNaN(parseInt(num))) {
+    return Math.floor(Number(num) * 100) / 100;
+  } else {
+    return 0.0;
+  }
 }
 
-interface  NumberEntryProp{
-    amount: number,
-    returnNumeric: (IComponentCommunicationAction: IComponentCommunicationAction) => {},
+interface NumberEntryProp {
+  amount: number;
+  returnNumeric: (
+    IComponentCommunicationAction: IComponentCommunicationAction,
+  ) => {};
 }
 
+function NumberEntry(props: NumberEntryProp) {
+  const navigation = useNavigation();
+  const [amount, setAmount] = useState(0.0);
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      backgroundColor: '#555B6E',
+      justifyContent: 'flex-start',
+    },
+    bottomBarView: {
+      height: 100,
+    },
+    amountStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    otherPartsStyle: {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'flex-start',
+      flexDirection: 'column',
+      flex: 5,
+    },
+    otherPartsSectionStyle: {
+      marginTop: 20,
 
-function NumberEntry(props : NumberEntryProp) {
-    const navigation = useNavigation();
-    const [amount, setAmount] = useState(0.0);
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: '#555B6E',
-            justifyContent: 'flex-start',
-        },
-        bottomBarView: {
-            height: 100,
-        },
-        amountStyle: {
-            display: 'flex',
-            flexDirection: 'column',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        otherPartsStyle: {
-            width: '100%',
-            display: 'flex',
-            alignItems: 'flex-start',
-            flexDirection: 'column',
-            flex: 5,
-        },
-        otherPartsSectionStyle: {
-            marginTop: 20,
+      width: '50%',
+      display: 'flex',
+      alignItems: 'flex-start',
+      flexDirection: 'row',
+    },
+  });
 
-            width: '50%',
-            display: 'flex',
-            alignItems: 'flex-start',
-            flexDirection: 'row',
-        },
-    });
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignContent: 'space-between',
+          margin: 20,
+          marginTop: '50%',
+        }}>
+        <View style={styles.amountStyle}>
+          <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
+            <Text style={{color: '#BEE3DB', fontSize: 50, alignSelf: 'center'}}>
+              Amount
+            </Text>
+            <View>
+              <TextInput
+                defaultValue={String(amount === 0.0 ? '' : amount)}
+                pointerEvents={'none'}
+                placeholder={'0.00'}
+                selectTextOnFocus={true}
+                autoFocus={true}
+                onSubmitEditing={event => {
+                  const returnNumericParameter: IComponentCommunicationAction =
+                    {
+                      date: '',
+                      itemSelected: '',
+                      payee: '',
+                      text: '',
+                      type: '',
+                      number: amount,
+                      itemKey: '',
+                    };
 
-    return (
-        <View style={styles.container}>
-            <View
+                  props.returnNumeric(returnNumericParameter);
+                }}
+                onEndEditing={event => {
+                  const returnNumericParameter: IComponentCommunicationAction =
+                    {
+                      date: '',
+                      itemSelected: '',
+                      payee: '',
+                      text: '',
+                      type: '',
+                      number: amount,
+                      itemKey: '',
+                    };
+
+                  props.returnNumeric(returnNumericParameter);
+                  navigation.goBack();
+                }}
+                onChangeText={text => {
+                  setAmount(money_round(text));
+                }}
+                keyboardType={'numeric'}
                 style={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    alignContent: 'space-between',
-                    margin: 20,
-                    marginTop: '50%',
-                }}>
-                <View style={styles.amountStyle}>
-                    <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
-                        <Text style={{color: '#BEE3DB', fontSize: 50, alignSelf: 'center'}}>
-                            Amount
-                        </Text>
-                        <View>
-                            <TextInput
-                                defaultValue={String(amount === 0.0 ? '' : amount)}
-                                pointerEvents={'none'}
-                                placeholder={'0.00'}
-                                selectTextOnFocus={true}
-                                autoFocus={true}
-                                onSubmitEditing={event => {
-                                    const returnNumericParameter: IComponentCommunicationAction = {
-                                        date: "",
-                                        itemSelected: "",
-                                        payee: "",
-                                        text: "",
-                                        type: "",
-                                        number: amount,
-                                        itemKey: ""
-                                    };
-
-                                    props.returnNumeric(returnNumericParameter);
-                                }}
-                                onEndEditing={event => {
-                                    const returnNumericParameter: IComponentCommunicationAction = {
-                                        date: "",
-                                        itemSelected: "",
-                                        payee: "",
-                                        text: "",
-                                        type: "",
-                                        number: amount,
-                                        itemKey: ""
-                                    };
-
-                                    props.returnNumeric(returnNumericParameter);
-                                    navigation.goBack();
-                                }}
-                                onChangeText={text => {
-
-                                    setAmount(money_round(text))
-
-                                }}
-                                keyboardType={'numeric'}
-                                style={{
-                                    color: '#BEE3DB',
-                                    fontSize: 45,
-                                    textAlign: 'center',
-                                }}
-                            />
-                        </View>
-                    </View>
-                </View>
+                  color: '#BEE3DB',
+                  fontSize: 45,
+                  textAlign: 'center',
+                }}
+              />
             </View>
+          </View>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 
-const mapStateToProps = (state: RootState, ownProps: any) => {
-    return {
-        amount: state.communication.numeric,
-    };
+const mapStateToProps = (state: RootState) => {
+  return {
+    amount: state.communication.numeric,
+  };
 };
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
-    return {
-        returnNumeric: (numeric: IComponentCommunicationAction) => dispatch(returnNumeric(numeric)),
-    };
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    returnNumeric: (numeric: IComponentCommunicationAction) =>
+      dispatch(returnNumeric(numeric)),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NumberEntry);
