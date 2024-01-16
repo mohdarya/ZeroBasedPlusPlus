@@ -11,6 +11,7 @@ interface CategoryItemProps {
   budget: number;
   periodAvailable: number;
   calculateAllocation: boolean;
+  transferPage: boolean;
 }
 
 function CategoryItem(props: CategoryItemProps) {
@@ -53,6 +54,11 @@ function CategoryItem(props: CategoryItemProps) {
         ? props.budget * frequencyToDays[props.frequency.toLowerCase()] -
           props.available
         : 0;
+  }
+
+  if (props.transferPage) {
+    percentageSpent = 100;
+    remaining = props.available;
   }
 
   if (isNaN(percentageSpent)) {
@@ -135,7 +141,9 @@ function CategoryItem(props: CategoryItemProps) {
               alignItems: 'center',
             }}>
             <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
-              Remaining
+              {props.transferPage && 'Available'}
+
+              {!props.transferPage && 'Remaining'}
             </Text>
             <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
               {remaining < 0 ? 0 : remaining}

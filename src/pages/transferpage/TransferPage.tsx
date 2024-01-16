@@ -2,7 +2,6 @@ import React, {RefObject} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import Buttons from './components/Buttons';
-import CategoryItem from './components/CategoryLIstItem';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/core';
 import {RootState} from '../../redux/rootReducer.tsx';
@@ -13,6 +12,7 @@ import {
 } from '../../redux/category/types/CategoryTypes.tsx';
 import {allocateMoneyToCategoryAction} from '../../redux/category/action/CategoryAction.tsx';
 import {BottomSheetRefProps} from '../shared/components/bottomSheet.tsx';
+import CategoryItem from '../shared/components/CategoryItem.tsx';
 
 interface TransferPageProp {
   amount: number;
@@ -23,6 +23,7 @@ interface TransferPageProp {
   allocateMoneyToCategoryAction: (data: IAllocateMoneyToCategory) => {};
   bottomSheetRef: RefObject<BottomSheetRefProps>;
 }
+
 function TransferPage(props: TransferPageProp) {
   const navigation = useNavigation();
   const styles = StyleSheet.create({
@@ -86,7 +87,11 @@ function TransferPage(props: TransferPageProp) {
 
   return (
     <View style={styles.container}>
-      <View style={{width: '100%', height: '100%'}}>
+      <View
+        style={{
+          width: '100%',
+          height: '100%',
+        }}>
         <View style={styles.spendingInfoView}>
           <TouchableOpacity
             onPress={() => {
@@ -100,10 +105,20 @@ function TransferPage(props: TransferPageProp) {
               justifyContent: 'flex-end',
               alignItems: 'flex-start',
             }}>
-            <Text style={{width: '100%', textAlign: 'left', fontSize: 20}}>
+            <Text
+              style={{
+                width: '100%',
+                textAlign: 'left',
+                fontSize: 20,
+              }}>
               AED
             </Text>
-            <Text style={{width: '100%', textAlign: 'left', fontSize: 90}}>
+            <Text
+              style={{
+                width: '100%',
+                textAlign: 'left',
+                fontSize: 90,
+              }}>
               {props.amount == 0 ? 'Amount' : props.amount}
             </Text>
           </TouchableOpacity>
@@ -141,6 +156,7 @@ function TransferPage(props: TransferPageProp) {
                 }}
                 style={{width: '100%'}}>
                 <CategoryItem
+                  transferPage={true}
                   name={
                     props.from != '' ? props.categories[props.from].name : ''
                   }
@@ -149,15 +165,26 @@ function TransferPage(props: TransferPageProp) {
                       ? props.categories[props.from].frequency
                       : ''
                   }
+                  budget={
+                    props.from != '' ? props.categories[props.from].budget : 0
+                  }
+                  periodAvailable={
+                    props.from != ''
+                      ? props.categories[props.from].periodAvailable
+                      : 0
+                  }
                   available={
                     props.from != ''
                       ? props.categories[props.from].available
-                      : ''
+                      : 0
                   }
-                  spent={
+                  periodSpent={
                     props.from != ''
                       ? props.categories[props.from].periodSpent
-                      : ''
+                      : 0
+                  }
+                  categoryIcon={
+                    props.from != '' ? props.categories[props.from].icon : ''
                   }
                 />
               </TouchableOpacity>
@@ -177,6 +204,7 @@ function TransferPage(props: TransferPageProp) {
                 name="arrow-downward"
                 size={25}
                 style={{
+                  zIndex: 2,
                   position: 'absolute',
                   top: -10,
                   backgroundColor: 'black',
@@ -210,15 +238,27 @@ function TransferPage(props: TransferPageProp) {
                 }}
                 style={{width: '100%'}}>
                 <CategoryItem
+                  transferPage={true}
                   name={props.to != '' ? props.categories[props.to].name : ''}
                   frequency={
                     props.to != '' ? props.categories[props.to].frequency : ''
                   }
-                  available={
-                    props.to != '' ? props.categories[props.to].available : ''
+                  budget={
+                    props.to != '' ? props.categories[props.to].budget : 0
                   }
-                  spent={
-                    props.to != '' ? props.categories[props.to].periodSpent : ''
+                  periodAvailable={
+                    props.to != ''
+                      ? props.categories[props.to].periodAvailable
+                      : 0
+                  }
+                  available={
+                    props.to != '' ? props.categories[props.to].available : 0
+                  }
+                  periodSpent={
+                    props.to != '' ? props.categories[props.to].periodSpent : 0
+                  }
+                  categoryIcon={
+                    props.to != '' ? props.categories[props.to].icon : ''
                   }
                 />
               </TouchableOpacity>
@@ -232,6 +272,7 @@ function TransferPage(props: TransferPageProp) {
     </View>
   );
 }
+
 const mapStateToProps = (state: RootState) => {
   return {
     amount: state.communication.numeric,

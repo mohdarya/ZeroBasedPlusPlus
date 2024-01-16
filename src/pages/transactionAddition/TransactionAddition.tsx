@@ -234,22 +234,22 @@ function TransactionAddition(props: TransactionAdditionProps) {
                   budget={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].budget
-                      : ''
+                      : 0
                   }
                   periodAvailable={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].periodAvailable
-                      : ''
+                      : 0
                   }
                   available={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].available
-                      : ''
+                      : 0
                   }
                   periodSpent={
                     props.itemKey != ''
                       ? props.categories[props.itemKey].periodSpent
-                      : ''
+                      : 0
                   }
                   categoryIcon={
                     props.itemKey != ''
