@@ -37,23 +37,6 @@ function SpendingChart(props: any) {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
     },
-    containerTag: {
-      marginTop: '5%',
-      backgroundColor: '#1D2D44',
-      height: '10%',
-      width: '50%',
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10,
-
-      marginLeft: '3%',
-    },
-    tagText: {
-      color: 'white',
-      top: '15%',
-      fontSize: 19,
-      textAlign: 'center',
-      textAlignVertical: 'center',
-    },
   });
   function shuffle(a) {
     let j, x, i;

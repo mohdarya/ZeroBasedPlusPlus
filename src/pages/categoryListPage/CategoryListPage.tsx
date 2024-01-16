@@ -55,14 +55,14 @@ function CategoryListPage(props: CategoryListPageProps) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    spendingInfoView: {
+    spendingGraphView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       height: '40%',
       width: '100%',
     },
-    transactionListView: {
+    categoryListView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -81,10 +81,10 @@ function CategoryListPage(props: CategoryListPageProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.spendingInfoView}>
+      <View style={styles.spendingGraphView}>
         <SpendingChart data={graphData} />
       </View>
-      <View style={styles.transactionListView}>
+      <View style={styles.categoryListView}>
         <CategoryList />
       </View>
       <View style={styles.bottomBarView}>
