@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {RefObject, useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,17 +6,34 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import TransactionItem from './TransactionItem.tsx';
 import {connect} from 'react-redux';
+import TransactionItem from './TransactionItem.tsx';
+import {BottomSheetRefProps} from './bottomSheet.tsx';
+import {ICategoryItem} from '../../../redux/category/types/CategoryTypes.tsx';
+import {ITransactionItemType} from '../../../redux/transactions/reducer/transactionReducer.tsx';
+import {useNavigation} from '@react-navigation/core';
 
-function TransactionSection(props: any) {
+interface transactionSectionProp {
+  transactions: ITransactionItemType[];
+  categories: ICategoryItem;
+  transactionEditingRef: RefObject<BottomSheetRefProps>;
+  categoryId: string;
+  renderMonths: boolean;
+  filterCategory: boolean;
+}
+function TransactionSection(props: transactionSectionProp) {
+  const navigation = useNavigation();
   const [monthSelected, setMonthSelected] = useState(new Date().getMonth());
   const [transactionData, setTransactionData] = useState(
     props.transactions
-      .filter(
-        value =>
-          value.category === props.categoryId &&
-          new Date(value.date).getMonth() === monthSelected,
+      .sort((a, b) => b.date - a.date)
+      .filter(value =>
+        props.renderMonths && props.filterCategory
+          ? value.category === props.categoryId &&
+            new Date(value.date).getMonth() === monthSelected
+          : props.renderMonths
+          ? new Date(value.date).getMonth() === monthSelected
+          : true,
       )
       .map((value, key) => (
         <TransactionItem
@@ -123,10 +140,13 @@ function TransactionSection(props: any) {
     setTransactionData(
       props.transactions
         .sort((a, b) => b.date - a.date)
-        .filter(
-          value =>
-            value.category === props.categoryId &&
-            new Date(value.date).getMonth() === monthSelected,
+        .filter(value =>
+          props.renderMonths && props.filterCategory
+            ? value.category === props.categoryId &&
+              new Date(value.date).getMonth() === monthSelected
+            : props.renderMonths
+            ? new Date(value.date).getMonth() === monthSelected
+            : true,
         )
         .sort((a, b) => b.date - a.date)
         .map((value, key) => (
@@ -187,13 +207,45 @@ function TransactionSection(props: any) {
 
   return (
     <View style={Styles.container}>
-      <View style={Styles.monthsContainerView}>{generateMonthElements()}</View>
+      {props.renderMonths && (
+        <View style={Styles.monthsContainerView}>
+          {generateMonthElements()}
+        </View>
+      )}
       <View style={Styles.transactionView}>
         <Text style={Styles.transactionSectionTextView}>Transactions</Text>
+        {!props.renderMonths && !props.filterCategory && (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('TransactionList');
+            }}
+            style={{
+              backgroundColor: '#282828',
+              width: 80,
+              height: 25,
+              borderRadius: 5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: '#E9EEEA', textAlign: 'center'}}>
+              View All
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <ScrollView contentContainerStyle={Styles.transactionScrollView}>
-        {transactionData}
-      </ScrollView>
+      {!props.renderMonths && !props.filterCategory && (
+        <View style={{height: 170}}>
+          <ScrollView contentContainerStyle={Styles.transactionScrollView}>
+            {transactionData}
+          </ScrollView>
+        </View>
+      )}
+      {(props.renderMonths || props.filterCategory) && (
+        <ScrollView contentContainerStyle={Styles.transactionScrollView}>
+          {transactionData}
+        </ScrollView>
+      )}
     </View>
   );
 }

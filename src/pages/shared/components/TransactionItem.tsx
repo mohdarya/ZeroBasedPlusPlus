@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {TransactionTypes} from '../../../redux/transactions/types/transactionTypes';
+import {TransactionTypes} from '../../../redux/transactions/types/transactionTypes.tsx';
 import {
   IComponentCommunicationAction,
   returnDate,
@@ -16,8 +16,7 @@ import {
   returnItemSelected,
   returnNumeric,
   returnText,
-} from '../../../redux/componentCommunication/action/ComponentCommunicationAction';
-import {RootState} from '../../../redux/rootReducer.tsx';
+} from '../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
 import {connect} from 'react-redux';
 
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');

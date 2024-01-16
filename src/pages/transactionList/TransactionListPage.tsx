@@ -1,6 +1,5 @@
 import {StyleSheet, View} from 'react-native';
 import BottomBar from '../shared/components/BottomBar.tsx';
-import TransactionList from './components/TransactionList.tsx';
 import BottomSheet, {
   BottomSheetRefProps,
 } from '../shared/components/bottomSheet.tsx';
@@ -9,6 +8,7 @@ import React, {useRef} from 'react';
 import {RootState} from '../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
 import TransactionEdit from '../shared/components/TransactionEdit.tsx';
+import TransactionSection from '../shared/components/TransactionSection.tsx';
 
 function TransactionListPage() {
   const ref = useRef<BottomSheetRefProps>(null);
@@ -50,7 +50,11 @@ function TransactionListPage() {
   return (
     <View style={styles.container}>
       <View style={styles.transactionListView}>
-        <TransactionList transactionEditingRef={transactionEditingRef} />
+        <TransactionSection
+          renderMonths={true}
+          filterCategory={false}
+          transactionEditingRef={transactionEditingRef}
+        />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar page="TransactionListPage" bottomSheetRef={ref} />

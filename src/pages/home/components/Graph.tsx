@@ -12,9 +12,74 @@ function Graph(props: any) {
   const [dataToShow, setDataToShow] = useState('daily');
   const [graphPeriodIndex, setGraphPeriodIndex] = useState(0);
   const styles = StyleSheet.create({
-    activeAction: {
+    container: {
+      backgroundColor: '#D8DFE9',
+      width: '100%',
+      height: '100%',
+      borderBottomRightRadius: 20,
+      borderBottomLeftRadius: 20,
+    },
+    availableViewWrapper: {
+      height: '25%',
+      width: '100%',
+      margin: 15,
+    },
+    activeDataToShow: {
       backgroundColor: '#282828',
       color: '#B1BBAE',
+    },
+    defaultDataToShow: {
+      backgroundColor: '#B1BBAE',
+      width: 75,
+      height: 25,
+      borderRadius: 5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    defaultDataToShowText: {
+      color: '#282828',
+      textAlign: 'center',
+      fontSize: 15,
+    },
+    availableText: {color: '#282828', fontSize: 20},
+    availableAmount: {color: '#282828', fontSize: 35},
+    graphPeriodView: {
+      backgroundColor: '#B1BBAE',
+      width: 130,
+      height: 25,
+      borderRadius: 5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    graphPeriodText: {color: '#282828', textAlign: 'center', fontSize: 15},
+    lineChartView: {
+      height: '50%',
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    lineChartAmountText: {
+      backgroundColor: '#282828',
+      borderRadius: 5,
+      color: '#CFE1CB',
+      fontSize: 13,
+    },
+    lineChartDateText: {
+      backgroundColor: '#282828',
+      borderRadius: 5,
+      color: '#CFE1CB',
+      fontSize: 12,
+      padding: 4,
+    },
+    lineChartDataToShowView: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-around',
+      alignItems: 'center',
     },
   });
 
@@ -31,22 +96,10 @@ function Graph(props: any) {
     );
   }, [dataToShow, graphPeriodIndex, props.statistics]);
   return (
-    <View
-      style={{
-        backgroundColor: '#D8DFE9',
-        width: '100%',
-        height: '100%',
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
-      }}>
-      <View
-        style={{
-          height: '25%',
-          width: '100%',
-          margin: 15,
-        }}>
-        <Text style={{color: '#282828', fontSize: 20}}>Available</Text>
-        <Text style={{color: '#282828', fontSize: 35}}>{props.available}</Text>
+    <View style={styles.container}>
+      <View style={styles.availableViewWrapper}>
+        <Text style={styles.availableText}>Available</Text>
+        <Text style={styles.availableAmount}>{props.available}</Text>
 
         <TouchableOpacity
           onPress={() => {
@@ -56,30 +109,14 @@ function Graph(props: any) {
                 : 0,
             );
           }}
-          style={{
-            backgroundColor: '#B1BBAE',
-
-            width: 130,
-            height: 25,
-            borderRadius: 5,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#282828', textAlign: 'center', fontSize: 15}}>
+          style={styles.graphPeriodView}>
+          <Text style={styles.graphPeriodText}>
             {graphPeriods[graphPeriodIndex]}
           </Text>
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          height: '50%',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <View style={styles.lineChartView}>
         {data.length > 0 && (
           <LineChart.Provider data={data}>
             <LineChart height={110} width={340}>
@@ -87,23 +124,12 @@ function Graph(props: any) {
 
               <LineChart.CursorCrosshair>
                 <LineChart.Tooltip
-                  textStyle={{
-                    backgroundColor: '#282828',
-                    borderRadius: 5,
-                    color: '#CFE1CB',
-                    fontSize: 13,
-                  }}
+                  textStyle={styles.lineChartAmountText}
                   position="top"
                 />
                 <LineChart.Tooltip position="bottom">
                   <LineChart.DatetimeText
-                    style={{
-                      backgroundColor: '#282828',
-                      borderRadius: 5,
-                      color: '#CFE1CB',
-                      fontSize: 12,
-                      padding: 4,
-                    }}
+                    style={styles.lineChartDateText}
                     options={{
                       year: 'numeric',
                       month: 'numeric',
@@ -117,35 +143,19 @@ function Graph(props: any) {
         )}
       </View>
 
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}>
+      <View style={styles.lineChartDataToShowView}>
         <TouchableOpacity
           onPress={() => {
             setDataToShow('total');
           }}
           style={[
-            {
-              backgroundColor: '#B1BBAE',
-
-              width: 75,
-              height: 25,
-              borderRadius: 5,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            dataToShow === 'total' ? styles.activeAction : null,
+            styles.defaultDataToShow,
+            dataToShow === 'total' ? styles.activeDataToShow : null,
           ]}>
           <Text
             style={[
-              {color: '#282828', textAlign: 'center', fontSize: 15},
-              dataToShow === 'total' ? styles.activeAction : null,
+              styles.defaultDataToShowText,
+              dataToShow === 'total' ? styles.activeDataToShow : null,
             ]}>
             Balance
           </Text>
@@ -155,22 +165,13 @@ function Graph(props: any) {
             setDataToShow('monthly');
           }}
           style={[
-            {
-              backgroundColor: '#B1BBAE',
-
-              width: 75,
-              height: 25,
-              borderRadius: 5,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            dataToShow === 'monthly' ? styles.activeAction : null,
+            styles.defaultDataToShow,
+            dataToShow === 'monthly' ? styles.activeDataToShow : null,
           ]}>
           <Text
             style={[
-              {color: '#282828', textAlign: 'center', fontSize: 15},
-              dataToShow === 'monthly' ? styles.activeAction : null,
+              styles.defaultDataToShowText,
+              dataToShow === 'monthly' ? styles.activeDataToShow : null,
             ]}>
             Monthly
           </Text>
@@ -180,22 +181,13 @@ function Graph(props: any) {
             setDataToShow('weekly');
           }}
           style={[
-            {
-              backgroundColor: '#B1BBAE',
-
-              width: 75,
-              height: 25,
-              borderRadius: 5,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            dataToShow === 'weekly' ? styles.activeAction : null,
+            styles.defaultDataToShow,
+            dataToShow === 'weekly' ? styles.activeDataToShow : null,
           ]}>
           <Text
             style={[
-              {color: '#282828', textAlign: 'center', fontSize: 15},
-              dataToShow === 'weekly' ? styles.activeAction : null,
+              styles.defaultDataToShowText,
+              dataToShow === 'weekly' ? styles.activeDataToShow : null,
             ]}>
             Weekly
           </Text>
@@ -205,22 +197,13 @@ function Graph(props: any) {
             setDataToShow('daily');
           }}
           style={[
-            {
-              backgroundColor: '#B1BBAE',
-
-              width: 75,
-              height: 25,
-              borderRadius: 5,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            dataToShow === 'daily' ? styles.activeAction : null,
+            styles.defaultDataToShow,
+            dataToShow === 'daily' ? styles.activeDataToShow : null,
           ]}>
           <Text
             style={[
-              {color: '#282828', textAlign: 'center', fontSize: 15},
-              dataToShow === 'daily' ? styles.activeAction : null,
+              styles.defaultDataToShowText,
+              dataToShow === 'daily' ? styles.activeDataToShow : null,
             ]}>
             Daily
           </Text>

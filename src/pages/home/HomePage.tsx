@@ -1,9 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
-import TransactionSection from './components/TransactionSection';
 import Graph from './components/Graph.tsx';
 import BottomBar from '../shared/components/BottomBar';
-import BalanceInfo from './components/BalanceInfo';
+import PeriodSpentInfo from './components/PeriodSpentInfo.tsx';
 import {connect} from 'react-redux';
 import BottomSheet, {
   BottomSheetRefProps,
@@ -56,6 +55,7 @@ import {
   IComponentCommunicationAction,
 } from '../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
 import TransactionEdit from '../shared/components/TransactionEdit.tsx';
+import TransactionSection from '../shared/components/TransactionSection.tsx';
 
 interface IHomepageProp {
   dailyRemaining: number;
@@ -367,17 +367,21 @@ function HomePage(props: IHomepageProp) {
         <Graph graphName="Weekly Spending" />
       </View>
       <View style={styles.spendingLimitBarView}>
-        <BalanceInfo
-          balanceAmount={props.dailyRemaining}
-          balanceText={'Daily Spent'}
+        <PeriodSpentInfo
+          periodSpentAmount={props.dailyRemaining}
+          periodSpentText={'Daily Spent'}
         />
-        <BalanceInfo
-          balanceAmount={props.weeklyRemaining}
-          balanceText={'Weekly Spent'}
+        <PeriodSpentInfo
+          periodSpentAmount={props.weeklyRemaining}
+          periodSpentText={'Weekly Spent'}
         />
       </View>
       <View style={styles.transactionSectionView}>
-        <TransactionSection transactionEditingRef={transactionEditingRef} />
+        <TransactionSection
+          renderMonths={false}
+          filterCategory={false}
+          transactionEditingRef={transactionEditingRef}
+        />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar page={'HomePage'} bottomSheetRef={ref} />

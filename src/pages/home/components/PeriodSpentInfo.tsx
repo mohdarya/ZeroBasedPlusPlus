@@ -4,11 +4,11 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/core';
 
 interface balanceProps {
-  balanceText: string;
-  balanceAmount: number;
+  periodSpentText: string;
+  periodSpentAmount: number;
 }
 
-function BalanceInfo(props: balanceProps) {
+function PeriodSpentInfo(props: balanceProps) {
   const navigation = useNavigation();
   const styles = StyleSheet.create({
     container: {
@@ -22,49 +22,50 @@ function BalanceInfo(props: balanceProps) {
       borderRadius: 15,
       backgroundColor: '#CFE1CB',
     },
-    balanceTitleStyle: {
+    periodSpentTitle: {
       width: '50%',
       marginTop: 15,
       marginLeft: '10%',
       fontSize: 24,
       color: '#282828',
     },
-    balanceAmountStyle: {
+    periodSpentAmount: {
       marginLeft: '10%',
       fontSize: 36,
       color: '#282828',
+    },
+    periodSpentIcon: {
+      backgroundColor: '#E9EEEA',
+      borderRadius: 100,
+      padding: 5,
+      color: '#282828',
+    },
+    periodSpentWrapperView: {
+      width: '90%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      flexDirection: 'row',
     },
   });
 
   return (
     <View style={styles.container}>
-      <Text style={styles.balanceTitleStyle}>{props.balanceText}</Text>
-      <Text style={styles.balanceAmountStyle}>{props.balanceAmount}</Text>
-      <View
-        style={{
-          width: '90%',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          flexDirection: 'row',
-        }}>
+      <Text style={styles.periodSpentTitle}>{props.periodSpentText}</Text>
+      <Text style={styles.periodSpentAmount}>{props.periodSpentAmount}</Text>
+      <View style={styles.periodSpentWrapperView}>
         <Icon
           onPress={() => {
             navigation.navigate('PeriodSpentPage', {
-              sourcePage: props.balanceText.split(' ')[0],
+              sourcePage: props.periodSpentText.split(' ')[0],
             });
           }}
           name="arrow-forward"
           size={20}
-          style={{
-            backgroundColor: '#E9EEEA',
-            borderRadius: 100,
-            padding: 5,
-            color: '#282828',
-          }}
+          style={styles.periodSpentIcon}
         />
       </View>
     </View>
   );
 }
 
-export default BalanceInfo;
+export default PeriodSpentInfo;

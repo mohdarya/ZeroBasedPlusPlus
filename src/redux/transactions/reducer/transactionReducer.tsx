@@ -8,7 +8,7 @@ const initialState: ITransactionStateType = {
   transactions: [],
 };
 
-interface ITransactionItemType {
+export interface ITransactionItemType {
   payee: string;
   amount: number;
   id: string;
