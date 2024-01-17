@@ -10,8 +10,8 @@ import {connect} from 'react-redux';
 import TransactionItem from './TransactionItem.tsx';
 import {BottomSheetRefProps} from './bottomSheet.tsx';
 import {ICategoryItem} from '../../../redux/category/types/CategoryTypes.tsx';
-import {ITransactionItemType} from '../../../redux/transactions/reducer/transactionReducer.tsx';
 import {useNavigation} from '@react-navigation/core';
+import {ITransactionItemType} from '../../../redux/transactions/types/transactionTypes.tsx';
 
 interface transactionSectionProp {
   transactions: ITransactionItemType[];

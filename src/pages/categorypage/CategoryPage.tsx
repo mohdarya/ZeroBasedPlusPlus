@@ -6,7 +6,6 @@ import TopBar from './components/TopBar.tsx';
 import React, {useRef} from 'react';
 import {RootState} from '../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
-import {ICategoryItem} from '../../redux/category/reducer/CategoryReducer.tsx';
 import TransactionSection from '../shared/components/TransactionSection.tsx';
 import Graph from './components/Graph.tsx';
 import {ICategoryStatistics} from '../../redux/statistics/types/StatisticsTypes.tsx';
@@ -16,6 +15,7 @@ import BottomSheet, {
 import BottomSheetSelection from '../shared/containers/BottomSheetSelection.tsx';
 import TransactionEdit from '../shared/components/TransactionEdit.tsx';
 import CategoryEdit from '../shared/components/categoryEdit.tsx';
+import {ICategoryItem} from '../../redux/category/types/CategoryTypes.tsx';
 
 interface CategoryPageProps {
   categories: ICategoryItem;

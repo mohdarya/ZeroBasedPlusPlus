@@ -11,9 +11,9 @@ import {
   returnIndex,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
 import {connect} from 'react-redux';
-import {ICategoryItem} from '../../../redux/category/reducer/CategoryReducer.tsx';
 import {useNavigation} from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {ICategoryItem} from '../../../redux/category/types/CategoryTypes.tsx';
 
 interface InformationEntryProps {
   amount: number;

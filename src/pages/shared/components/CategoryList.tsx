@@ -4,7 +4,7 @@ import {RootState} from '../../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
 import React from 'react';
 import CategoryItem from './CategoryItem.tsx';
-import {ICategoryItem} from '../../../redux/category/reducer/CategoryReducer.tsx';
+import {ICategoryItem} from '../../../redux/category/types/CategoryTypes.tsx';
 
 interface TransactionListProps {
   categories: ICategoryItem;

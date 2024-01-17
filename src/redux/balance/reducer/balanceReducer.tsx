@@ -3,7 +3,6 @@ import {
   IBalanceActionTypes,
   IBalanceState,
 } from '../types/balanceTypes';
-import {act} from 'react-test-renderer';
 
 const initialState = {
   available: 0.0,

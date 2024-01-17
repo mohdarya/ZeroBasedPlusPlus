@@ -7,11 +7,12 @@ import {
 } from '../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
 import {connect} from 'react-redux';
 import {RootState} from '../../redux/rootReducer.tsx';
-import {ICategoryItem} from '../../redux/category/reducer/CategoryReducer.tsx';
+
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import {addTransaction} from '../../redux/transactions/action/TransactionsActions.tsx';
 import {
   ITransactionActionTypes,
+  ITransactionStateType,
   TransactionActionTypes,
   TransactionTypes,
 } from '../../redux/transactions/types/transactionTypes.tsx';
@@ -27,12 +28,13 @@ import {categoryTransactionAction} from '../../redux/category/action/CategoryAct
 import {
   CategoryActionTypes,
   ICategoryActionTypes,
+  ICategoryItem,
   ICategoryTransactionAction,
 } from '../../redux/category/types/CategoryTypes.tsx';
 import {BottomSheetRefProps} from '../shared/components/bottomSheet.tsx';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import uuid from 'react-native-uuid';
-import {ITransactionStateType} from '../../redux/transactions/reducer/transactionReducer.tsx';
+
 import CategoryItem from '../shared/components/CategoryItem.tsx';
 import Available from './component/Available.tsx';
 

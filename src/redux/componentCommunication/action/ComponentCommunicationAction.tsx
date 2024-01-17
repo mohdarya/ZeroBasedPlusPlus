@@ -12,6 +12,19 @@ export enum ComponentCommunicationActionTypes {
   RETURN_ID = 'RETURN_ID',
 }
 
+export interface IComponentCommunication {
+  numeric: number;
+  text: string;
+  payee: string;
+  date: number;
+  id: string;
+  itemSelected: string;
+  itemKey: string;
+  from: string;
+  to: string;
+  index: number;
+}
+
 interface IReturnItemSelected {
   type: string;
   itemSelected: string;

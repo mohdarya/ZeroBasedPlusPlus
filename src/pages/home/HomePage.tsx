@@ -42,10 +42,12 @@ import {
   categoryTransactionAction,
   updateCategoriesState,
 } from '../../redux/category/action/CategoryAction.tsx';
-import {IDeleteTransaction} from '../../redux/transactions/types/transactionTypes.tsx';
+import {
+  IDeleteTransaction,
+  ITransactionStateType,
+} from '../../redux/transactions/types/transactionTypes.tsx';
 import {deleteTransaction} from '../../redux/transactions/action/TransactionsActions.tsx';
 import {IAddTransaction} from '../../redux/balance/types/balanceTypes.tsx';
-import {ITransactionStateType} from '../../redux/transactions/reducer/transactionReducer.tsx';
 import {
   addBalance,
   addTransactionBalanceChange,

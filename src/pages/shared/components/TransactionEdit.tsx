@@ -2,6 +2,7 @@ import React, {RefObject} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   IDeleteTransaction,
+  ITransactionStateType,
   TransactionActionTypes,
   TransactionTypes,
 } from '../../../redux/transactions/types/transactionTypes.tsx';
@@ -10,7 +11,6 @@ import {
   ICategoryItem,
   ICategoryTransactionAction,
 } from '../../../redux/category/types/CategoryTypes.tsx';
-import {ITransactionStateType} from '../../../redux/transactions/reducer/transactionReducer.tsx';
 import {
   clearData,
   IComponentCommunicationAction,

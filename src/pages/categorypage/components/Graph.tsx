@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import BarGraph from './barGraph.tsx';
 import {IStatisticsItem} from '../../../redux/statistics/types/StatisticsTypes.tsx';
 

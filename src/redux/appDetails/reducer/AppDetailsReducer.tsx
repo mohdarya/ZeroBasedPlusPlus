@@ -1,16 +1,8 @@
 import {
   AppDetailActionTypes,
   IAppDetailActionTypes,
+  IAppDetails,
 } from '../types/AppDetailTypes.tsx';
-import {act} from 'react-test-renderer';
-
-interface IAppDetails {
-  categoryFrequency: string[];
-  categoryIconList: string[];
-  lastDailyBalanceJob: number;
-  lastWeeklyBalanceJob: number;
-  lastMonthlyJob: number;
-}
 
 const initialState = {
   categoryFrequency: ['Daily', 'Weekly', 'Monthly', 'No-Limit'],

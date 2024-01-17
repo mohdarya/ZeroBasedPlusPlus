@@ -1,20 +1,8 @@
 import {
   ComponentCommunicationActionTypes,
+  IComponentCommunication,
   IComponentCommunicationAction,
 } from '../action/ComponentCommunicationAction.tsx';
-
-interface IComponentCommunication {
-  numeric: number;
-  text: string;
-  payee: string;
-  date: number;
-  id: string;
-  itemSelected: string;
-  itemKey: string;
-  from: string;
-  to: string;
-  index: number;
-}
 
 const initialState = {
   numeric: 0.0,

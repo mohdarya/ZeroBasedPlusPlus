@@ -8,6 +8,18 @@ export enum TransactionTypes {
   CREDIT = 'CREDIT',
 }
 
+export interface ITransactionItemType {
+  payee: string;
+  amount: number;
+  id: string;
+  date: number;
+  category: string;
+  type: TransactionTypes;
+}
+
+export interface ITransactionStateType {
+  transactions: ITransactionItemType[];
+}
 export interface IAddTransaction {
   type: TransactionActionTypes;
   payee: string;

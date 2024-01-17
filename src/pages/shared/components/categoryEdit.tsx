@@ -2,25 +2,18 @@ import React, {RefObject, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   IDeleteTransaction,
-  TransactionActionTypes,
-  TransactionTypes,
+  ITransactionStateType,
 } from '../../../redux/transactions/types/transactionTypes.tsx';
 import {
-  CategoryActionTypes,
   ICategoryItem,
   ICategoryTransactionAction,
 } from '../../../redux/category/types/CategoryTypes.tsx';
-import {ITransactionStateType} from '../../../redux/transactions/reducer/transactionReducer.tsx';
 import {
   clearData,
   IComponentCommunicationAction,
 } from '../../../redux/componentCommunication/action/ComponentCommunicationAction.tsx';
-import {
-  BalanceActionTypes,
-  IAddTransaction,
-} from '../../../redux/balance/types/balanceTypes.tsx';
+import {IAddTransaction} from '../../../redux/balance/types/balanceTypes.tsx';
 import {BottomSheetRefProps} from './bottomSheet.tsx';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {deleteTransaction} from '../../../redux/transactions/action/TransactionsActions.tsx';
 import {
   addBalance,

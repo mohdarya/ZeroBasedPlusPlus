@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
 import AllocationInfo from './components/AllocationInfo.tsx';
 import {RootState} from '../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';

@@ -1,5 +1,4 @@
 import {StyleSheet, View} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
 import InformationEntry from './components/InformationEntry.tsx';
 import Buttons from './components/Buttons.tsx';
 import {RefObject} from 'react';

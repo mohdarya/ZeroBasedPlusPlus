@@ -7,7 +7,6 @@ import {
 import React, {RefObject} from 'react';
 import {RootState} from '../../../redux/rootReducer.tsx';
 import {connect} from 'react-redux';
-import {useNavigation} from '@react-navigation/core';
 import {addCategory} from '../../../redux/category/action/CategoryAction.tsx';
 import {
   CategoryActionTypes,
