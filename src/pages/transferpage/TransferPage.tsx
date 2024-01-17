@@ -144,7 +144,7 @@ function TransferPage(props: TransferPageProp) {
                 props.from != '' ? props.categories[props.from].periodSpent : 0
               }
               categoryIcon={
-                props.from != '' ? props.categories[props.from].icon : ''
+                props.from != '' ? props.categories[props.from].icon : 'home'
               }
             />
           </TouchableOpacity>
@@ -183,7 +183,7 @@ function TransferPage(props: TransferPageProp) {
                 props.to != '' ? props.categories[props.to].periodSpent : 0
               }
               categoryIcon={
-                props.to != '' ? props.categories[props.to].icon : ''
+                props.to != '' ? props.categories[props.to].icon : 'home'
               }
             />
           </TouchableOpacity>

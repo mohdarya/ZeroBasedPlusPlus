@@ -254,7 +254,9 @@ function TransactionAddition(props: TransactionAdditionProps) {
                   : 0
               }
               categoryIcon={
-                props.itemKey != '' ? props.categories[props.itemKey].icon : ''
+                props.itemKey != ''
+                  ? props.categories[props.itemKey].icon
+                  : 'home'
               }
             />
           )}
