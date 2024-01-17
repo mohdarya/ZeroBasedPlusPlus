@@ -69,9 +69,43 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    buttonTextSizeLarge: {width: 'auto', fontSize: 15, color: '#FAF9F9'},
+    buttonTextSizeSmall: {width: 'auto', fontSize: 13, color: '#FAF9F9'},
     actionView: {
       height: '90%',
       width: '95%',
+    },
+    modalView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    errorMessageView: {
+      backgroundColor: 'white',
+      width: '90%',
+      height: '30%',
+      position: 'absolute',
+      top: '30%',
+      left: '5%',
+      borderRadius: 15,
+    },
+    errorMessageTextView: {height: '60%'},
+    errorMessageText: {fontSize: 40, color: '#282828', textAlign: 'center'},
+    errorMessageIconView: {
+      width: '100%',
+
+      flexDirection: 'row',
+      height: 50,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 5,
+    },
+    errorMessageIcon: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      borderRadius: 100,
+      width: 50,
     },
   });
 
@@ -89,9 +123,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             props.bottomSheetRef.current?.scrollTo(MAX_TRANSLATE_Y);
           }}
           style={styles.buttonStyle}>
-          <Text style={{width: 'auto', fontSize: 15, color: '#FAF9F9'}}>
-            Category
-          </Text>
+          <Text style={styles.buttonTextSizeLarge}>Category</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -105,9 +137,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             props.bottomSheetRef.current?.scrollTo(MAX_TRANSLATE_Y);
           }}
           style={styles.buttonStyle}>
-          <Text style={{width: 'auto', fontSize: 13, color: '#FAF9F9'}}>
-            Transaction
-          </Text>
+          <Text style={styles.buttonTextSizeSmall}>Transaction</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -121,9 +151,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             props.bottomSheetRef.current?.scrollTo(MAX_TRANSLATE_Y);
           }}
           style={styles.buttonStyle}>
-          <Text style={{width: 'auto', fontSize: 15, color: '#FAF9F9'}}>
-            Allocation
-          </Text>
+          <Text style={styles.buttonTextSizeLarge}>Allocation</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -136,9 +164,7 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
             props.bottomSheetRef.current?.scrollTo(MAX_TRANSLATE_Y);
           }}
           style={styles.buttonStyle}>
-          <Text style={{width: 'auto', fontSize: 15, color: '#FAF9F9'}}>
-            Transfer
-          </Text>
+          <Text style={styles.buttonTextSizeLarge}>Transfer</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.actionView}>
@@ -170,45 +196,17 @@ function BottomSheetSelection(props: BottomSheetSelectionProp) {
         animationType="slide"
         visible={modalVisible}
         transparent={true}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: '90%',
-            height: '30%',
-            position: 'absolute',
-            top: '30%',
-            left: '5%',
-            borderRadius: 15,
-          }}>
-          <View style={{height: '60%'}}>
-            <Text style={{fontSize: 40, color: '#282828', textAlign: 'center'}}>
+        style={styles.modalView}>
+        <View style={styles.errorMessageView}>
+          <View style={styles.errorMessageTextView}>
+            <Text style={styles.errorMessageText}>
               Please Fill All the Fields
             </Text>
           </View>
-          <View
-            style={{
-              width: '100%',
-
-              flexDirection: 'row',
-              height: 50,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 5,
-            }}>
+          <View style={styles.errorMessageIconView}>
             <Icon
               name="done"
-              style={{
-                color: '#E9EEEA',
-                backgroundColor: '#282828',
-                borderRadius: 100,
-                width: 50,
-              }}
+              style={styles.errorMessageIcon}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}

@@ -29,13 +29,14 @@ function BottomBar(props: bottomBarProps) {
       borderRadius: 25,
       backgroundColor: '#282828',
     },
+    icon: {color: '#E9EEEA'},
   });
 
   return (
     <View style={styles.container}>
       <Icon
         name="list"
-        style={{color: '#E9EEEA'}}
+        style={styles.icon}
         onPress={() =>
           //@ts-ignore
           navigation.navigate('CategoryListPage')
@@ -43,7 +44,7 @@ function BottomBar(props: bottomBarProps) {
         size={40}
       />
       <Icon
-        style={{color: '#E9EEEA'}}
+        style={styles.icon}
         name="home"
         onPress={() =>
           //@ts-ignore
@@ -52,7 +53,7 @@ function BottomBar(props: bottomBarProps) {
         size={40}
       />
       <Icon
-        style={{color: '#E9EEEA'}}
+        style={styles.icon}
         name="playlist-add"
         onPress={onPress}
         size={40}

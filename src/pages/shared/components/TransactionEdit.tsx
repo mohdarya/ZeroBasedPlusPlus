@@ -47,12 +47,10 @@ interface ITransactionEditProp {
 }
 function TransactionEdit(props: ITransactionEditProp) {
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
+    containerWrapper: {
       display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: '#E9EEEA',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     graphView: {
       width: '100%',
@@ -73,45 +71,32 @@ function TransactionEdit(props: ITransactionEditProp) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    bottomBarView: {
-      height: 65,
-      marginBottom: '2%',
-      width: '100%',
-      bottom: 0,
+    transactionSectionWrapper: {height: '90%', width: '90%'},
+    deleteButtonView: {
+      height: 50,
+      width: '95%',
       display: 'flex',
-      position: 'absolute',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'flex-end',
+      marginBottom: 10,
+    },
+    deleteButtonIcon: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      borderRadius: 100,
+      padding: 5,
     },
   });
 
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <View style={{height: '90%', width: '95%'}}>
+    <View style={styles.containerWrapper}>
+      <View style={styles.transactionSectionWrapper}>
         <TransactionAddition bottomSheetRef={props.transactionEditingRef} />
-        <View
-          style={{
-            height: 50,
-            width: '95%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            marginBottom: 10,
-          }}>
+        <View style={styles.deleteButtonView}>
           <View style={{height: 50, width: 50}}>
             <Icon
               name="delete"
-              style={{
-                color: '#E9EEEA',
-                backgroundColor: '#282828',
-                borderRadius: 100,
-                padding: 5,
-              }}
+              style={styles.deleteButtonIcon}
               onPress={() => {
                 const deleteTransactionParameter: IDeleteTransaction = {
                   id: props.id,

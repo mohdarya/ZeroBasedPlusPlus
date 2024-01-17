@@ -52,137 +52,22 @@ interface ITransactionEditProp {
 function TransactionEdit(props: ITransactionEditProp) {
   const [modalVisible, setModalVisible] = useState(false);
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: '#E9EEEA',
-      justifyContent: 'space-between',
-    },
-    graphView: {
-      width: '100%',
-      height: '35%',
-    },
-    spendingLimitBarView: {
-      width: '100%',
-      height: 176,
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-    },
-    transactionSectionView: {
-      width: '100%',
-      height: '40%',
+    containerWrapper: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     },
-    bottomBarView: {
-      height: 65,
-      marginBottom: '2%',
-      width: '100%',
-      bottom: 0,
-      display: 'flex',
-      position: 'absolute',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+    container: {height: '90%', width: '95%'},
   });
 
   return (
-    <View
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <View style={{height: '90%', width: '95%'}}>
+    <View style={styles.containerWrapper}>
+      <View style={styles.container}>
         <CategoryCreationPage
           bottomSheetRef={props.categoryEditingRef}
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
-        <View
-          style={{
-            height: 50,
-            width: '95%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            marginBottom: 10,
-          }}>
-          <View style={{height: 50, width: 50}}>
-            <Icon
-              name="delete"
-              style={{
-                color: '#E9EEEA',
-                backgroundColor: '#282828',
-                borderRadius: 100,
-                padding: 5,
-              }}
-              onPress={() => {
-                const deleteTransactionParameter: IDeleteTransaction = {
-                  id: props.id,
-                  type: TransactionActionTypes.DELETE_TRANSACTION,
-                };
-
-                const balanceData: IAddTransaction = {
-                  type: BalanceActionTypes.REDUCE_BALANCE,
-                  transactionAmount:
-                    0 -
-                    props.transactions.transactions[
-                      props.transactions.transactions.findIndex(
-                        x => x.id == props.id,
-                      )
-                    ].amount,
-                };
-                const clearDataParameters: IComponentCommunicationAction = {
-                  id: '',
-                  index: 0,
-                  from: '',
-                  to: '',
-                  date: 0,
-                  itemSelected: '',
-                  payee: '',
-                  text: '',
-                  type: '',
-                  number: 0.0,
-                  itemKey: '',
-                };
-
-                //@ts-ignore
-                const categoryData: ICategoryActionTypes = {
-                  type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                  categoryID: props.itemKey,
-                  amount:
-                    0 -
-                    props.transactions.transactions[
-                      props.transactions.transactions.findIndex(
-                        x => x.id == props.id,
-                      )
-                    ].amount,
-                };
-                if (
-                  props.transactions.transactions[
-                    props.transactions.transactions.findIndex(
-                      x => x.id == props.id,
-                    )
-                  ].type === TransactionTypes.CREDIT
-                ) {
-                  props.addBalance(balanceData);
-                } else {
-                  props.reduceAvailable(balanceData);
-                  props.categoryTransactionAction(categoryData);
-                }
-                props.deleteTransaction(deleteTransactionParameter);
-                props.clearData(clearDataParameters);
-                props.categoryEditingRef.current?.scrollTo(0);
-              }}
-              size={40}
-            />
-          </View>
-        </View>
       </View>
     </View>
   );

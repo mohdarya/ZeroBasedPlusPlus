@@ -29,93 +29,53 @@ function TextEntry(props: TextEntryProps) {
   // @ts-ignore
   const textInputName = route.params.textInputName;
   const styles = StyleSheet.create({
-    container: {
+    containerWrapper: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: '#555B6E',
-      justifyContent: 'flex-start',
-    },
-    bottomBarView: {
-      height: 100,
-    },
-    amountStyle: {
-      display: 'flex',
-      flexDirection: 'column',
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    otherPartsStyle: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'column',
-      flex: 5,
-    },
-    otherPartsSectionStyle: {
-      marginTop: 20,
-
-      width: '50%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'row',
+    textEntryText: {color: '#BEE3DB', fontSize: 50, alignSelf: 'center'},
+    textEntryInputField: {
+      color: '#BEE3DB',
+      fontSize: 35,
+      textAlign: 'center',
     },
   });
 
   const textInputProps: KeyboardTypeOptions = 'default';
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'space-between',
-          margin: 20,
-          marginTop: '50%',
-        }}>
-        <View style={styles.amountStyle}>
-          <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
-            <Text style={{color: '#BEE3DB', fontSize: 50, alignSelf: 'center'}}>
-              {textInputName}
-            </Text>
-            <View>
-              <TextInput
-                defaultValue={String(props.text)}
-                pointerEvents={'none'}
-                placeholder={placeHolderText}
-                selectTextOnFocus={true}
-                autoFocus={true}
-                onSubmitEditing={event => {}}
-                onEndEditing={event => {
-                  navigation.goBack();
-                }}
-                onChangeText={(text: string) => {
-                  const returnTextParameter: IComponentCommunicationAction = {
-                    date: '',
-                    itemSelected: '',
-                    payee: '',
-                    text: text,
-                    type: '',
-                    number: 0.0,
-                    itemKey: '',
-                  };
-                  props.returnText(returnTextParameter);
-                }}
-                keyboardType={textInputProps}
-                style={{
-                  // @ts-ignore
-                  color: '#BEE3DB',
-                  fontSize: 35,
-                  textAlign: 'center',
-                }}
-              />
-            </View>
-          </View>
-        </View>
+    <View style={styles.containerWrapper}>
+      <Text style={styles.textEntryText}>{textInputName}</Text>
+      <View>
+        <TextInput
+          defaultValue={String(props.text)}
+          pointerEvents={'none'}
+          placeholder={placeHolderText}
+          selectTextOnFocus={true}
+          autoFocus={true}
+          onSubmitEditing={event => {}}
+          onEndEditing={event => {
+            navigation.goBack();
+          }}
+          onChangeText={(text: string) => {
+            const returnTextParameter: IComponentCommunicationAction = {
+              date: '',
+              itemSelected: '',
+              payee: '',
+              text: text,
+              type: '',
+              number: 0.0,
+              itemKey: '',
+            };
+            props.returnText(returnTextParameter);
+          }}
+          keyboardType={textInputProps}
+          style={styles.textEntryInputField}
+        />
       </View>
     </View>
   );

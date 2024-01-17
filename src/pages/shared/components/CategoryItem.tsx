@@ -15,16 +15,6 @@ interface CategoryItemProps {
 }
 
 function CategoryItem(props: CategoryItemProps) {
-  const Styles = StyleSheet.create({
-    container: {
-      height: 60,
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
   let dateNow = new Date();
   let frequencyToDays: {[frequency: string]: number} = {
     daily: new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getDate(),
@@ -70,82 +60,87 @@ function CategoryItem(props: CategoryItemProps) {
       percentageSpent = 0;
     }
   }
+
+  const Styles = StyleSheet.create({
+    container: {
+      height: 60,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    categoryItemView: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
+      width: '100%',
+      height: 50,
+      borderRadius: 20,
+      backgroundColor: '#B1BBAE',
+    },
+    categoryItemPercentageSpentBar: {
+      position: 'absolute',
+      backgroundColor: '#CFE1CB',
+      borderRadius: 20,
+      height: 50,
+      width: percentageSpent + '%',
+    },
+    categoryItemMainView: {
+      marginLeft: 10,
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      flexDirection: 'row',
+      width: '60%',
+    },
+    icon: {
+      backgroundColor: 'black',
+      borderRadius: 100,
+      padding: 5,
+      color: 'white',
+    },
+    categoryNameText: {
+      color: '#555B6E',
+      fontSize: 15,
+      marginLeft: 5,
+      fontWeight: 'bold',
+    },
+    categoryDetailTextWrapperView: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      width: '25%',
+    },
+    categoryDetailTextView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    categoryDetailText: {color: '#555B6E', fontSize: 12, margin: 0},
+  });
   return (
     <View style={Styles.container}>
-      <View
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'row',
-          width: '100%',
-          height: 50,
-          borderRadius: 20,
-          backgroundColor: '#B1BBAE',
-        }}>
-        <View
-          style={{
-            position: 'absolute',
-            backgroundColor: '#CFE1CB',
-            borderRadius: 20,
-            height: 50,
-            width: percentageSpent + '%',
-          }}
-        />
-        <View
-          style={{
-            marginLeft: 10,
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '60%',
-          }}>
+      <View style={Styles.categoryItemView}>
+        <View style={Styles.categoryItemPercentageSpentBar} />
+        <View style={Styles.categoryItemMainView}>
           <View>
-            <Icon
-              name={props.categoryIcon}
-              size={25}
-              style={{
-                backgroundColor: 'black',
-                borderRadius: 100,
-                padding: 5,
-                color: 'white',
-              }}
-            />
+            <Icon name={props.categoryIcon} size={25} style={Styles.icon} />
           </View>
           <View>
-            <Text
-              style={{
-                color: '#555B6E',
-                fontSize: 15,
-                marginLeft: 5,
-                fontWeight: 'bold',
-              }}>
-              {props.name}
-            </Text>
+            <Text style={Styles.categoryNameText}>{props.name}</Text>
           </View>
         </View>
 
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-
-            justifyContent: 'flex-start',
-            width: '25%',
-          }}>
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
+        <View style={Styles.categoryDetailTextWrapperView}>
+          <View style={Styles.categoryDetailTextView}>
+            <Text style={Styles.categoryDetailText}>
               {props.transferPage && 'Available'}
 
               {!props.transferPage && 'Remaining'}
             </Text>
-            <Text style={{color: '#555B6E', fontSize: 12, margin: 0}}>
+            <Text style={Styles.categoryDetailText}>
               {remaining < 0 ? 0 : remaining}
             </Text>
           </View>

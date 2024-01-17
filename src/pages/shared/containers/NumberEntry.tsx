@@ -27,106 +27,65 @@ function NumberEntry(props: NumberEntryProp) {
   const navigation = useNavigation();
   const [amount, setAmount] = useState(0.0);
   const styles = StyleSheet.create({
-    container: {
+    containerWrapper: {
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: '#555B6E',
-      justifyContent: 'flex-start',
-    },
-    bottomBarView: {
-      height: 100,
-    },
-    amountStyle: {
-      display: 'flex',
-      flexDirection: 'column',
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    otherPartsStyle: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'column',
-      flex: 5,
-    },
-    otherPartsSectionStyle: {
-      marginTop: 20,
-
-      width: '50%',
-      display: 'flex',
-      alignItems: 'flex-start',
-      flexDirection: 'row',
+    textEntryText: {color: '#BEE3DB', fontSize: 50, alignSelf: 'center'},
+    textEntryInputField: {
+      color: '#BEE3DB',
+      fontSize: 45,
+      textAlign: 'center',
     },
   });
 
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignContent: 'space-between',
-          margin: 20,
-          marginTop: '50%',
-        }}>
-        <View style={styles.amountStyle}>
-          <View style={{flex: 1, display: 'flex', alignItems: 'center'}}>
-            <Text style={{color: '#BEE3DB', fontSize: 50, alignSelf: 'center'}}>
-              Amount
-            </Text>
-            <View>
-              <TextInput
-                defaultValue={String(amount === 0.0 ? '' : amount)}
-                pointerEvents={'none'}
-                placeholder={'0.00'}
-                selectTextOnFocus={true}
-                autoFocus={true}
-                onSubmitEditing={event => {
-                  const returnNumericParameter: IComponentCommunicationAction =
-                    {
-                      date: '',
-                      itemSelected: '',
-                      payee: '',
-                      text: '',
-                      type: '',
-                      number: amount,
-                      itemKey: '',
-                    };
+    <View style={styles.containerWrapper}>
+      <Text style={styles.textEntryText}>Amount</Text>
+      <View>
+        <TextInput
+          defaultValue={String(amount === 0.0 ? '' : amount)}
+          pointerEvents={'none'}
+          placeholder={'0.00'}
+          selectTextOnFocus={true}
+          autoFocus={true}
+          onSubmitEditing={event => {
+            const returnNumericParameter: IComponentCommunicationAction = {
+              date: '',
+              itemSelected: '',
+              payee: '',
+              text: '',
+              type: '',
+              number: amount,
+              itemKey: '',
+            };
 
-                  props.returnNumeric(returnNumericParameter);
-                }}
-                onEndEditing={event => {
-                  const returnNumericParameter: IComponentCommunicationAction =
-                    {
-                      date: '',
-                      itemSelected: '',
-                      payee: '',
-                      text: '',
-                      type: '',
-                      number: amount,
-                      itemKey: '',
-                    };
+            props.returnNumeric(returnNumericParameter);
+          }}
+          onEndEditing={event => {
+            const returnNumericParameter: IComponentCommunicationAction = {
+              date: '',
+              itemSelected: '',
+              payee: '',
+              text: '',
+              type: '',
+              number: amount,
+              itemKey: '',
+            };
 
-                  props.returnNumeric(returnNumericParameter);
-                  navigation.goBack();
-                }}
-                onChangeText={text => {
-                  setAmount(money_round(text));
-                }}
-                keyboardType={'numeric'}
-                style={{
-                  color: '#BEE3DB',
-                  fontSize: 45,
-                  textAlign: 'center',
-                }}
-              />
-            </View>
-          </View>
-        </View>
+            props.returnNumeric(returnNumericParameter);
+            navigation.goBack();
+          }}
+          onChangeText={text => {
+            setAmount(money_round(text));
+          }}
+          keyboardType={'numeric'}
+          style={styles.textEntryInputField}
+        />
       </View>
     </View>
   );
