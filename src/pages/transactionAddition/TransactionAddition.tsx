@@ -89,20 +89,27 @@ function TransactionAddition(props: TransactionAdditionProps) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    spendingInfoView: {
+    dataEntryView: {
       display: 'flex',
       justifyContent: 'space-around',
       alignItems: 'center',
       height: '60%',
       width: '100%',
     },
-    transactionListView: {
+    buttonView: {
       display: 'flex',
-      justifyContent: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
       alignItems: 'center',
       height: '20%',
+
       width: '100%',
       marginBottom: '30%',
+    },
+    buttonViewButton: {
+      color: '#E9EEEA',
+      backgroundColor: '#282828',
+      borderRadius: 100,
     },
     amountDetailView: {
       width: '90%',
@@ -114,297 +121,265 @@ function TransactionAddition(props: TransactionAdditionProps) {
       alignItems: 'center',
       borderRadius: 5,
     },
-    amountView: {
+    dateSelectionView: {
       marginTop: 40,
 
       width: '90%',
       height: '10%',
     },
-    frequencyView: {
+    dateTextView: {
+      backgroundColor: '#282828',
+      width: 90,
+      height: 25,
+      borderRadius: 5,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    dateText: {color: '#E9EEEA', textAlign: 'center', fontSize: 15},
+    dateSelectionItem: {width: '100%', display: 'flex', alignItems: 'flex-end'},
+    payeeView: {
       borderRadius: 20,
       width: '100%',
       height: 60,
+    },
+    amountView: {
+      height: 110,
+      width: '90%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-start',
+    },
+    amountText: {width: '100%', textAlign: 'left', fontSize: 90},
+    payeeText: {width: '90%', textAlign: 'right', fontSize: 40},
+    categorySection: {
+      height: 100,
+      width: '90%',
+      borderRadius: 30,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
     },
   });
 
   return (
     <View style={styles.container}>
-      <View style={{width: '100%', height: '100%'}}>
-        <View style={styles.amountView}>
-          <TouchableOpacity
-            onPress={() => {
-              setDatePicker(true);
-            }}
-            style={{width: '100%', display: 'flex'}}>
-            <View
-              style={{display: 'flex', width: '100%', alignItems: 'flex-end'}}>
-              <View
-                style={{
-                  backgroundColor: '#282828',
-                  width: 90,
-                  height: 25,
-                  borderRadius: 5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{color: '#E9EEEA', textAlign: 'center', fontSize: 15}}>
-                  {dateValue.toISOString().split('T')[0]}
-                </Text>
-              </View>
-            </View>
-
-            {datePicker && (
-              <RNDateTimePicker value={dateValue} onChange={onChange} />
-            )}
-          </TouchableOpacity>
-        </View>
-        <View style={styles.spendingInfoView}>
-          <TouchableOpacity
-            onPress={() => {
-              // @ts-ignore
-              navigation.navigate('NumberEntry');
-            }}
-            style={{
-              height: 110,
-              width: '90%',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-start',
-            }}>
-            <Text style={{width: '100%', textAlign: 'left', fontSize: 20}}>
-              AED
+      <View style={styles.dateSelectionView}>
+        <TouchableOpacity
+          onPress={() => {
+            setDatePicker(true);
+          }}
+          style={styles.dateSelectionItem}>
+          <View style={styles.dateTextView}>
+            <Text style={styles.dateText}>
+              {dateValue.toISOString().split('T')[0]}
             </Text>
-            <Text style={{width: '100%', textAlign: 'left', fontSize: 90}}>
-              {props.amount === 0 ? 'Amount' : props.amount}
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.frequencyView}>
-            <TouchableOpacity
-              onPress={() => {
-                // @ts-ignore
-                navigation.navigate('TextEntry', {
-                  placeHolderText: 'Enter Payee Name',
-                  textInputName: 'Payee',
-                });
-              }}
-              style={{width: '100%', display: 'flex'}}>
-              <Text style={{width: '90%', textAlign: 'right', fontSize: 40}}>
-                {props.payee ? props.payee : 'Payee'}
-              </Text>
-            </TouchableOpacity>
           </View>
 
+          {datePicker && (
+            <RNDateTimePicker value={dateValue} onChange={onChange} />
+          )}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.dataEntryView}>
+        <TouchableOpacity
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('NumberEntry');
+          }}
+          style={styles.amountView}>
+          <Text style={styles.amountText}>
+            {props.amount === 0 ? 'Amount' : props.amount}
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.payeeView}>
           <TouchableOpacity
             onPress={() => {
-              let list = Object.keys(props.categories).map(
-                (categoryKey: string) => ({
-                  name: props.categories[categoryKey].name,
-                  id: categoryKey,
-                }),
-              );
-
               // @ts-ignore
-              navigation.navigate('ListSelection', {
-                list,
+              navigation.navigate('TextEntry', {
+                placeHolderText: 'Enter Payee Name',
+                textInputName: 'Payee',
               });
-            }}
-            style={{
-              height: 100,
-              width: '90%',
-              borderRadius: 30,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
             }}>
-            <View style={{width: '90%'}}>
-              {props.itemKey !== '0' && (
-                <CategoryItem
-                  calculateAllocation={false}
-                  name={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].name
-                      : ''
-                  }
-                  frequency={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].frequency
-                      : ''
-                  }
-                  budget={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].budget
-                      : 0
-                  }
-                  periodAvailable={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].periodAvailable
-                      : 0
-                  }
-                  available={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].available
-                      : 0
-                  }
-                  periodSpent={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].periodSpent
-                      : 0
-                  }
-                  categoryIcon={
-                    props.itemKey != ''
-                      ? props.categories[props.itemKey].icon
-                      : ''
-                  }
-                />
-              )}
-
-              {props.itemKey === '0' && <Available />}
-            </View>
+            <Text style={styles.payeeText}>
+              {props.payee ? props.payee : 'Payee'}
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.transactionListView}>
-          <View
-            style={{
-              width: '100%',
 
-              flexDirection: 'row',
-              height: 100,
-              display: 'flex',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              borderRadius: 5,
-            }}>
-            <Icon
-              name="close"
-              style={{
-                color: '#E9EEEA',
-                backgroundColor: '#282828',
-                borderRadius: 100,
-              }}
-              onPress={() => {
-                const clearDataParameters: IComponentCommunicationAction = {
-                  id: '',
-                  index: 0,
-                  from: '',
-                  to: '',
-                  date: 0,
-                  itemSelected: '',
-                  payee: '',
-                  text: '',
-                  type: '',
-                  number: 0.0,
-                  itemKey: '',
+        <TouchableOpacity
+          onPress={() => {
+            let list = Object.keys(props.categories).map(
+              (categoryKey: string) => ({
+                name: props.categories[categoryKey].name,
+                id: categoryKey,
+              }),
+            );
+
+            // @ts-ignore
+            navigation.navigate('ListSelection', {
+              list,
+            });
+          }}
+          style={styles.categorySection}>
+          {props.itemKey !== '0' && (
+            <CategoryItem
+              calculateAllocation={false}
+              name={
+                props.itemKey != '' ? props.categories[props.itemKey].name : ''
+              }
+              frequency={
+                props.itemKey != ''
+                  ? props.categories[props.itemKey].frequency
+                  : ''
+              }
+              budget={
+                props.itemKey != '' ? props.categories[props.itemKey].budget : 0
+              }
+              periodAvailable={
+                props.itemKey != ''
+                  ? props.categories[props.itemKey].periodAvailable
+                  : 0
+              }
+              available={
+                props.itemKey != ''
+                  ? props.categories[props.itemKey].available
+                  : 0
+              }
+              periodSpent={
+                props.itemKey != ''
+                  ? props.categories[props.itemKey].periodSpent
+                  : 0
+              }
+              categoryIcon={
+                props.itemKey != '' ? props.categories[props.itemKey].icon : ''
+              }
+            />
+          )}
+
+          {props.itemKey === '0' && <Available />}
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonView}>
+        <Icon
+          name="close"
+          style={styles.buttonViewButton}
+          onPress={() => {
+            const clearDataParameters: IComponentCommunicationAction = {
+              id: '',
+              index: 0,
+              from: '',
+              to: '',
+              date: 0,
+              itemSelected: '',
+              payee: '',
+              text: '',
+              type: '',
+              number: 0.0,
+              itemKey: '',
+            };
+            props.clearData(clearDataParameters);
+            props.bottomSheetRef.current?.scrollTo(0);
+          }}
+          size={50}
+        />
+
+        <Icon
+          name="done"
+          style={styles.buttonViewButton}
+          onPress={() => {
+            if (
+              props.amount !== 0 &&
+              props.itemKey !== '' &&
+              props.payee !== ''
+            ) {
+              const transactionData: ITransactionActionTypes = {
+                id: props.id === '' ? uuid.v4().toString() : props.id,
+                transactionType:
+                  props.itemKey === '0'
+                    ? TransactionTypes.CREDIT
+                    : TransactionTypes.DEBIT,
+                amount: props.amount,
+                category: props.itemKey,
+                date: dateValue.getTime(),
+                payee: props.payee,
+                type: TransactionActionTypes.ADD_TRANSACTION,
+              };
+
+              const clearDataParameters: IComponentCommunicationAction = {
+                id: '',
+                index: 0,
+                from: '',
+                to: '',
+                date: 0,
+                itemSelected: '',
+                payee: '',
+                text: '',
+                type: '',
+                number: 0.0,
+                itemKey: '',
+              };
+
+              if (props.id === '') {
+                const balanceData: IAddTransaction = {
+                  type: BalanceActionTypes.REDUCE_BALANCE,
+                  transactionAmount: props.amount,
                 };
-                props.clearData(clearDataParameters);
-                props.bottomSheetRef.current?.scrollTo(0);
-              }}
-              size={50}
-            />
 
-            <Icon
-              name="done"
-              style={{
-                color: '#E9EEEA',
-                backgroundColor: '#282828',
-                borderRadius: 100,
-              }}
-              onPress={() => {
-                if (
-                  props.amount !== 0 &&
-                  props.itemKey !== '' &&
-                  props.payee !== ''
-                ) {
-                  const transactionData: ITransactionActionTypes = {
-                    id: props.id === '' ? uuid.v4().toString() : props.id,
-                    transactionType:
-                      props.itemKey === '0'
-                        ? TransactionTypes.CREDIT
-                        : TransactionTypes.DEBIT,
-                    amount: props.amount,
-                    category: props.itemKey,
-                    date: dateValue.getTime(),
-                    payee: props.payee,
-                    type: TransactionActionTypes.ADD_TRANSACTION,
-                  };
-
-                  const clearDataParameters: IComponentCommunicationAction = {
-                    id: '',
-                    index: 0,
-                    from: '',
-                    to: '',
-                    date: 0,
-                    itemSelected: '',
-                    payee: '',
-                    text: '',
-                    type: '',
-                    number: 0.0,
-                    itemKey: '',
-                  };
-
-                  if (props.id === '') {
-                    const balanceData: IAddTransaction = {
-                      type: BalanceActionTypes.REDUCE_BALANCE,
-                      transactionAmount: props.amount,
-                    };
-
-                    //@ts-ignore
-                    const categoryData: ICategoryActionTypes = {
-                      type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                      categoryID: props.itemKey,
-                      amount: props.amount,
-                    };
-                    if (props.itemKey === '0') {
-                      props.addBalance(balanceData);
-                    } else {
-                      props.reduceAvailable(balanceData);
-                      props.categoryTransactionAction(categoryData);
-                    }
-                  } else {
-                    const balanceData: IAddTransaction = {
-                      type: BalanceActionTypes.REDUCE_BALANCE,
-                      transactionAmount:
-                        props.amount -
-                        props.transactions.transactions[
-                          props.transactions.transactions.findIndex(
-                            x => x.id == props.id,
-                          )
-                        ].amount,
-                    };
-
-                    //@ts-ignore
-                    const categoryData: ICategoryActionTypes = {
-                      type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
-                      categoryID: props.itemKey,
-                      amount:
-                        props.amount -
-                        props.transactions.transactions[
-                          props.transactions.transactions.findIndex(
-                            x => x.id == props.id,
-                          )
-                        ].amount,
-                    };
-                    if (props.itemKey === '0') {
-                      props.addBalance(balanceData);
-                    } else {
-                      props.reduceAvailable(balanceData);
-                      props.categoryTransactionAction(categoryData);
-                    }
-                  }
-
-                  props.addTransaction(transactionData);
-
-                  props.clearData(clearDataParameters);
-                  props.bottomSheetRef.current?.scrollTo(0);
+                //@ts-ignore
+                const categoryData: ICategoryActionTypes = {
+                  type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                  categoryID: props.itemKey,
+                  amount: props.amount,
+                };
+                if (props.itemKey === '0') {
+                  props.addBalance(balanceData);
                 } else {
-                  props.setModalVisible(!props.modalVisible);
+                  props.reduceAvailable(balanceData);
+                  props.categoryTransactionAction(categoryData);
                 }
-              }}
-              size={50}
-            />
-          </View>
-        </View>
+              } else {
+                const balanceData: IAddTransaction = {
+                  type: BalanceActionTypes.REDUCE_BALANCE,
+                  transactionAmount:
+                    props.amount -
+                    props.transactions.transactions[
+                      props.transactions.transactions.findIndex(
+                        x => x.id == props.id,
+                      )
+                    ].amount,
+                };
+
+                //@ts-ignore
+                const categoryData: ICategoryActionTypes = {
+                  type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
+                  categoryID: props.itemKey,
+                  amount:
+                    props.amount -
+                    props.transactions.transactions[
+                      props.transactions.transactions.findIndex(
+                        x => x.id == props.id,
+                      )
+                    ].amount,
+                };
+                if (props.itemKey === '0') {
+                  props.addBalance(balanceData);
+                } else {
+                  props.reduceAvailable(balanceData);
+                  props.categoryTransactionAction(categoryData);
+                }
+              }
+
+              props.addTransaction(transactionData);
+
+              props.clearData(clearDataParameters);
+              props.bottomSheetRef.current?.scrollTo(0);
+            } else {
+              props.setModalVisible(!props.modalVisible);
+            }
+          }}
+          size={50}
+        />
       </View>
     </View>
   );
