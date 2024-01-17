@@ -167,33 +167,13 @@ function HomePage(props: IHomepageProp) {
           : (dateNow.getDay() + (7 - target)) % 7),
     );
     dateLastMonday.setHours(0, 0, 0, 0);
-
+    //daily job
     if (
       (dateNow.getTime() - props.lastDailyBalanceJob > 86400000 &&
         props.lastDailyBalanceJob !== 0) ||
       (dateNow.getTime() >= date12Am.getTime() &&
         props.lastDailyBalanceJob === 0)
     ) {
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'daily',
-          ),
-        ),
-      ).map((value, index) => {
-        value.periodSpent = 0;
-      });
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'daily',
-          ),
-        ),
-      ).map((value, index) => {
-        value.budget <= value.available
-          ? (value.periodAvailable = value.budget)
-          : (value.periodAvailable = value.available);
-      });
       const balanceVariable: ISetBalanceJobTime = {
         time: date12Am.getTime(),
         type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
@@ -221,13 +201,34 @@ function HomePage(props: IHomepageProp) {
         value: props.monthlyCategoriesDailySpent,
         timestamp: date12Am.getTime(),
       };
-
       props.addMonthlyStatistics(monthlyStatisticsVariable);
       props.addWeeklyStatistics(weeklyStatisticsVariable);
       props.addDailyStatistics(dailyStatisticsVariable);
       props.addTotalStatistics(totalStatisticsVariable);
 
       props.setDailyBalanceJobTime(balanceVariable);
+
+      Object.values(
+        Object.fromEntries(
+          Object.entries(categories).filter(
+            ([key, value]) => value.frequency.toLowerCase() === 'daily',
+          ),
+        ),
+      ).map((value, index) => {
+        value.periodSpent = 0;
+      });
+      Object.values(
+        Object.fromEntries(
+          Object.entries(categories).filter(
+            ([key, value]) => value.frequency.toLowerCase() === 'daily',
+          ),
+        ),
+      ).map((value, index) => {
+        value.budget <= value.available
+          ? (value.periodAvailable = value.budget)
+          : (value.periodAvailable = value.available);
+      });
+
       Object.values(Object.fromEntries(Object.entries(categories))).map(
         (value, index) => {
           value.dailySpent = 0;
@@ -235,6 +236,7 @@ function HomePage(props: IHomepageProp) {
       );
       updated = true;
     }
+    //weekly job
     if (
       (dateNow.getTime() - props.lastWeeklyBalanceJob > 604800000 &&
         props.lastWeeklyBalanceJob !== 0) ||
@@ -272,6 +274,7 @@ function HomePage(props: IHomepageProp) {
 
       updated = true;
     }
+    //monthly job
     if (
       (dateNow.getTime() - props.lastMonthlyJob >
         new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getDate() *
