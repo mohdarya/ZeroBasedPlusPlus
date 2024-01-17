@@ -36,24 +36,11 @@ function TransferPage(props: TransferPageProp) {
       width: '100%',
       flexDirection: 'column',
       backgroundColor: '#E9EEEA',
+      alignItems: 'center',
       justifyContent: 'space-between',
     },
-    bottomBarView: {
-      height: 60,
-      marginBottom: '5%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    spendingInfoView: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      marginTop: 30,
-      height: '65%',
-      width: '100%',
-    },
-    transactionListView: {
+
+    buttonView: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -61,213 +48,149 @@ function TransferPage(props: TransferPageProp) {
       width: '100%',
       marginBottom: '30%',
     },
-    amountDetailView: {
+    amountEntryView: {
+      height: 110,
       width: '90%',
-
-      flexDirection: 'row',
-      height: '20%',
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-start',
+    },
+    amountText: {
+      width: '100%',
+      textAlign: 'left',
+      fontSize: 90,
+    },
+    categoriesView: {
+      height: 130,
+      width: '95%',
+      borderRadius: 30,
+      display: 'flex',
       alignItems: 'center',
-      borderRadius: 5,
+      justifyContent: 'space-around',
+      backgroundColor: '#CFE1CB',
     },
-    amountView: {
-      borderRadius: 20,
-      width: '55%',
-      height: '100%',
-      backgroundColor: '#FAF9F9',
+    categoryItemView: {
+      height: '40%',
+      width: '90%',
+      borderRadius: 30,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
     },
-    frequencyView: {
-      borderRadius: 20,
-      width: '40%',
-      height: '100%',
-      backgroundColor: '#FAF9F9',
+    arrowView: {
+      height: '10%',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      backgroundColor: '#B1BBAE',
+    },
+    arrowIcon: {
+      zIndex: 2,
+      position: 'absolute',
+      top: -10,
+      backgroundColor: 'black',
+      borderRadius: 100,
+      padding: 5,
+      color: 'white',
     },
   });
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          width: '100%',
-          height: '100%',
-        }}>
-        <View style={styles.spendingInfoView}>
+      <TouchableOpacity
+        onPress={() => {
+          // @ts-ignore
+          navigation.navigate('NumberEntry');
+        }}
+        style={styles.amountEntryView}>
+        <Text style={styles.amountText}>
+          {props.amount == 0 ? 'Amount' : props.amount}
+        </Text>
+      </TouchableOpacity>
+      <View style={styles.categoriesView}>
+        <View style={styles.categoryItemView}>
           <TouchableOpacity
             onPress={() => {
               // @ts-ignore
-              navigation.navigate('NumberEntry');
-            }}
-            style={{
-              height: 110,
-              width: '90%',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-start',
+              navigation.navigate('ListSelection', {
+                list: Object.keys(props.categories).map(
+                  (categoryKey: string) => ({
+                    name: props.categories[categoryKey].name,
+                    id: categoryKey,
+                  }),
+                ),
+                stateVariable: 'from',
+              });
             }}>
-            <Text
-              style={{
-                width: '100%',
-                textAlign: 'left',
-                fontSize: 20,
-              }}>
-              AED
-            </Text>
-            <Text
-              style={{
-                width: '100%',
-                textAlign: 'left',
-                fontSize: 90,
-              }}>
-              {props.amount == 0 ? 'Amount' : props.amount}
-            </Text>
+            <CategoryItem
+              transferPage={true}
+              name={props.from != '' ? props.categories[props.from].name : ''}
+              frequency={
+                props.from != '' ? props.categories[props.from].frequency : ''
+              }
+              budget={
+                props.from != '' ? props.categories[props.from].budget : 0
+              }
+              periodAvailable={
+                props.from != ''
+                  ? props.categories[props.from].periodAvailable
+                  : 0
+              }
+              available={
+                props.from != '' ? props.categories[props.from].available : 0
+              }
+              periodSpent={
+                props.from != '' ? props.categories[props.from].periodSpent : 0
+              }
+              categoryIcon={
+                props.from != '' ? props.categories[props.from].icon : ''
+              }
+            />
           </TouchableOpacity>
-          <View
-            style={{
-              height: 130,
-              width: '95%',
-              borderRadius: 30,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              backgroundColor: '#CFE1CB',
+        </View>
+        <View style={styles.arrowView}>
+          <Icon name="arrow-downward" size={25} style={styles.arrowIcon} />
+        </View>
+        <View style={styles.categoryItemView}>
+          <TouchableOpacity
+            onPress={() => {
+              // @ts-ignore
+              navigation.navigate('ListSelection', {
+                list: Object.keys(props.categories).map(
+                  (categoryKey: string) => ({
+                    name: props.categories[categoryKey].name,
+                    id: categoryKey,
+                  }),
+                ),
+                stateVariable: 'to',
+              });
             }}>
-            <View
-              style={{
-                height: '40%',
-                width: '90%',
-                borderRadius: 30,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  // @ts-ignore
-                  navigation.navigate('ListSelection', {
-                    list: Object.keys(props.categories).map(
-                      (categoryKey: string) => ({
-                        name: props.categories[categoryKey].name,
-                        id: categoryKey,
-                      }),
-                    ),
-                    stateVariable: 'from',
-                  });
-                }}
-                style={{width: '100%'}}>
-                <CategoryItem
-                  transferPage={true}
-                  name={
-                    props.from != '' ? props.categories[props.from].name : ''
-                  }
-                  frequency={
-                    props.from != ''
-                      ? props.categories[props.from].frequency
-                      : ''
-                  }
-                  budget={
-                    props.from != '' ? props.categories[props.from].budget : 0
-                  }
-                  periodAvailable={
-                    props.from != ''
-                      ? props.categories[props.from].periodAvailable
-                      : 0
-                  }
-                  available={
-                    props.from != ''
-                      ? props.categories[props.from].available
-                      : 0
-                  }
-                  periodSpent={
-                    props.from != ''
-                      ? props.categories[props.from].periodSpent
-                      : 0
-                  }
-                  categoryIcon={
-                    props.from != '' ? props.categories[props.from].icon : ''
-                  }
-                />
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                height: '10%',
-                width: '100%',
-
-                display: 'flex',
-                alignItems: 'center',
-
-                justifyContent: 'space-around',
-                backgroundColor: '#B1BBAE',
-              }}>
-              <Icon
-                name="arrow-downward"
-                size={25}
-                style={{
-                  zIndex: 2,
-                  position: 'absolute',
-                  top: -10,
-                  backgroundColor: 'black',
-                  borderRadius: 100,
-                  padding: 5,
-                  color: 'white',
-                }}
-              />
-            </View>
-            <View
-              style={{
-                height: '40%',
-                width: '90%',
-                borderRadius: 30,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-around',
-              }}>
-              <TouchableOpacity
-                onPress={() => {
-                  // @ts-ignore
-                  navigation.navigate('ListSelection', {
-                    list: Object.keys(props.categories).map(
-                      (categoryKey: string) => ({
-                        name: props.categories[categoryKey].name,
-                        id: categoryKey,
-                      }),
-                    ),
-                    stateVariable: 'to',
-                  });
-                }}
-                style={{width: '100%'}}>
-                <CategoryItem
-                  transferPage={true}
-                  name={props.to != '' ? props.categories[props.to].name : ''}
-                  frequency={
-                    props.to != '' ? props.categories[props.to].frequency : ''
-                  }
-                  budget={
-                    props.to != '' ? props.categories[props.to].budget : 0
-                  }
-                  periodAvailable={
-                    props.to != ''
-                      ? props.categories[props.to].periodAvailable
-                      : 0
-                  }
-                  available={
-                    props.to != '' ? props.categories[props.to].available : 0
-                  }
-                  periodSpent={
-                    props.to != '' ? props.categories[props.to].periodSpent : 0
-                  }
-                  categoryIcon={
-                    props.to != '' ? props.categories[props.to].icon : ''
-                  }
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
+            <CategoryItem
+              transferPage={true}
+              name={props.to != '' ? props.categories[props.to].name : ''}
+              frequency={
+                props.to != '' ? props.categories[props.to].frequency : ''
+              }
+              budget={props.to != '' ? props.categories[props.to].budget : 0}
+              periodAvailable={
+                props.to != '' ? props.categories[props.to].periodAvailable : 0
+              }
+              available={
+                props.to != '' ? props.categories[props.to].available : 0
+              }
+              periodSpent={
+                props.to != '' ? props.categories[props.to].periodSpent : 0
+              }
+              categoryIcon={
+                props.to != '' ? props.categories[props.to].icon : ''
+              }
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.transactionListView}>
-          <Buttons bottomSheetRef={props.bottomSheetRef} />
-        </View>
+      </View>
+      <View style={styles.buttonView}>
+        <Buttons bottomSheetRef={props.bottomSheetRef} />
       </View>
     </View>
   );

@@ -33,11 +33,6 @@ function TransactionListPage() {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    spendingInfoView: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     transactionListView: {
       display: 'flex',
       justifyContent: 'center',
