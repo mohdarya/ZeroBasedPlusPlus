@@ -79,17 +79,13 @@ function CategoryList(props: TransactionListProps) {
     },
     CategoryListScrollView: {
       display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      width: '100%',
+      height: '90%',
     },
   });
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.CategoryListScrollView}>
-        {loadData()}
-      </ScrollView>
+      <ScrollView>{loadData()}</ScrollView>
     </View>
   );
 }

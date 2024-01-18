@@ -42,17 +42,6 @@ const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
     ]);
 
     const context = useSharedValue({y: 0});
-    const gesture = Gesture.Pan()
-      .onStart(() => {
-        context.value = {y: translateY.value};
-      })
-      .onUpdate(event => {
-        translateY.value = event.translationY + context.value.y;
-        translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
-      })
-      .onEnd(() => {
-        scrollTo(MAX_TRANSLATE_Y);
-      });
 
     const rBottomSheetStyle = useAnimatedStyle(() => {
       const borderRadius = interpolate(
@@ -68,12 +57,10 @@ const BottomSheet = React.forwardRef<BottomSheetRefProps, BottomSheetProps>(
     });
 
     return (
-      <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
-          <View style={styles.line} />
-          {children}
-        </Animated.View>
-      </GestureDetector>
+      <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
+        <View style={styles.line} />
+        {children}
+      </Animated.View>
     );
   },
 );

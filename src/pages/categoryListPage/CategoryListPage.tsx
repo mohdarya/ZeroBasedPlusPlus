@@ -43,7 +43,7 @@ function CategoryListPage(props: CategoryListPageProps) {
       width: '100%',
       flexDirection: 'column',
       backgroundColor: '#E9EEEA',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
     },
     bottomBarView: {
       height: 65,
@@ -66,7 +66,7 @@ function CategoryListPage(props: CategoryListPageProps) {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '60%',
+      height: '45%',
       width: '100%',
     },
 
