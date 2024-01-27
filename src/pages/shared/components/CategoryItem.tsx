@@ -12,6 +12,7 @@ interface CategoryItemProps {
   periodAvailable: number;
   calculateAllocation: boolean;
   transferPage: boolean;
+  showAvailable: boolean;
 }
 
 function CategoryItem(props: CategoryItemProps) {
@@ -46,7 +47,7 @@ function CategoryItem(props: CategoryItemProps) {
         : 0;
   }
 
-  if (props.transferPage) {
+  if (props.transferPage || props.showAvailable) {
     percentageSpent = 100;
     remaining = props.available;
   }
@@ -136,9 +137,9 @@ function CategoryItem(props: CategoryItemProps) {
         <View style={Styles.categoryDetailTextWrapperView}>
           <View style={Styles.categoryDetailTextView}>
             <Text style={Styles.categoryDetailText}>
-              {props.transferPage && 'Available'}
+              {(props.transferPage || props.showAvailable) && 'Available'}
 
-              {!props.transferPage && 'Remaining'}
+              {!props.transferPage && !props.showAvailable && 'Remaining'}
             </Text>
             <Text style={Styles.categoryDetailText}>
               {remaining < 0 ? 0 : remaining.toFixed(2)}

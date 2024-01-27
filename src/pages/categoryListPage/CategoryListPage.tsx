@@ -85,7 +85,11 @@ function CategoryListPage(props: CategoryListPageProps) {
         <SpendingChart data={graphData} />
       </View>
       <View style={styles.categoryListView}>
-        <CategoryList enderPeriod={false} calculateAllocation={false} />
+        <CategoryList
+          showAvailable={true}
+          enderPeriod={false}
+          calculateAllocation={false}
+        />
       </View>
       <View style={styles.bottomBarView}>
         <BottomBar bottomSheetRef={ref} page="CategoryListPage" />

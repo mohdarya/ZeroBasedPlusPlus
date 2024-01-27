@@ -9,6 +9,7 @@ import {ICategoryItem} from '../../../redux/category/types/CategoryTypes.tsx';
 interface TransactionListProps {
   categories: ICategoryItem;
   calculateAllocation: boolean;
+  showAvailable: boolean;
   period: string;
   renderPeriod: boolean;
 }
@@ -41,6 +42,7 @@ function CategoryList(props: TransactionListProps) {
           available={value.available}
           periodSpent={value.periodSpent}
           categoryIcon={value.icon}
+          showAvailable={props.showAvailable}
         />
       </TouchableOpacity>
     ));
