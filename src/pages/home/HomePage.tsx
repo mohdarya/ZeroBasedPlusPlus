@@ -373,11 +373,11 @@ function HomePage(props: IHomepageProp) {
       </View>
       <View style={styles.periodSpentView}>
         <PeriodSpentInfo
-          periodSpentAmount={props.dailyRemaining}
+          periodSpentAmount={Number(props.dailyRemaining.toFixed(2))}
           periodSpentText={'Daily Spent'}
         />
         <PeriodSpentInfo
-          periodSpentAmount={props.weeklyRemaining}
+          periodSpentAmount={Number(props.weeklyRemaining.toFixed(2))}
           periodSpentText={'Weekly Spent'}
         />
       </View>

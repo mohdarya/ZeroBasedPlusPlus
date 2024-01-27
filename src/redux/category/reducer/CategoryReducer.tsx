@@ -36,10 +36,18 @@ export function categoryReducer(
         ...state,
         [action.categoryID]: {
           ...state[action.categoryID],
-          dailySpent: state[action.categoryID].dailySpent + action.amount,
-          monthlySpent: state[action.categoryID].monthlySpent + action.amount,
-          periodSpent: state[action.categoryID].periodSpent + action.amount,
-          available: state[action.categoryID].available - action.amount,
+          dailySpent: Number(
+            (state[action.categoryID].dailySpent + action.amount).toFixed(2),
+          ),
+          monthlySpent: Number(
+            (state[action.categoryID].monthlySpent + action.amount).toFixed(2),
+          ),
+          periodSpent: Number(
+            (state[action.categoryID].periodSpent + action.amount).toFixed(2),
+          ),
+          available: Number(
+            (state[action.categoryID].available - action.amount).toFixed(2),
+          ),
         },
       };
     case CategoryActionTypes.ALLOCATE_MONEY_TO_CATEGORY:
@@ -47,12 +55,16 @@ export function categoryReducer(
         ...state,
         [action.categoryID]: {
           ...state[action.categoryID],
-          available: state[action.categoryID].available + action.amount,
+          available: Number(
+            (state[action.categoryID].available + action.amount).toFixed(2),
+          ),
           periodAvailable:
             action.amount >= state[action.categoryID].budget
               ? state[action.categoryID].budget
               : action.amount,
-          allocated: state[action.categoryID].allocated + action.amount,
+          allocated: Number(
+            (state[action.categoryID].allocated + action.amount).toFixed(2),
+          ),
         },
       };
     case CategoryActionTypes.UPDATE_CATEGORIES:

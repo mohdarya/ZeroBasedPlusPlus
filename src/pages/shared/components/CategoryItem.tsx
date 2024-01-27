@@ -141,7 +141,7 @@ function CategoryItem(props: CategoryItemProps) {
               {!props.transferPage && 'Remaining'}
             </Text>
             <Text style={Styles.categoryDetailText}>
-              {remaining < 0 ? 0 : remaining}
+              {remaining < 0 ? 0 : remaining.toFixed(2)}
             </Text>
           </View>
         </View>

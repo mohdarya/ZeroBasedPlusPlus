@@ -18,18 +18,26 @@ export function balanceReducer(
     case BalanceActionTypes.REDUCE_BALANCE:
       return {
         ...state,
-        available: state.available - action.transactionAmount,
+        available: Number(
+          (state.available - action.transactionAmount).toFixed(2),
+        ),
       };
     case BalanceActionTypes.ADD_BALANCE:
       return {
         ...state,
-        available: state.available + action.transactionAmount,
-        unallocated: state.unallocated + action.transactionAmount,
+        available: Number(
+          (state.available + action.transactionAmount).toFixed(2),
+        ),
+        unallocated: Number(
+          (state.unallocated + action.transactionAmount).toFixed(2),
+        ),
       };
     case BalanceActionTypes.ALLOCATE_MONEY:
       return {
         ...state,
-        unallocated: state.unallocated - action.allocationAmount,
+        unallocated: Number(
+          (state.unallocated - action.allocationAmount).toFixed(2),
+        ),
       };
     default:
       return state;
