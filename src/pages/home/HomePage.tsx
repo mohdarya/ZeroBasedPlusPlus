@@ -142,227 +142,235 @@ function HomePage(props: IHomepageProp) {
     },
   });
   useEffect(() => {
-    let dateNow: Date = new Date();
-    let date12Am: Date = new Date();
-    let dateMonday: Date = new Date();
-    let dateLastMonday: Date = new Date();
-    let updated: boolean = false;
-    let categories = props.categories;
-    date12Am.setHours(0, 0, 0, 0);
-    let target = 1;
-    if (dateNow.getDay() !== 1) {
-      dateMonday.setDate(
+    if (appState.toLowerCase() === 'active') {
+      let dateNow: Date = new Date();
+      let date12Am: Date = new Date();
+      let dateMonday: Date = new Date();
+      let dateLastMonday: Date = new Date();
+      let updated: boolean = false;
+      let categories = props.categories;
+      date12Am.setHours(0, 0, 0, 0);
+      let target = 1;
+      if (dateNow.getDay() !== 1) {
+        dateMonday.setDate(
+          dateNow.getDate() -
+            (dateNow.getDay() == target
+              ? 7
+              : (dateNow.getDay() + (7 - target)) % 7),
+        );
+      }
+      dateMonday.setHours(0, 0, 0, 0);
+
+      dateLastMonday.setDate(
         dateNow.getDate() -
           (dateNow.getDay() == target
             ? 7
             : (dateNow.getDay() + (7 - target)) % 7),
       );
-    }
-    dateMonday.setHours(0, 0, 0, 0);
+      dateLastMonday.setHours(0, 0, 0, 0);
+      //daily job
+      if (
+        (dateNow.getTime() - props.lastDailyBalanceJob > 86400000 &&
+          props.lastDailyBalanceJob !== 0) ||
+        (dateNow.getTime() >= date12Am.getTime() &&
+          props.lastDailyBalanceJob === 0)
+      ) {
+        const balanceVariable: ISetBalanceJobTime = {
+          time: date12Am.getTime(),
+          type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
+        };
+        const dailyStatisticsVariable: IAddStatistics = {
+          type: StatisticsActionTypes.ADD_DAILY_STATISTICS,
+          value: props.dailyCategoriesDailySpent,
+          timestamp: date12Am.getTime(),
+        };
 
-    dateLastMonday.setDate(
-      dateNow.getDate() -
-        (dateNow.getDay() == target
-          ? 7
-          : (dateNow.getDay() + (7 - target)) % 7),
-    );
-    dateLastMonday.setHours(0, 0, 0, 0);
-    //daily job
-    if (
-      (dateNow.getTime() - props.lastDailyBalanceJob > 86400000 &&
-        props.lastDailyBalanceJob !== 0) ||
-      (dateNow.getTime() >= date12Am.getTime() &&
-        props.lastDailyBalanceJob === 0)
-    ) {
-      const balanceVariable: ISetBalanceJobTime = {
-        time: date12Am.getTime(),
-        type: AppDetailActionTypes.SET_DAILY_BALANCE_JOB_TIME,
-      };
-      const dailyStatisticsVariable: IAddStatistics = {
-        type: StatisticsActionTypes.ADD_DAILY_STATISTICS,
-        value: props.dailyCategoriesDailySpent,
-        timestamp: date12Am.getTime(),
-      };
+        const weeklyStatisticsVariable: IAddStatistics = {
+          type: StatisticsActionTypes.ADD_WEEKLY_STATISTICS,
+          value: props.weeklyCategoriesDailySpent,
+          timestamp: date12Am.getTime(),
+        };
 
-      const weeklyStatisticsVariable: IAddStatistics = {
-        type: StatisticsActionTypes.ADD_WEEKLY_STATISTICS,
-        value: props.weeklyCategoriesDailySpent,
-        timestamp: date12Am.getTime(),
-      };
+        const totalStatisticsVariable: IAddStatistics = {
+          type: StatisticsActionTypes.ADD_TOTAL_STATISTICS,
+          value: props.available,
+          timestamp: date12Am.getTime(),
+        };
 
-      const totalStatisticsVariable: IAddStatistics = {
-        type: StatisticsActionTypes.ADD_TOTAL_STATISTICS,
-        value: props.available,
-        timestamp: date12Am.getTime(),
-      };
+        const monthlyStatisticsVariable: IAddStatistics = {
+          type: StatisticsActionTypes.ADD_MONTHLY_STATISTICS,
+          value: props.monthlyCategoriesDailySpent,
+          timestamp: date12Am.getTime(),
+        };
+        props.addMonthlyStatistics(monthlyStatisticsVariable);
+        props.addWeeklyStatistics(weeklyStatisticsVariable);
+        props.addDailyStatistics(dailyStatisticsVariable);
+        props.addTotalStatistics(totalStatisticsVariable);
 
-      const monthlyStatisticsVariable: IAddStatistics = {
-        type: StatisticsActionTypes.ADD_MONTHLY_STATISTICS,
-        value: props.monthlyCategoriesDailySpent,
-        timestamp: date12Am.getTime(),
-      };
-      props.addMonthlyStatistics(monthlyStatisticsVariable);
-      props.addWeeklyStatistics(weeklyStatisticsVariable);
-      props.addDailyStatistics(dailyStatisticsVariable);
-      props.addTotalStatistics(totalStatisticsVariable);
+        props.setDailyBalanceJobTime(balanceVariable);
 
-      props.setDailyBalanceJobTime(balanceVariable);
-
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'daily',
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'daily',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.periodSpent = 0;
-      });
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'daily',
+        ).map((value, index) => {
+          value.periodSpent = 0;
+        });
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'daily',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.budget <= value.available
-          ? (value.periodAvailable = value.budget)
-          : (value.periodAvailable = value.available);
-      });
+        ).map((value, index) => {
+          value.budget <= value.available
+            ? (value.periodAvailable = value.budget)
+            : (value.periodAvailable = value.available);
+        });
 
-      Object.values(Object.fromEntries(Object.entries(categories))).map(
-        (value, index) => {
-          value.dailySpent = 0;
-        },
-      );
-      updated = true;
-    }
-    //weekly job
-    if (
-      (dateNow.getTime() - props.lastWeeklyBalanceJob > 604800000 &&
-        props.lastWeeklyBalanceJob !== 0) ||
-      (dateNow.getTime() - dateLastMonday.getTime() > 604800000 &&
-        props.lastWeeklyBalanceJob === 0)
-    ) {
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'weekly',
+        Object.values(Object.fromEntries(Object.entries(categories))).map(
+          (value, index) => {
+            value.dailySpent = 0;
+          },
+        );
+        updated = true;
+      }
+      //weekly job
+      if (
+        (dateNow.getTime() - props.lastWeeklyBalanceJob > 604800000 &&
+          props.lastWeeklyBalanceJob !== 0) ||
+        (dateNow.getTime() - dateLastMonday.getTime() > 604800000 &&
+          props.lastWeeklyBalanceJob === 0)
+      ) {
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'weekly',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.periodSpent = 0;
-      });
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'weekly',
+        ).map((value, index) => {
+          value.periodSpent = 0;
+        });
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'weekly',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.budget <= value.available
-          ? (value.periodAvailable = value.budget)
-          : (value.periodAvailable = value.available);
-      });
+        ).map((value, index) => {
+          value.budget <= value.available
+            ? (value.periodAvailable = value.budget)
+            : (value.periodAvailable = value.available);
+        });
 
-      const balanceVariable: ISetBalanceJobTime = {
-        time:
-          dateNow.getDay() === 1 ? dateNow.getTime() : dateLastMonday.getTime(),
-        type: AppDetailActionTypes.SET_WEEKLY_BALANCE_JOB_TIME,
-      };
+        const balanceVariable: ISetBalanceJobTime = {
+          time:
+            dateNow.getDay() === 1
+              ? dateNow.getTime()
+              : dateLastMonday.getTime(),
+          type: AppDetailActionTypes.SET_WEEKLY_BALANCE_JOB_TIME,
+        };
 
-      props.setWeeklyBalanceJobTime(balanceVariable);
+        props.setWeeklyBalanceJobTime(balanceVariable);
 
-      updated = true;
-    }
-    //monthly job
-    if (
-      (dateNow.getTime() - props.lastMonthlyJob >
-        new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getDate() *
-          86400000 &&
-        props.lastMonthlyJob !== 0) ||
-      (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0)
-    ) {
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'monthly',
+        updated = true;
+      }
+      //monthly job
+      if (
+        (dateNow.getTime() - props.lastMonthlyJob >
+          new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getDate() *
+            86400000 &&
+          props.lastMonthlyJob !== 0) ||
+        (dateNow.getDate() >= 1 && props.lastMonthlyJob === 0)
+      ) {
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'monthly',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.periodSpent = 0;
-      });
-      Object.values(
-        Object.fromEntries(
-          Object.entries(categories).filter(
-            ([key, value]) => value.frequency.toLowerCase() === 'monthly',
+        ).map((value, index) => {
+          value.periodSpent = 0;
+        });
+        Object.values(
+          Object.fromEntries(
+            Object.entries(categories).filter(
+              ([key, value]) => value.frequency.toLowerCase() === 'monthly',
+            ),
           ),
-        ),
-      ).map((value, index) => {
-        value.budget <= value.available
-          ? (value.periodAvailable = value.budget)
-          : (value.periodAvailable = value.available);
-      });
-      const balanceVariable: ISetBalanceJobTime = {
-        time: new Date(dateNow.getFullYear(), dateNow.getMonth(), 0).getTime(),
-        type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,
-      };
-      Object.values(Object.fromEntries(Object.entries(categories))).map(
-        (value, index) => {
-          const categoryStatistics: IAddCategoryStatisticsItem = {
-            allocated: {
-              value: value.allocated,
-              timestamp: new Date(
-                dateNow.getFullYear(),
-                dateNow.getMonth(),
-                0,
-              ).getTime(),
-            },
-            available: {
-              value: value.available,
-              timestamp: new Date(
-                dateNow.getFullYear(),
-                dateNow.getMonth(),
-                0,
-              ).getTime(),
-            },
-            spent: {
-              value: value.monthlySpent,
-              timestamp: new Date(
-                dateNow.getFullYear(),
-                dateNow.getMonth(),
-                0,
-              ).getTime(),
-            },
-          };
-          const addCategoryStatistics: IAddCategoryStatistics = {
-            categoryId: Object.keys(categories)[index],
-            data: categoryStatistics,
-            type: StatisticsActionTypes.ADD_CATEGORY_STATISTICS,
-          };
-          props.addCategoryStatistics(addCategoryStatistics);
-        },
-      );
+        ).map((value, index) => {
+          value.budget <= value.available
+            ? (value.periodAvailable = value.budget)
+            : (value.periodAvailable = value.available);
+        });
+        const balanceVariable: ISetBalanceJobTime = {
+          time: new Date(
+            dateNow.getFullYear(),
+            dateNow.getMonth(),
+            0,
+          ).getTime(),
+          type: AppDetailActionTypes.SET_MONTHLY_BALANCE_JOB_TIME,
+        };
+        Object.values(Object.fromEntries(Object.entries(categories))).map(
+          (value, index) => {
+            const categoryStatistics: IAddCategoryStatisticsItem = {
+              allocated: {
+                value: value.allocated,
+                timestamp: new Date(
+                  dateNow.getFullYear(),
+                  dateNow.getMonth(),
+                  0,
+                ).getTime(),
+              },
+              available: {
+                value: value.available,
+                timestamp: new Date(
+                  dateNow.getFullYear(),
+                  dateNow.getMonth(),
+                  0,
+                ).getTime(),
+              },
+              spent: {
+                value: value.monthlySpent,
+                timestamp: new Date(
+                  dateNow.getFullYear(),
+                  dateNow.getMonth(),
+                  0,
+                ).getTime(),
+              },
+            };
+            const addCategoryStatistics: IAddCategoryStatistics = {
+              categoryId: Object.keys(categories)[index],
+              data: categoryStatistics,
+              type: StatisticsActionTypes.ADD_CATEGORY_STATISTICS,
+            };
+            props.addCategoryStatistics(addCategoryStatistics);
+          },
+        );
 
-      Object.values(Object.fromEntries(Object.entries(categories))).map(
-        (value, index) => {
-          value.allocated = 0;
-        },
-      );
-      Object.values(Object.fromEntries(Object.entries(categories))).map(
-        (value, index) => {
-          value.monthlySpent = 0;
-        },
-      );
-      props.setMonthlyBalanceJobTime(balanceVariable);
-      updated = true;
-    }
+        Object.values(Object.fromEntries(Object.entries(categories))).map(
+          (value, index) => {
+            value.allocated = 0;
+          },
+        );
+        Object.values(Object.fromEntries(Object.entries(categories))).map(
+          (value, index) => {
+            value.monthlySpent = 0;
+          },
+        );
+        props.setMonthlyBalanceJobTime(balanceVariable);
+        updated = true;
+      }
 
-    if (updated) {
-      const categoryActionVariable: IUpdateCategoryAction = {
-        categories: categories,
-        type: CategoryActionTypes.UPDATE_CATEGORIES,
-      };
-      props.updateCategoriesState(categoryActionVariable);
+      if (updated) {
+        const categoryActionVariable: IUpdateCategoryAction = {
+          categories: categories,
+          type: CategoryActionTypes.UPDATE_CATEGORIES,
+        };
+        props.updateCategoriesState(categoryActionVariable);
+      }
     }
   }, [appState]);
 
