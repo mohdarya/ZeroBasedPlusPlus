@@ -25,7 +25,6 @@ interface NumberEntryProp {
 
 function NumberEntry(props: NumberEntryProp) {
   const navigation = useNavigation();
-  const [amount, setAmount] = useState(0.0);
   const styles = StyleSheet.create({
     containerWrapper: {
       flex: 1,
@@ -48,40 +47,28 @@ function NumberEntry(props: NumberEntryProp) {
       <Text style={styles.textEntryText}>Amount</Text>
       <View>
         <TextInput
-          defaultValue={String(amount === 0.0 ? '' : amount)}
+          defaultValue={String(props.amount === 0.0 ? '' : props.amount)}
           pointerEvents={'none'}
           placeholder={'0.00'}
           selectTextOnFocus={true}
           autoFocus={true}
           onSubmitEditing={event => {
             const returnNumericParameter: IComponentCommunicationAction = {
-              date: '',
+              from: '',
+              id: '',
+              index: 0,
+              to: '',
+              date: 0,
               itemSelected: '',
               payee: '',
               text: '',
               type: '',
-              number: amount,
-              itemKey: '',
-            };
-
-            props.returnNumeric(returnNumericParameter);
-          }}
-          onEndEditing={event => {
-            const returnNumericParameter: IComponentCommunicationAction = {
-              date: '',
-              itemSelected: '',
-              payee: '',
-              text: '',
-              type: '',
-              number: amount,
+              number: Number(event.nativeEvent.text),
               itemKey: '',
             };
 
             props.returnNumeric(returnNumericParameter);
             navigation.goBack();
-          }}
-          onChangeText={text => {
-            setAmount(money_round(text));
           }}
           keyboardType={'numeric'}
           style={styles.textEntryInputField}
