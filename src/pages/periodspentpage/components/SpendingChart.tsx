@@ -120,7 +120,9 @@ function SpendingChart(props: SpendingChartProps) {
           <RNText style={styles.remainingText}>
             {'Remaining ' + props.period}
           </RNText>
-          <RNText style={styles.remainingAmountText}>{remaining}</RNText>
+          <RNText style={styles.remainingAmountText}>
+            {remaining.toFixed(2)}
+          </RNText>
         </View>
         <View style={styles.graphViewWrapper}>
           <Svg height={'100%'} width={'100%'}>
