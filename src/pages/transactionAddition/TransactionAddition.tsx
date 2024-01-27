@@ -24,7 +24,10 @@ import {
   BalanceActionTypes,
   IAddTransaction,
 } from '../../redux/balance/types/balanceTypes.tsx';
-import {categoryTransactionAction} from '../../redux/category/action/CategoryAction.tsx';
+import {
+  categoryTransactionAction,
+  categoryTransactionActionOutOfTime
+} from '../../redux/category/action/CategoryAction.tsx';
 import {
   CategoryActionTypes,
   ICategoryActionTypes,
@@ -51,6 +54,7 @@ interface TransactionAdditionProps {
   reduceAvailable: (data: IAddTransaction) => {};
   addBalance: (data: IAddTransaction) => {};
   categoryTransactionAction: (data: ICategoryTransactionAction) => {};
+  categoryTransactionActionOutOfTime: (data: ICategoryTransactionAction) => {};
   bottomSheetRef: RefObject<BottomSheetRefProps>;
   modalVisible: boolean;
   setModalVisible: any;
@@ -64,6 +68,7 @@ function TransactionAddition(props: TransactionAdditionProps) {
     props.date !== 0 ? new Date(props.date) : new Date(),
   );
 
+  let today = new Date();
   useEffect(() => {
     setDateValue(props.date !== 0 ? new Date(props.date) : new Date());
   }, [props.date]);
@@ -72,6 +77,17 @@ function TransactionAddition(props: TransactionAdditionProps) {
     const currentDate = selectedValue || new Date();
     setDateValue(currentDate);
   };
+
+  const monday: Date = new Date(
+   today.getDate() - today.getDay() + 1
+  );
+
+  const sunday: Date = new Date(
+   today.getDate() - today.getDay() + 7,
+  );
+
+  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+  const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -370,7 +386,21 @@ function TransactionAddition(props: TransactionAdditionProps) {
                   props.addBalance(balanceData);
                 } else {
                   props.reduceAvailable(balanceData);
-                  props.categoryTransactionAction(categoryData);
+                  if (
+                      (props.categories[props.itemKey].frequency.toLowerCase() ===
+                          'monthly' &&
+                          dateValue.getTime() > firstDay.getTime() &&
+                          dateValue.getTime() < lastDay.getTime()) ||
+                      (props.categories[props.itemKey].frequency.toLowerCase() ===
+                      'weekly' &&
+                    dateValue.getTime() > monday.getTime() &&
+                    dateValue.getTime() < sunday.getTime()) ||  (props.categories[props.itemKey].frequency.toLowerCase() ===
+                          'daily' &&
+                          dateValue.getTime() < new Date().setHours(23, 59, 59, 59)
+                  )){
+                    props.categoryTransactionAction(categoryData);
+                  }else {
+                    props.categoryTransactionActionOutOfTime(categoryData);
                 }
               }
 
@@ -413,6 +443,8 @@ const mapDispatchToProps = (dispatch: any) => {
     addBalance: (data: IAddTransaction) => dispatch(addBalance(data)),
     categoryTransactionAction: (data: ICategoryTransactionAction) =>
       dispatch(categoryTransactionAction(data)),
+    categoryTransactionActionOutOfTime: (data: ICategoryTransactionAction) =>
+        dispatch(categoryTransactionActionOutOfTime(data)),
   };
 };
 export default connect(

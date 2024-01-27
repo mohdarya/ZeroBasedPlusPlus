@@ -19,6 +19,15 @@ export function categoryTransactionAction(payload: ICategoryTransactionAction) {
     type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION,
   };
 }
+
+export function categoryTransactionActionOutOfTime(
+  payload: ICategoryTransactionAction,
+) {
+  return {
+    ...payload,
+    type: CategoryActionTypes.CATEGORY_TRANSACTION_ACTION_OUT_OF_TIME_FRAME,
+  };
+}
 export function allocateMoneyToCategoryAction(
   payload: IAllocateMoneyToCategory,
 ) {
