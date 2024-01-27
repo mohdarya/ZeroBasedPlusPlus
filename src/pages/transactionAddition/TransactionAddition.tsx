@@ -356,7 +356,22 @@ function TransactionAddition(props: TransactionAdditionProps) {
                   props.addBalance(balanceData);
                 } else {
                   props.reduceAvailable(balanceData);
-                  props.categoryTransactionAction(categoryData);
+                  if (
+                      (props.categories[props.itemKey].frequency.toLowerCase() ===
+                          'monthly' &&
+                          dateValue.getTime() > firstDay.getTime() &&
+                          dateValue.getTime() < lastDay.getTime()) ||
+                      (props.categories[props.itemKey].frequency.toLowerCase() ===
+                          'weekly' &&
+                          dateValue.getTime() > monday.getTime() &&
+                          dateValue.getTime() < sunday.getTime()) ||  (props.categories[props.itemKey].frequency.toLowerCase() ===
+                          'daily' &&
+                          dateValue.getTime() < new Date().setHours(23, 59, 59, 59)
+                      )){
+                    props.categoryTransactionAction(categoryData);
+                  }else {
+                    props.categoryTransactionActionOutOfTime(categoryData);
+                  }
                 }
               } else {
                 const balanceData: IAddTransaction = {
