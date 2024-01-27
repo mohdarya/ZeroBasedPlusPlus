@@ -62,6 +62,10 @@ function CategoryItem(props: CategoryItemProps) {
     }
   }
 
+  if (!props.showAvailable) {
+    remaining = remaining < 0 ? 0 : remaining;
+  }
+
   const Styles = StyleSheet.create({
     container: {
       height: 60,
@@ -142,7 +146,7 @@ function CategoryItem(props: CategoryItemProps) {
               {!props.transferPage && !props.showAvailable && 'Remaining'}
             </Text>
             <Text style={Styles.categoryDetailText}>
-              {remaining < 0 ? 0 : remaining.toFixed(2)}
+              {remaining.toFixed(2)}
             </Text>
           </View>
         </View>
